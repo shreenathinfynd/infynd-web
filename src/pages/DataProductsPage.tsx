@@ -115,6 +115,17 @@ const DataProductsPage = () => {
         })}
       </div>
 
+      {/* Custom Data CTA */}
+      <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 text-center mt-4 mb-8">
+        <h2 className="font-display text-2xl font-bold text-foreground mb-2">Can't find what you're looking for?</h2>
+        <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+          We can build custom datasets tailored to your specific business needs. Tell us what you need and we'll make it happen.
+        </p>
+        <Button size="lg" className="rounded-full px-8">
+          <Mail className="h-4 w-4 mr-2" /> Request Custom Data
+        </Button>
+      </div>
+
       {/* Sticky Compare Bar */}
       <AnimatePresence>
         {selected.size >= 2 && (

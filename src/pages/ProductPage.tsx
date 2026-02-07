@@ -3,6 +3,7 @@ import { getProductBySlug, getRelatedProducts, addOns, type Product } from "@/da
 import FilledRatesSection from "@/components/product/FilledRatesSection";
 import TelemarketingCoverageBlock from "@/components/product/TelemarketingCoverageBlock";
 import EnrichmentStoryExperience from "@/components/product/EnrichmentStoryExperience";
+import CaseStudiesCTA from "@/components/product/CaseStudiesCTA";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -262,9 +263,10 @@ const ProductPage = () => {
                         <Shield className="h-4 w-4 text-primary shrink-0 mt-0.5" />{reason}
                       </li>
                     ))}
-                  </ul>
+                </ul>
                 </CardContent>
               </Card>
+              <CaseStudiesCTA />
               <AddOnsSection />
             </>
           )}

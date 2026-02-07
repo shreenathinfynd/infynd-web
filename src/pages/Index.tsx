@@ -166,7 +166,9 @@ const Index = () => {
                 Explore Use Cases <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button variant="outline" size="lg">Request a Sample</Button>
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/compare">Compare Products</Link>
+            </Button>
           </div>
         </div>
       </section>

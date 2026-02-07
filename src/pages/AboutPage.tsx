@@ -11,14 +11,22 @@ const fadeInUp = {
   transition: { duration: 0.6 }
 };
 
-/* ── Section 1: Origin Story ── */
+/* ── Section 1: Origin Story (Hero with team image background) ── */
 const OriginStoryBlock = () => (
-  <section className="min-h-[70vh] flex items-center justify-center px-6 py-20">
+  <section className="relative min-h-[70vh] flex items-center justify-center px-6 py-20 overflow-hidden">
+    {/* Background Image */}
+    <div 
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: `url(${infyndTeam})` }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/70" />
+    </div>
+
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="max-w-3xl text-center space-y-8"
+      className="relative max-w-3xl text-center space-y-8"
     >
       <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
         It Started With a Data Problem
@@ -168,6 +176,18 @@ const ScalePhaseBlock = () => (
   </section>
 );
 
+/* ── Product Links Data ── */
+const productLinks = [
+  { name: "Telemarketing", slug: "tele-marketing-data" },
+  { name: "Email Marketing", slug: "email-marketing-data" },
+  { name: "Postal Marketing", slug: "postal-marketing-data" },
+  { name: "New Business", slug: "new-business-data" },
+  { name: "SOHO & SME", slug: "soho-data" },
+  { name: "Healthcare", slug: "uk-healthcare-data" },
+  { name: "POI & Analytics", slug: "poi-analytics" },
+  { name: "Data Enrichment", slug: "data-enrichment" },
+];
+
 /* ── Section 4: Product Evolution ── */
 const ProductEvolutionBlock = () => (
   <section className="py-20 px-6 bg-muted/30">
@@ -188,16 +208,20 @@ const ProductEvolutionBlock = () => (
         </p>
 
         <div className="flex flex-wrap gap-3 pt-4">
-          {["Telemarketing", "Email", "Postal", "New Business", "SOHO", "Healthcare", "POI & Analytics"].map((product, i) => (
+          {productLinks.map((product, i) => (
             <motion.div
-              key={product}
+              key={product.slug}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="px-4 py-2 rounded-full bg-background border text-sm font-medium text-foreground"
             >
-              {product}
+              <Link 
+                to={`/products/${product.slug}`}
+                className="inline-block px-4 py-2 rounded-full bg-background border text-sm font-medium text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors"
+              >
+                {product.name}
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -353,19 +377,10 @@ const PresentDayBlock = () => (
   </section>
 );
 
-/* ── Section 7: Why It Matters (with team image) ── */
+/* ── Section 7: Why It Matters ── */
 const WhyItMattersBlock = () => (
-  <section className="relative py-32 px-6 overflow-hidden">
-    {/* Background Image */}
-    <div 
-      className="absolute inset-0 bg-cover bg-center"
-      style={{ backgroundImage: `url(${infyndTeam})` }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/70" />
-    </div>
-
-    {/* Content */}
-    <div className="relative max-w-3xl mx-auto text-center space-y-8">
+  <section className="py-20 px-6 bg-muted/30">
+    <div className="max-w-3xl mx-auto text-center space-y-8">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

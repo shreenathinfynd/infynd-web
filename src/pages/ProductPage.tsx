@@ -278,20 +278,24 @@ const ProductPage = () => {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead>Data Group</TableHead>
                   <TableHead>Field Name</TableHead>
                   <TableHead>Description</TableHead>
                   <TableHead>Source Type</TableHead>
                   <TableHead>Update Frequency</TableHead>
+                  <TableHead>Availability</TableHead>
                   <TableHead>Confidence</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {product.dataDictionary.map((field) => (
                   <TableRow key={field.name}>
+                    <TableCell><Badge variant="secondary" className="text-[10px] whitespace-nowrap">{field.dataGroup || "General"}</Badge></TableCell>
                     <TableCell className="font-mono text-sm">{field.name}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{field.description}</TableCell>
                     <TableCell><Badge variant="outline" className="text-xs">{field.sourceType}</Badge></TableCell>
                     <TableCell className="text-sm">{field.updateFrequency}</TableCell>
+                    <TableCell className="text-xs text-muted-foreground">{field.availability || "API & Batch"}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">

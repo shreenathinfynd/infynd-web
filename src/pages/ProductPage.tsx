@@ -179,6 +179,8 @@ const ProductPage = () => {
       <div className="flex items-center gap-1 text-sm text-muted-foreground mb-6">
         <Link to="/" className="hover:text-foreground">Home</Link>
         <ChevronRight className="h-3 w-3" />
+        <Link to="/products" className="hover:text-foreground">Products</Link>
+        <ChevronRight className="h-3 w-3" />
         <span className="text-foreground">{product.name}</span>
       </div>
 
@@ -256,6 +258,7 @@ const ProductPage = () => {
               </ul>
             </CardContent>
           </Card>
+          <AddOnsSection />
         </TabsContent>
 
         {/* Coverage */}
@@ -266,6 +269,7 @@ const ProductPage = () => {
         {/* Sample Data */}
         <TabsContent value="sample-data" className="mt-6">
           <SampleDataTab product={product} />
+          <AddOnsSection />
         </TabsContent>
 
         {/* Data Dictionary */}
@@ -301,6 +305,7 @@ const ProductPage = () => {
               </TableBody>
             </Table>
           </div>
+          <AddOnsSection />
         </TabsContent>
 
         {/* Related Products */}
@@ -326,6 +331,7 @@ const ProductPage = () => {
               );
             })}
           </div>
+          <AddOnsSection />
         </TabsContent>
       </Tabs>
 

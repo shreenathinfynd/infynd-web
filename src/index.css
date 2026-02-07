@@ -2,87 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 220 25% 10%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 25% 10%;
+    --card: 210 20% 98%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 10%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 217 71% 45%;
+    --primary: 234 89% 63%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 25% 95%;
-    --secondary-foreground: 220 25% 10%;
+    --secondary: 215 20% 95%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 15% 47%;
+    --muted: 215 16% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 199 89% 48%;
+    --accent: 234 89% 63%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 20% 90%;
-    --input: 214 20% 90%;
-    --ring: 217 71% 45%;
+    --border: 214 20% 92%;
+    --input: 214 20% 92%;
+    --ring: 234 89% 63%;
 
-    --radius: 0.625rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 220 25% 10%;
+    --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 20% 96%;
-    --sidebar-primary: 217 71% 55%;
+    --sidebar-primary: 234 89% 63%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 20% 16%;
     --sidebar-accent-foreground: 210 20% 96%;
     --sidebar-border: 220 15% 18%;
-    --sidebar-ring: 217 71% 55%;
+    --sidebar-ring: 234 89% 63%;
 
     /* Custom tokens */
-    --infynd-navy: 220 25% 10%;
-    --infynd-blue: 217 71% 45%;
-    --infynd-sky: 199 89% 48%;
-    --infynd-teal: 173 58% 39%;
-    --infynd-success: 152 60% 42%;
-    --infynd-surface: 210 20% 98%;
-    --infynd-surface-raised: 0 0% 100%;
+    --orchestrator-glow: 234 89% 63%;
+    --orchestrator-surface: 220 20% 98%;
+    --orchestrator-node: 173 58% 39%;
+    --orchestrator-scan: 199 89% 48%;
+    --orchestrator-success: 152 60% 42%;
+    --orchestrator-slate: 215 16% 47%;
   }
 
   .dark {
-    --background: 220 25% 6%;
+    --background: 222 47% 5%;
     --foreground: 210 20% 96%;
-    --card: 220 25% 10%;
+    --card: 222 47% 9%;
     --card-foreground: 210 20% 96%;
-    --popover: 220 25% 10%;
+    --popover: 222 47% 9%;
     --popover-foreground: 210 20% 96%;
-    --primary: 217 71% 55%;
+    --primary: 234 89% 67%;
     --primary-foreground: 0 0% 100%;
     --secondary: 220 20% 16%;
     --secondary-foreground: 210 20% 96%;
     --muted: 220 15% 15%;
     --muted-foreground: 215 15% 60%;
-    --accent: 199 89% 48%;
+    --accent: 234 89% 67%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 210 20% 96%;
     --border: 220 15% 18%;
     --input: 220 15% 18%;
-    --ring: 217 71% 55%;
-    --sidebar-background: 220 25% 6%;
+    --ring: 234 89% 67%;
+    --sidebar-background: 222 47% 5%;
     --sidebar-foreground: 210 20% 96%;
-    --sidebar-primary: 217 71% 55%;
+    --sidebar-primary: 234 89% 67%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 20% 12%;
     --sidebar-accent-foreground: 210 20% 96%;
     --sidebar-border: 220 15% 14%;
-    --sidebar-ring: 217 71% 55%;
+    --sidebar-ring: 234 89% 67%;
   }
 }
 
@@ -95,6 +94,27 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
   h1, h2, h3, h4 {
-    font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   }
+}
+
+/* Scanning pulse animation */
+@keyframes scan-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes glow-ring {
+  0% { box-shadow: 0 0 0 0 hsl(234 89% 63% / 0.4); }
+  70% { box-shadow: 0 0 0 12px hsl(234 89% 63% / 0); }
+  100% { box-shadow: 0 0 0 0 hsl(234 89% 63% / 0); }
+}
+.animate-scan-pulse {
+  animation: scan-pulse 2s ease-in-out infinite;
+}
+.animate-glow-ring {
+  animation: glow-ring 2s ease-in-out infinite;
 }

@@ -1,7 +1,8 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "react-router-dom";
 
 interface AboutSlideshowProps {
   children: React.ReactNode[];
@@ -23,8 +24,17 @@ const slideVariants = {
 };
 
 const AboutSlideshow = ({ children }: AboutSlideshowProps) => {
-  const [[currentSlide, direction], setSlide] = useState([0, 0]);
+  const location = useLocation();
+  const initialSlide = location.state?.returnToSlide ?? 0;
+  const [[currentSlide, direction], setSlide] = useState([initialSlide, 0]);
   const totalSlides = children.length;
+
+  // Reset to the correct slide when returning from product page
+  useEffect(() => {
+    if (location.state?.returnToSlide !== undefined) {
+      setSlide([location.state.returnToSlide, 0]);
+    }
+  }, [location.state?.returnToSlide]);
 
   const paginate = useCallback((newDirection: number) => {
     const nextSlide = currentSlide + newDirection;

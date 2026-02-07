@@ -4,11 +4,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles, Search, Shield, Globe, Database, ArrowRight, Building2, Users, Layers, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
-import infyndLogo from "@/assets/infynd-logo.png";
 
 const iconMap: Record<string, React.ElementType> = {
   Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
 };
+
+const promptChips = [
+  "Show me UK email data for retail",
+  "What telemarketing data is TPS screened?",
+  "Compare postal vs email coverage",
+  "Healthcare data for pharma sales",
+  "New business leads this month",
+  "SOHO data for insurance",
+];
 
 const dataCategories = [
   {
@@ -43,56 +51,62 @@ const trustStats = [
 const Index = () => {
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <section className="py-24 lg:py-32 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-xs font-medium text-muted-foreground">
-              Trusted by 500+ companies worldwide
-            </Badge>
-          </motion.div>
-
+      {/* Hero — original style with search + prompt chips */}
+      <section className="relative overflow-hidden py-20 lg:py-28 px-6">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
+        <div className="relative max-w-4xl mx-auto text-center">
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-5 leading-[1.1]"
+            transition={{ duration: 0.6 }}
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6"
           >
             Explore data by asking,{" "}
             <span className="text-primary">not browsing</span>
           </motion.h1>
-
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
           >
             The unified product experience platform for B2B data. Explore, compare, and understand every dataset — no sales call needed.
           </motion.p>
 
-          {/* Search */}
+          {/* Search / Ask Bar */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="relative max-w-lg mx-auto"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative max-w-xl mx-auto mb-8"
           >
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <input
-              className="w-full h-13 rounded-full border bg-background pl-12 pr-4 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground/60"
+              className="w-full h-14 rounded-2xl border bg-card pl-12 pr-4 text-base shadow-lg shadow-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground"
               placeholder="Ask anything about our data products..."
             />
+          </motion.div>
+
+          {/* Prompt Chips */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-2"
+          >
+            {promptChips.map((chip) => (
+              <button
+                key={chip}
+                className="px-4 py-2 rounded-full text-sm bg-card border hover:border-primary/30 hover:bg-primary/5 text-muted-foreground hover:text-foreground transition-all"
+              >
+                {chip}
+              </button>
+            ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Data Categories — clean list style like reference */}
+      {/* Data Categories */}
       <section className="py-16 px-6 border-t">
         <div className="max-w-3xl mx-auto">
           <div className="space-y-0 divide-y">
@@ -117,7 +131,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Trust Stats */}
+      {/* Trust Banner */}
       <section className="border-y bg-secondary/50 py-10 px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
           {trustStats.map((stat) => (
@@ -132,7 +146,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Product Grid */}
+      {/* Product Universe Grid */}
       <section className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">

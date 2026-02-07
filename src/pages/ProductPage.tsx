@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { getProductBySlug, getRelatedProducts, addOns, type Product } from "@/data/products";
+import FilledRatesSection from "@/components/product/FilledRatesSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -262,8 +263,9 @@ const ProductPage = () => {
         </TabsContent>
 
         {/* Coverage */}
-        <TabsContent value="coverage-&-volumes" className="mt-6">
+        <TabsContent value="coverage-&-volumes" className="mt-6 space-y-8">
           <CoverageTab product={product} />
+          {product.filledRates && <FilledRatesSection data={product.filledRates} />}
         </TabsContent>
 
         {/* Sample Data */}

@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { getProductBySlug, getRelatedProducts, addOns, type Product } from "@/data/products";
 import FilledRatesSection from "@/components/product/FilledRatesSection";
 import TelemarketingCoverageBlock from "@/components/product/TelemarketingCoverageBlock";
+import EnrichmentStoryExperience from "@/components/product/EnrichmentStoryExperience";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -220,47 +221,53 @@ const ProductPage = () => {
 
         {/* Overview */}
         <TabsContent value="overview" className="mt-6 space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader><CardTitle className="text-lg">What is this data?</CardTitle></CardHeader>
-              <CardContent><p className="text-sm text-muted-foreground">{product.description}</p></CardContent>
-            </Card>
-            <Card>
-              <CardHeader><CardTitle className="text-lg">Typical Buyers</CardTitle></CardHeader>
-              <CardContent>
-                <ul className="space-y-1">
-                  {product.typicalBuyers.map((b) => (
-                    <li key={b} className="text-sm text-muted-foreground flex items-center gap-2">
-                      <ChevronRight className="h-3 w-3 text-primary" />{b}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-          <Card>
-            <CardHeader><CardTitle className="text-lg">Use Cases</CardTitle></CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {product.useCases.map((uc) => (
-                  <Badge key={uc} variant="secondary">{uc}</Badge>
-                ))}
+          {product.id === "enrichment" ? (
+            <EnrichmentStoryExperience />
+          ) : (
+            <>
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">What is this data?</CardTitle></CardHeader>
+                  <CardContent><p className="text-sm text-muted-foreground">{product.description}</p></CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">Typical Buyers</CardTitle></CardHeader>
+                  <CardContent>
+                    <ul className="space-y-1">
+                      {product.typicalBuyers.map((b) => (
+                        <li key={b} className="text-sm text-muted-foreground flex items-center gap-2">
+                          <ChevronRight className="h-3 w-3 text-primary" />{b}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader><CardTitle className="text-lg">Why InFynd?</CardTitle></CardHeader>
-            <CardContent>
-              <ul className="grid sm:grid-cols-2 gap-2">
-                {product.whyInFynd.map((reason) => (
-                  <li key={reason} className="text-sm text-muted-foreground flex items-start gap-2">
-                    <Shield className="h-4 w-4 text-primary shrink-0 mt-0.5" />{reason}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          <AddOnsSection />
+              <Card>
+                <CardHeader><CardTitle className="text-lg">Use Cases</CardTitle></CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {product.useCases.map((uc) => (
+                      <Badge key={uc} variant="secondary">{uc}</Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader><CardTitle className="text-lg">Why InFynd?</CardTitle></CardHeader>
+                <CardContent>
+                  <ul className="grid sm:grid-cols-2 gap-2">
+                    {product.whyInFynd.map((reason) => (
+                      <li key={reason} className="text-sm text-muted-foreground flex items-start gap-2">
+                        <Shield className="h-4 w-4 text-primary shrink-0 mt-0.5" />{reason}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+              <AddOnsSection />
+            </>
+          )}
         </TabsContent>
 
         {/* Coverage & Volumes */}

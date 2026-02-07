@@ -262,7 +262,7 @@ const ProductPage = () => {
           <AddOnsSection />
         </TabsContent>
 
-        {/* Coverage */}
+        {/* Coverage & Filled Rates */}
         <TabsContent value="coverage-&-volumes" className="mt-6 space-y-8">
           <CoverageTab product={product} />
           {product.filledRates && <FilledRatesSection data={product.filledRates} />}

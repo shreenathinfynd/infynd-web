@@ -9,6 +9,7 @@ const Footer = () => (
         <span>© 2025 InFynd. All rights reserved.</span>
       </div>
       <div className="flex gap-6">
+        <Link to="/about" className="hover:text-foreground transition-colors">About InFynd</Link>
         <Link to="/compliance" className="hover:text-foreground transition-colors">Compliance</Link>
         <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
         <a href="#" className="hover:text-foreground transition-colors">Terms</a>

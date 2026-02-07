@@ -1,7 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Building, Crown, Users, Phone, MapPin, Globe, Tag, Briefcase, Info, Zap, Target, Route, UserCheck } from "lucide-react";
+import { Building, Crown, Users, Phone, MapPin, Globe, Tag, Briefcase, Info, Zap, Target, Route, UserCheck, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 
 /* ── Volume Snapshot Stats ── */
@@ -62,6 +63,34 @@ const nonSdmFields = [
   { name: "First & Last Name", value: 98 },
   { name: "Direct Email", value: 35 },
   { name: "LinkedIn Profile", value: 83 },
+];
+
+/* ── Filled Rates Data ── */
+const filledRatesData = [
+  { field: "Mailable", total: "2,060,959", sdm: "975,830", nonSdm: "478,927", isHeader: true },
+  { field: "CRN", total: "58.30%", sdm: "84.20%", nonSdm: "65.68%" },
+  { field: "td_company_name", total: "100.00%", sdm: "100.00%", nonSdm: "100.00%" },
+  { field: "td_Address_1", total: "85.88%", sdm: "87.96%", nonSdm: "88.19%" },
+  { field: "td_post_code", total: "90.22%", sdm: "96.28%", nonSdm: "91.93%" },
+  { field: "phone", total: "100.00%", sdm: "100.00%", nonSdm: "100.00%" },
+  { field: "website", total: "94.65%", sdm: "96.87%", nonSdm: "97.53%" },
+  { field: "Company email", total: "51.01%", sdm: "71.34%", nonSdm: "11.48%" },
+  { field: "linkedin", total: "50.44%", sdm: "64.10%", nonSdm: "71.62%" },
+  { field: "location_type", total: "100.00%", sdm: "100.00%", nonSdm: "100.00%" },
+  { field: "employee_range", total: "43.29%", sdm: "64.26%", nonSdm: "67.69%" },
+  { field: "turnover_range", total: "0.03%", sdm: "0.06%", nonSdm: "0.05%" },
+  { field: "sic_code", total: "89.46%", sdm: "90.25%", nonSdm: "92.09%" },
+  { field: "Sub_industry", total: "93.82%", sdm: "95.03%", nonSdm: "96.07%" },
+  { field: "hiring", total: "0.00%", sdm: "0.00%", nonSdm: "0.00%" },
+  { field: "techstack", total: "0.00%", sdm: "0.00%", nonSdm: "0.00%" },
+  { field: "tags", total: "88.59%", sdm: "90.84%", nonSdm: "92.60%" },
+  { field: "title", total: "", sdm: "71.11%", nonSdm: "46.97%" },
+  { field: "first_name", total: "", sdm: "99.98%", nonSdm: "99.99%" },
+  { field: "last_name", total: "", sdm: "98.81%", nonSdm: "95.96%" },
+  { field: "jobtitle", total: "", sdm: "100.00%", nonSdm: "100.00%" },
+  { field: "job_title_level", total: "", sdm: "100.00%", nonSdm: "100.00%" },
+  { field: "people_email", total: "", sdm: "54.46%", nonSdm: "34.77%" },
+  { field: "people_linkedin", total: "", sdm: "42.74%", nonSdm: "82.69%" },
 ];
 
 /* ── Optimisation Points ── */
@@ -290,7 +319,59 @@ const TelemarketingCoverageBlock = () => {
         </motion.div>
       </section>
 
-      {/* ─── 5. Transparency Note ─── */}
+      {/* ─── 5. Filled Rates Table ─── */}
+      <section>
+        <div className="flex items-center gap-2 mb-5">
+          <h3 className="font-display text-xl font-semibold text-foreground">Telemarketing Filled Rates</h3>
+          <Tooltip>
+            <TooltipTrigger>
+              <Info className="h-4 w-4 text-muted-foreground" />
+            </TooltipTrigger>
+            <TooltipContent className="max-w-xs">
+              Percentage of records where each field is populated across all segments.
+            </TooltipContent>
+          </Tooltip>
+        </div>
+        <Card>
+          <CardContent className="p-0">
+            <div className="rounded-lg overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-muted/50">
+                    <TableHead className="font-semibold text-foreground">Field</TableHead>
+                    <TableHead className="font-semibold text-foreground text-right">Total Companies</TableHead>
+                    <TableHead className="font-semibold text-foreground text-right">SDM People</TableHead>
+                    <TableHead className="font-semibold text-foreground text-right">Non-SDM People</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filledRatesData.map((row, i) => (
+                    <TableRow
+                      key={row.field}
+                      className={row.isHeader ? "bg-primary/5 font-semibold" : i % 2 === 0 ? "bg-background" : "bg-muted/20"}
+                    >
+                      <TableCell className={`text-sm ${row.isHeader ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+                        {row.field}
+                      </TableCell>
+                      <TableCell className={`text-sm text-right tabular-nums ${row.isHeader ? "font-semibold text-foreground" : ""}`}>
+                        {row.total || "—"}
+                      </TableCell>
+                      <TableCell className={`text-sm text-right tabular-nums ${row.isHeader ? "font-semibold text-foreground" : ""}`}>
+                        {row.sdm || "—"}
+                      </TableCell>
+                      <TableCell className={`text-sm text-right tabular-nums ${row.isHeader ? "font-semibold text-foreground" : ""}`}>
+                        {row.nonSdm || "—"}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* ─── 6. Transparency Note ─── */}
       <section>
         <div className="flex items-start gap-2 p-4 rounded-lg bg-muted/30 border border-muted">
           <UserCheck className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />

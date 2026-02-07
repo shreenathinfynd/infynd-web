@@ -106,30 +106,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Data Categories */}
-      <section className="py-16 px-6 border-t">
-        <div className="max-w-3xl mx-auto">
-          <div className="space-y-0 divide-y">
-            {dataCategories.map((cat, i) => (
-              <motion.div
-                key={cat.title}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-start gap-4 py-6"
-              >
-                <div className="h-10 w-10 rounded-lg bg-accent flex items-center justify-center shrink-0 mt-0.5">
-                  <cat.icon className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-display font-semibold text-foreground mb-1">{cat.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{cat.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Trust Banner */}
       <section className="border-y bg-secondary/50 py-10 px-6">
@@ -195,7 +171,7 @@ const Index = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-gradient-to-r from-primary/5 to-accent/5">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
             Not sure which product you need?

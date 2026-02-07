@@ -18,6 +18,19 @@ export interface CoverageRegion {
   industries: string[];
 }
 
+export interface FilledRateRow {
+  field: string;
+  totalCompanies: number | string;
+  sdmPeople: number | string;
+  nonSdmPeople: number | string;
+  group: string;
+}
+
+export interface FilledRatesData {
+  headline: { totalCompanies: number; sdmPeople: number; nonSdmPeople: number };
+  rows: FilledRateRow[];
+}
+
 export interface BuildStep {
   step: number;
   title: string;
@@ -53,6 +66,7 @@ export interface Product {
   dataDictionary: ProductField[];
   buildSteps: BuildStep[];
   relatedProductIds: string[];
+  filledRates?: FilledRatesData;
 }
 
 export const addOns: AddOn[] = [
@@ -198,6 +212,34 @@ export const products: Product[] = [
       { step: 6, title: "Refresh Cycle", description: "Monthly re-validation with real-time DNC suppression updates", icon: "RefreshCw" },
     ],
     relatedProductIds: ["email", "postal", "enrichment"],
+    filledRates: {
+      headline: { totalCompanies: 2060959, sdmPeople: 975830, nonSdmPeople: 478927 },
+      rows: [
+        { field: "CRN", totalCompanies: 58.30, sdmPeople: 84.20, nonSdmPeople: 65.68, group: "Company Core Profile" },
+        { field: "Company Name", totalCompanies: 100.00, sdmPeople: 100.00, nonSdmPeople: 100.00, group: "Company Core Profile" },
+        { field: "Address Line 1", totalCompanies: 85.88, sdmPeople: 87.96, nonSdmPeople: 88.19, group: "Geographic Footprint" },
+        { field: "Postcode", totalCompanies: 90.22, sdmPeople: 96.28, nonSdmPeople: 91.93, group: "Geographic Footprint" },
+        { field: "Phone", totalCompanies: 100.00, sdmPeople: 100.00, nonSdmPeople: 100.00, group: "Corporate Contact Intelligence" },
+        { field: "Website", totalCompanies: 94.65, sdmPeople: 96.87, nonSdmPeople: 97.53, group: "Digital Presence" },
+        { field: "Company Email", totalCompanies: 51.01, sdmPeople: 71.34, nonSdmPeople: 11.48, group: "Corporate Contact Intelligence" },
+        { field: "LinkedIn", totalCompanies: 50.44, sdmPeople: 64.10, nonSdmPeople: 71.62, group: "Digital Presence" },
+        { field: "Location Type", totalCompanies: 100.00, sdmPeople: 100.00, nonSdmPeople: 100.00, group: "Geographic Footprint" },
+        { field: "Employee Range", totalCompanies: 43.29, sdmPeople: 64.26, nonSdmPeople: 67.69, group: "Organizational Scale" },
+        { field: "Turnover Range", totalCompanies: 0.03, sdmPeople: 0.06, nonSdmPeople: 0.05, group: "Organizational Scale" },
+        { field: "SIC Code", totalCompanies: 89.46, sdmPeople: 90.25, nonSdmPeople: 92.09, group: "Industry Classification" },
+        { field: "Sub Industry", totalCompanies: 93.82, sdmPeople: 95.03, nonSdmPeople: 96.07, group: "Industry Classification" },
+        { field: "Hiring", totalCompanies: 0.00, sdmPeople: 0.00, nonSdmPeople: 0.00, group: "Workforce Signals" },
+        { field: "Tech Stack", totalCompanies: 0.00, sdmPeople: 0.00, nonSdmPeople: 0.00, group: "Technology Intelligence" },
+        { field: "Tags", totalCompanies: 88.59, sdmPeople: 90.84, nonSdmPeople: 92.60, group: "Company Core Profile" },
+        { field: "Title", totalCompanies: "-", sdmPeople: 71.11, nonSdmPeople: 46.97, group: "Leadership & Workforce Intelligence" },
+        { field: "First Name", totalCompanies: "-", sdmPeople: 99.98, nonSdmPeople: 99.99, group: "Leadership & Workforce Intelligence" },
+        { field: "Last Name", totalCompanies: "-", sdmPeople: 98.81, nonSdmPeople: 95.96, group: "Leadership & Workforce Intelligence" },
+        { field: "Job Title", totalCompanies: "-", sdmPeople: 100.00, nonSdmPeople: 100.00, group: "Leadership & Workforce Intelligence" },
+        { field: "Job Title Level", totalCompanies: "-", sdmPeople: 100.00, nonSdmPeople: 100.00, group: "Leadership & Workforce Intelligence" },
+        { field: "People Email", totalCompanies: "-", sdmPeople: 54.46, nonSdmPeople: 34.77, group: "Leadership & Workforce Intelligence" },
+        { field: "People LinkedIn", totalCompanies: "-", sdmPeople: 42.74, nonSdmPeople: 82.69, group: "Leadership & Workforce Intelligence" },
+      ],
+    },
   },
   {
     id: "email",

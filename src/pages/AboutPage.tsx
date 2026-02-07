@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Shield, Database, Users, Layers, Globe, CheckCircle, ArrowRight, Building, Cpu, Heart, FileCheck, Scale, Sparkles } from "lucide-react";
+import { Shield, Database, Users, Layers, Globe, CheckCircle, ArrowRight, Building, Cpu, Heart, FileCheck, Scale, Sparkles, Mail, Phone, AtSign, Rocket, Home, MapPin } from "lucide-react";
 import infyndTeam from "@/assets/infynd-team.png";
+import { products } from "@/data/products";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 /* ── Animation Variants ── */
 const fadeInUp = {
@@ -11,22 +14,14 @@ const fadeInUp = {
   transition: { duration: 0.6 }
 };
 
-/* ── Section 1: Origin Story (Hero with team image background) ── */
+/* ── Section 1: Origin Story (Hero - no background image) ── */
 const OriginStoryBlock = () => (
-  <section className="relative min-h-[70vh] flex items-center justify-center px-6 py-20 overflow-hidden">
-    {/* Background Image */}
-    <div 
-      className="absolute inset-0 bg-cover bg-center"
-      style={{ backgroundImage: `url(${infyndTeam})` }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/70" />
-    </div>
-
+  <section className="min-h-[70vh] flex items-center justify-center px-6 py-20">
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="relative max-w-3xl text-center space-y-8"
+      className="max-w-3xl text-center space-y-8"
     >
       <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
         It Started With a Data Problem
@@ -176,22 +171,15 @@ const ScalePhaseBlock = () => (
   </section>
 );
 
-/* ── Product Links Data ── */
-const productLinks = [
-  { name: "Telemarketing", slug: "tele-marketing-data" },
-  { name: "Email Marketing", slug: "email-marketing-data" },
-  { name: "Postal Marketing", slug: "postal-marketing-data" },
-  { name: "New Business", slug: "new-business-data" },
-  { name: "SOHO & SME", slug: "soho-data" },
-  { name: "Healthcare", slug: "uk-healthcare-data" },
-  { name: "POI & Analytics", slug: "poi-analytics" },
-  { name: "Data Enrichment", slug: "data-enrichment" },
-];
+/* ── Icon Map for Products ── */
+const iconMap: Record<string, React.ElementType> = {
+  Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
+};
 
-/* ── Section 4: Product Evolution ── */
+/* ── Section 4: Product Evolution (with Product Grid) ── */
 const ProductEvolutionBlock = () => (
   <section className="py-20 px-6 bg-muted/30">
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       <TimelineMarker phase="3" />
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -207,42 +195,53 @@ const ProductEvolutionBlock = () => (
           Products shaped by how revenue teams actually work.
         </p>
 
-        <div className="flex flex-wrap gap-3 pt-4">
-          {productLinks.map((product, i) => (
-            <motion.div
-              key={product.slug}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-            >
-              <Link 
-                to={`/products/${product.slug}`}
-                className="inline-block px-4 py-2 rounded-full bg-background border text-sm font-medium text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors"
+        {/* Product Grid - Same format as Products page */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+          {products.map((product, i) => {
+            const Icon = iconMap[product.icon] || Sparkles;
+            return (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.04 }}
               >
-                {product.name}
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+                <Link to={`/products/${product.slug}`} className="block h-full">
+                  <Card className="relative h-full transition-all duration-300 cursor-pointer group hover:border-primary/30 hover:shadow-lg hover:-translate-y-1">
+                    <CardContent className="p-5">
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
+                          <Icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-300" />
+                        </div>
+                        <div>
+                          <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{product.shortName}</h3>
+                          <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">{product.tagline}</p>
+                        </div>
+                      </div>
 
-        <div className="grid sm:grid-cols-3 gap-4 pt-4">
-          {[
-            "Enrichment & Match capabilities",
-            "Intent, tech stack, job changes",
-            "CRM & workflow integration",
-          ].map((item, i) => (
-            <motion.div
-              key={item}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 + i * 0.1 }}
-              className="p-4 rounded-lg bg-background border text-center"
-            >
-              <p className="text-sm text-muted-foreground">{item}</p>
-            </motion.div>
-          ))}
+                      <div className="flex items-center gap-1.5 flex-wrap mb-3">
+                        <Badge variant="secondary" className="text-[10px]">{product.totalRecords}</Badge>
+                        <Badge variant="outline" className="text-[10px]">{product.countries} countries</Badge>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        {product.complianceStandards.slice(0, 2).map((std) => (
+                          <span key={std} className="inline-flex items-center text-[10px] text-primary/70">
+                            <Shield className="h-3 w-3 mr-0.5" />{std}
+                          </span>
+                        ))}
+                      </div>
+
+                      <span className="text-sm text-primary flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
+                        Explore product <ArrowRight className="h-3 w-3" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.p
@@ -321,10 +320,18 @@ const TrustAndComplianceBlock = () => (
   </section>
 );
 
-/* ── Section 6: Present Day ── */
+/* ── Section 6: Present Day (with team image background) ── */
 const PresentDayBlock = () => (
-  <section className="py-20 px-6 bg-muted/30">
-    <div className="max-w-4xl mx-auto">
+  <section className="relative py-20 px-6 overflow-hidden">
+    {/* Background Image with lighter overlay */}
+    <div 
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: `url(${infyndTeam})` }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/60 to-background/50" />
+    </div>
+
+    <div className="relative max-w-4xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -353,7 +360,7 @@ const PresentDayBlock = () => (
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="flex items-center gap-3"
+              className="flex items-center gap-3 bg-background/80 backdrop-blur-sm p-3 rounded-lg"
             >
               <CheckCircle className="h-5 w-5 text-primary shrink-0" />
               <p className="text-foreground">{item}</p>
@@ -366,7 +373,7 @@ const PresentDayBlock = () => (
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
-          className="p-6 rounded-xl bg-background border mt-8"
+          className="p-6 rounded-xl bg-background/90 backdrop-blur-sm border mt-8"
         >
           <p className="text-lg text-foreground text-center font-medium">
             "InFynd today is the result of years spent doing data the difficult way — so clients don't have to."
@@ -427,11 +434,11 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen">
       <OriginStoryBlock />
+      <PresentDayBlock />
       <FoundationPhaseBlock />
       <ScalePhaseBlock />
       <ProductEvolutionBlock />
       <TrustAndComplianceBlock />
-      <PresentDayBlock />
       <WhyItMattersBlock />
     </div>
   );

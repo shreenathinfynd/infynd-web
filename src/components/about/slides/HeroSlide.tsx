@@ -14,13 +14,11 @@ const badges = [
 
 const HeroSlide = () => (
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-    {/* Background Image */}
+    {/* Background Image - No overlay */}
     <div
       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${infyndHero})` }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background/80" />
-    </div>
+    />
 
     {/* Content */}
     <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center">

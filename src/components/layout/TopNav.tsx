@@ -8,7 +8,7 @@ const TopNav = () => {
       <div className="flex h-full items-center gap-4 px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Logo */}
         <Link to="/" className="shrink-0">
-          <img src={infyndLogo} alt="InFynd" className="h-7" />
+          <img src={infyndLogo} alt="InFynd" className="h-10" />
         </Link>
 
         <div className="flex-1" />

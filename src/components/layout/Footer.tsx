@@ -5,7 +5,7 @@ const Footer = () => (
   <footer className="border-t py-8 px-6">
     <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
       <div className="flex items-center gap-3">
-        <img src={infyndLogo} alt="InFynd" className="h-5" />
+        <img src={infyndLogo} alt="InFynd" className="h-6" />
         <span>© 2025 InFynd. All rights reserved.</span>
       </div>
       <div className="flex gap-6">

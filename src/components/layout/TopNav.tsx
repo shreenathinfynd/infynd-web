@@ -16,6 +16,9 @@ const TopNav = () => {
         {/* CTAs */}
         <div className="flex items-center gap-3 shrink-0">
           <Button variant="ghost" size="sm" className="hidden lg:inline-flex text-muted-foreground" asChild>
+            <Link to="/#products">Products</Link>
+          </Button>
+          <Button variant="ghost" size="sm" className="hidden lg:inline-flex text-muted-foreground" asChild>
             <Link to="/use-cases">Use Cases</Link>
           </Button>
           <Button variant="ghost" size="sm" className="hidden lg:inline-flex text-muted-foreground" asChild>

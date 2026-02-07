@@ -207,7 +207,7 @@ const ProductPage = () => {
       {/* Tabs */}
       <Tabs defaultValue="overview" className="mb-8">
         <TabsList className="w-full justify-start flex-wrap h-auto gap-1 bg-transparent p-0">
-          {["Overview", "Coverage & Volumes", "Sample Data", "Data Dictionary", "How We Build It", "Related Products"].map((tab) => (
+          {["Overview", "Coverage & Volumes", "Sample Data", "Data Dictionary", "Related Products"].map((tab) => (
             <TabsTrigger key={tab} value={tab.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")} className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full px-4">
               {tab}
             </TabsTrigger>
@@ -303,23 +303,6 @@ const ProductPage = () => {
           </div>
         </TabsContent>
 
-        {/* How We Build It */}
-        <TabsContent value="how-we-build-it" className="mt-6">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {product.buildSteps.map((step) => (
-              <Card key={step.step} className="relative overflow-hidden">
-                <CardContent className="p-5">
-                  <div className="text-5xl font-display font-bold text-primary/10 absolute top-2 right-4">{step.step}</div>
-                  <div className="relative">
-                    <h4 className="font-semibold text-foreground mb-2">{step.title}</h4>
-                    <p className="text-sm text-muted-foreground">{step.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
         {/* Related Products */}
         <TabsContent value="related-products" className="mt-6">
           <div className="grid sm:grid-cols-3 gap-5">
@@ -346,8 +329,6 @@ const ProductPage = () => {
         </TabsContent>
       </Tabs>
 
-      {/* Add-Ons */}
-      <AddOnsSection />
     </div>
   );
 };

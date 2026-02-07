@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["DM Sans", "Inter", "system-ui", "sans-serif"],
+        display: ["Space Grotesk", "Inter", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -62,10 +62,10 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         infynd: {
-          navy: "hsl(var(--infynd-navy))",
-          blue: "hsl(var(--infynd-blue))",
-          sky: "hsl(var(--infynd-sky))",
-          teal: "hsl(var(--infynd-teal))",
+          red: "hsl(var(--infynd-red))",
+          dark: "hsl(var(--infynd-dark))",
+          slate: "hsl(var(--infynd-slate))",
+          light: "hsl(var(--infynd-light))",
           success: "hsl(var(--infynd-success))",
           surface: "hsl(var(--infynd-surface))",
           "surface-raised": "hsl(var(--infynd-surface-raised))",

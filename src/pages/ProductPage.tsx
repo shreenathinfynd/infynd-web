@@ -250,7 +250,7 @@ const ProductPage = () => {
               <ul className="grid sm:grid-cols-2 gap-2">
                 {product.whyInFynd.map((reason) => (
                   <li key={reason} className="text-sm text-muted-foreground flex items-start gap-2">
-                    <Shield className="h-4 w-4 text-infynd-teal shrink-0 mt-0.5" />{reason}
+                    <Shield className="h-4 w-4 text-primary shrink-0 mt-0.5" />{reason}
                   </li>
                 ))}
               </ul>

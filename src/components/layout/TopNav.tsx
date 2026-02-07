@@ -1,25 +1,15 @@
-import { Search, Menu, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-interface TopNavProps {
-  onToggleSidebar: () => void;
-  sidebarOpen: boolean;
-}
-
-const TopNav = ({ onToggleSidebar, sidebarOpen }: TopNavProps) => {
+const TopNav = () => {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 h-16 border-b bg-card/80 backdrop-blur-md">
       <div className="flex h-full items-center gap-4 px-4 lg:px-6">
-        {/* Sidebar toggle */}
-        <button onClick={onToggleSidebar} className="shrink-0 text-muted-foreground hover:text-foreground transition-colors">
-          {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 shrink-0">
           <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">

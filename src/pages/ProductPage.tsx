@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { getProductBySlug, getRelatedProducts, addOns, type Product } from "@/data/products";
 import FilledRatesSection from "@/components/product/FilledRatesSection";
 import TelemarketingCoverageBlock from "@/components/product/TelemarketingCoverageBlock";
@@ -14,7 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { Shield, ArrowRight, Info, Users, Building, ChevronRight, Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles } from "lucide-react";
+import { Shield, ArrowRight, ArrowLeft, Info, Users, Building, ChevronRight, Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import NotFound from "./NotFound";
 
@@ -171,6 +171,8 @@ const AddOnsSection = () => {
 /* ── Main Page ── */
 const ProductPage = () => {
   const { slug } = useParams();
+  const location = useLocation();
+  const fromPresentation = location.state?.fromPresentation === true;
   const product = getProductBySlug(slug || "");
   if (!product) return <NotFound />;
 
@@ -179,6 +181,22 @@ const ProductPage = () => {
 
   return (
     <div className="py-8 px-6 max-w-6xl mx-auto">
+      {/* Back to Presentation Button - only shows when coming from About page */}
+      {fromPresentation && (
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="mb-6"
+        >
+          <Button variant="outline" size="sm" asChild className="rounded-full">
+            <Link to="/about" state={{ returnToSlide: 4 }}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Presentation
+            </Link>
+          </Button>
+        </motion.div>
+      )}
+
       {/* Breadcrumb */}
       <div className="flex items-center gap-1 text-sm text-muted-foreground mb-6">
         <Link to="/" className="hover:text-foreground">Home</Link>

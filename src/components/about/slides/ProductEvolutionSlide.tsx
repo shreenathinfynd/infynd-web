@@ -49,7 +49,7 @@ const ProductEvolutionSlide = () => (
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 + i * 0.04 }}
               >
-                <Link to={`/products/${product.slug}`} className="block h-full">
+                <Link to={`/products/${product.slug}`} state={{ fromPresentation: true }} className="block h-full">
                   <Card className="relative h-full transition-all duration-300 cursor-pointer group hover:border-primary/30 hover:shadow-lg hover:-translate-y-1">
                     <CardContent className="p-5">
                       <div className="flex items-start gap-3 mb-3">

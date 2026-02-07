@@ -18,10 +18,6 @@ const TopNav = () => {
           <Button variant="ghost" size="sm" className="hidden lg:inline-flex text-muted-foreground" asChild>
             <Link to="/products">Products</Link>
           </Button>
-          <Button variant="ghost" size="sm" className="hidden lg:inline-flex text-muted-foreground" asChild>
-            <Link to="/about">About InFynd</Link>
-          </Button>
-          <Button size="sm" className="rounded-full px-5">Talk to Sales</Button>
         </div>
       </div>
     </header>

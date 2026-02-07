@@ -320,18 +320,10 @@ const TrustAndComplianceBlock = () => (
   </section>
 );
 
-/* ── Section 6: Present Day (with team image background) ── */
+/* ── Section 6: Present Day ── */
 const PresentDayBlock = () => (
-  <section className="relative py-20 px-6 overflow-hidden">
-    {/* Background Image with lighter overlay */}
-    <div 
-      className="absolute inset-0 bg-cover bg-center"
-      style={{ backgroundImage: `url(${infyndTeam})` }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/60 to-background/50" />
-    </div>
-
-    <div className="relative max-w-4xl mx-auto">
+  <section className="py-20 px-6 bg-muted/30">
+    <div className="max-w-4xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -360,7 +352,7 @@ const PresentDayBlock = () => (
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="flex items-center gap-3 bg-background/80 backdrop-blur-sm p-3 rounded-lg"
+              className="flex items-center gap-3 p-3 rounded-lg border bg-background"
             >
               <CheckCircle className="h-5 w-5 text-primary shrink-0" />
               <p className="text-foreground">{item}</p>
@@ -373,7 +365,7 @@ const PresentDayBlock = () => (
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
-          className="p-6 rounded-xl bg-background/90 backdrop-blur-sm border mt-8"
+          className="p-6 rounded-xl bg-background border mt-8"
         >
           <p className="text-lg text-foreground text-center font-medium">
             "InFynd today is the result of years spent doing data the difficult way — so clients don't have to."
@@ -384,10 +376,18 @@ const PresentDayBlock = () => (
   </section>
 );
 
-/* ── Section 7: Why It Matters ── */
+/* ── Section 7: Why It Matters (with team image background) ── */
 const WhyItMattersBlock = () => (
-  <section className="py-20 px-6 bg-muted/30">
-    <div className="max-w-3xl mx-auto text-center space-y-8">
+  <section className="relative py-20 px-6 overflow-hidden">
+    {/* Background Image */}
+    <div 
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: `url(${infyndTeam})` }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/60 to-background/50" />
+    </div>
+
+    <div className="relative max-w-3xl mx-auto text-center space-y-8">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -401,11 +401,11 @@ const WhyItMattersBlock = () => (
         </h2>
         
         <div className="space-y-4 text-lg text-muted-foreground">
-          <p>When you work with InFynd, you're not buying a list.</p>
+          <p className="text-foreground/90">When you work with InFynd, you're not buying a list.</p>
           <p className="text-foreground">
             You're working with a team that understands how data affects revenue, reputation, and risk.
           </p>
-          <p>That's why most of our work starts small — and grows over time.</p>
+          <p className="text-foreground/90">That's why most of our work starts small — and grows over time.</p>
         </div>
 
         <motion.div
@@ -415,7 +415,7 @@ const WhyItMattersBlock = () => (
           transition={{ delay: 0.4 }}
           className="pt-8"
         >
-          <p className="text-sm text-muted-foreground mb-4 italic">
+          <p className="text-sm text-foreground/70 mb-4 italic">
             If this aligns with how you think about data…
           </p>
           <Button size="lg" className="rounded-full px-8" asChild>
@@ -434,11 +434,11 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen">
       <OriginStoryBlock />
-      <PresentDayBlock />
       <FoundationPhaseBlock />
       <ScalePhaseBlock />
       <ProductEvolutionBlock />
       <TrustAndComplianceBlock />
+      <PresentDayBlock />
       <WhyItMattersBlock />
     </div>
   );

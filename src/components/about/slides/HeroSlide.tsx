@@ -20,8 +20,8 @@ const HeroSlide = () => (
       style={{ backgroundImage: `url(${infyndHero})` }}
     />
 
-    {/* Content */}
-    <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center">
+    {/* Content - positioned slightly above center */}
+    <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center -mt-24">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -30,14 +30,14 @@ const HeroSlide = () => (
       >
         {/* Main Title */}
         <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold">
-          <span className="text-foreground">InFynd</span>{" "}
+          <span className="text-white">InFynd</span>{" "}
           <span className="text-primary">Group</span>
         </h1>
 
         {/* Tagline */}
         <div className="flex items-center justify-center gap-3">
           <div className="w-1 h-8 bg-primary rounded-full" />
-          <p className="text-xl md:text-2xl lg:text-3xl text-foreground/90 font-medium">
+          <p className="text-xl md:text-2xl lg:text-3xl text-white font-medium">
             The data, AI & Growth Engine
           </p>
         </div>
@@ -61,23 +61,6 @@ const HeroSlide = () => (
               {badge.label}
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Global Presence Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="pt-8 flex items-center justify-center gap-8 text-foreground/70"
-        >
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-primary animate-pulse" />
-            <span>United Kingdom</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-primary animate-pulse" />
-            <span>India</span>
-          </div>
         </motion.div>
       </motion.div>
     </div>

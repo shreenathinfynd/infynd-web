@@ -81,10 +81,11 @@ const CoverageTab = ({ product }: { product: Product }) => {
 };
 
 /* ── Sample Data Tab ── */
-const SampleDataTab = ({ product }: { product: Product }) => {
+const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields: string[] }) => {
   const [view, setView] = useState<"company" | "contact">("company");
   const data = view === "company" ? product.sampleDataCompany : product.sampleDataContact;
-  const columns = data.length > 0 ? Object.keys(data[0]) : [];
+  const baseColumns = data.length > 0 ? Object.keys(data[0]) : [];
+  const columns = [...baseColumns, ...addonFields];
 
   return (
     <div className="space-y-4">
@@ -100,7 +101,7 @@ const SampleDataTab = ({ product }: { product: Product }) => {
         <Table>
           <TableHeader>
             <TableRow>
-              {columns.map((col) => (
+              {baseColumns.map((col) => (
                 <TableHead key={col}>
                   <Tooltip>
                     <TooltipTrigger className="flex items-center gap-1 cursor-help">
@@ -110,13 +111,26 @@ const SampleDataTab = ({ product }: { product: Product }) => {
                   </Tooltip>
                 </TableHead>
               ))}
+              {addonFields.map((col) => (
+                <TableHead key={`addon-${col}`} className="bg-primary/5">
+                  <Tooltip>
+                    <TooltipTrigger className="flex items-center gap-1 cursor-help text-primary">
+                      {col} <Sparkles className="h-3 w-3" />
+                    </TooltipTrigger>
+                    <TooltipContent>Add-On Field: {col}</TooltipContent>
+                  </Tooltip>
+                </TableHead>
+              ))}
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((row, i) => (
               <TableRow key={i}>
-                {columns.map((col) => (
+                {baseColumns.map((col) => (
                   <TableCell key={col} className="text-sm">{String(row[col])}</TableCell>
+                ))}
+                {addonFields.map((col) => (
+                  <TableCell key={`addon-${col}`} className="text-sm text-muted-foreground/60 bg-primary/5 italic">Sample</TableCell>
                 ))}
               </TableRow>
             ))}
@@ -129,15 +143,7 @@ const SampleDataTab = ({ product }: { product: Product }) => {
 };
 
 /* ── Add-Ons Section ── */
-const AddOnsSection = () => {
-  const [active, setActive] = useState<Set<string>>(new Set());
-  const toggle = (id: string) => {
-    setActive((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  };
+const AddOnsSection = ({ active, toggle }: { active: Set<string>; toggle: (id: string) => void }) => {
   const activeAddOns = addOns.filter((a) => active.has(a.id));
 
   return (
@@ -174,6 +180,17 @@ const ProductPage = () => {
   const location = useLocation();
   const fromPresentation = location.state?.fromPresentation === true;
   const product = getProductBySlug(slug || "");
+
+  const [activeAddOns, setActiveAddOns] = useState<Set<string>>(new Set());
+  const toggleAddOn = (id: string) => {
+    setActiveAddOns((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+  const addonFields = addOns.filter((a) => activeAddOns.has(a.id)).flatMap((a) => a.fields);
+
   if (!product) return <NotFound />;
 
   const Icon = iconMap[product.icon] || Sparkles;
@@ -285,7 +302,7 @@ const ProductPage = () => {
                 </CardContent>
               </Card>
               <CaseStudiesCTA />
-              <AddOnsSection />
+              <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
             </>
           )}
         </TabsContent>
@@ -304,8 +321,8 @@ const ProductPage = () => {
 
         {/* Sample Data */}
         <TabsContent value="sample-data" className="mt-6">
-          <SampleDataTab product={product} />
-          <AddOnsSection />
+          <SampleDataTab product={product} addonFields={addonFields} />
+          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
         </TabsContent>
 
         {/* Data Dictionary */}
@@ -342,10 +359,28 @@ const ProductPage = () => {
                     </TableCell>
                   </TableRow>
                 ))}
+                {addonFields.map((field) => (
+                  <TableRow key={`addon-${field}`} className="bg-primary/5">
+                    <TableCell><Badge variant="outline" className="text-[10px] whitespace-nowrap border-primary/30 text-primary">Add-On</Badge></TableCell>
+                    <TableCell className="font-mono text-sm">{field}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">Enhanced data field from add-on module</TableCell>
+                    <TableCell><Badge variant="outline" className="text-xs">Enriched</Badge></TableCell>
+                    <TableCell className="text-sm">Monthly</TableCell>
+                    <TableCell className="text-xs text-muted-foreground">API & Batch</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: "85%" }} />
+                        </div>
+                        <span className="text-xs text-muted-foreground">85%</span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </div>
-          <AddOnsSection />
+          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
         </TabsContent>
 
         {/* Related Products */}
@@ -371,7 +406,7 @@ const ProductPage = () => {
               );
             })}
           </div>
-          <AddOnsSection />
+          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
         </TabsContent>
       </Tabs>
 

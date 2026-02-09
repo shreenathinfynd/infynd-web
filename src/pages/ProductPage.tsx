@@ -291,7 +291,7 @@ const ProductPage = () => {
         </TabsContent>
 
         {/* Coverage & Volumes */}
-        <TabsContent value="coverage-&-volumes" className="mt-6 space-y-8">
+        <TabsContent value="coverage-volumes" className="mt-6 space-y-8">
           {product.id === "tele" ? (
             <TelemarketingCoverageBlock />
           ) : (

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { products } from "@/data/products";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -83,7 +83,7 @@ function matchCountries(query: string): string[] {
   for (const [country, keywords] of Object.entries(countryKeywords)) {
     for (const kw of keywords) { if (q.includes(kw)) { found.push(country); break; } }
   }
-  return found.length > 0 ? found : ["United Kingdom"];
+  return found.length > 0 ? found : ["Global"];
 }
 
 const Index = () => {
@@ -92,6 +92,7 @@ const Index = () => {
   const [highlightedCountries, setHighlightedCountries] = useState<string[]>([]);
   const [matchedProducts, setMatchedProducts] = useState<Product[]>([]);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
+  const navigate = useNavigate();
 
   const clearTimers = () => { timersRef.current.forEach(clearTimeout); timersRef.current = []; };
 
@@ -102,10 +103,23 @@ const Index = () => {
     const countries = matchCountries(q);
     setHighlightedCountries(countries);
     setMatchedProducts([]);
-    const t1 = setTimeout(() => { setMatchedProducts(matchProducts(q)); setStage("modules"); }, 2000);
-    const t2 = setTimeout(() => { setStage("result"); }, 3800);
+
+    const matched = matchProducts(q);
+    const isCompare = q.toLowerCase().includes("compare") ||
+      q.toLowerCase().includes("vs") ||
+      q.toLowerCase().includes("diff") ||
+      q.toLowerCase().includes("better");
+
+    const t1 = setTimeout(() => { setMatchedProducts(matched); setStage("modules"); }, 2000);
+    const t2 = setTimeout(() => {
+      if (isCompare && matched.length > 0) {
+        navigate(`/compare?ids=${matched.map(p => p.id).join(",")}`);
+      } else {
+        setStage("result");
+      }
+    }, 3800);
     timersRef.current = [t1, t2];
-  }, []);
+  }, [navigate]);
 
   const handleSearch = useCallback(() => { triggerSearch(query); }, [query, triggerSearch]);
 
@@ -187,13 +201,13 @@ const Index = () => {
               <div className="bg-card rounded-2xl border shadow-2xl p-8 overflow-hidden">
                 <div className="flex items-center gap-2 mb-6">
                   <Globe className="h-5 w-5 text-primary" />
-                  <span className="text-base font-semibold text-foreground">Stage 1 — Scanning global coverage</span>
+                  <span className="text-base font-semibold text-foreground">Scanning global coverage</span>
                   <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
                     className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full ml-auto" />
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">Searching: <span className="text-foreground font-medium">"{query}"</span></p>
 
-                <svg viewBox="0 0 960 500" className="w-full h-64 md:h-80">
+                <svg viewBox="0 0 960 500" className="w-full h-auto">
                   <defs>
                     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
                       <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--muted))" strokeWidth="0.5" opacity="0.3" />
@@ -207,7 +221,7 @@ const Index = () => {
                   <ellipse cx="680" cy="220" rx="120" ry="80" fill="hsl(var(--muted))" opacity="0.15" />
                   <ellipse cx="810" cy="390" rx="50" ry="35" fill="hsl(var(--muted))" opacity="0.15" />
                   {Object.entries(mapPoints).map(([country, pos]) => {
-                    const isHighlighted = highlightedCountries.includes(country);
+                    const isHighlighted = highlightedCountries.includes(country) || highlightedCountries.includes("Global");
                     return (
                       <g key={country}>
                         {isHighlighted && (
@@ -250,7 +264,7 @@ const Index = () => {
               <div className="bg-card rounded-2xl border shadow-2xl p-8 text-left">
                 <div className="flex items-center gap-2 mb-6">
                   <Database className="h-5 w-5 text-primary" />
-                  <span className="text-base font-semibold text-foreground">Stage 2 — Fetching matching product modules</span>
+                  <span className="text-base font-semibold text-foreground">Fetching matching product modules</span>
                   <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
                     className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full ml-auto" />
                 </div>
@@ -301,7 +315,7 @@ const Index = () => {
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-primary" />
-                  <span className="text-base font-semibold text-foreground">Stage 3 — Recommended data products</span>
+                  <span className="text-base font-semibold text-foreground">Recommended data products</span>
                 </div>
                 <button onClick={handleReset} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <RotateCcw className="h-4 w-4" /> New search

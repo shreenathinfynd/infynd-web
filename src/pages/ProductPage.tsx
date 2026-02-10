@@ -248,7 +248,7 @@ const ProductPage = () => {
       {/* Tabs */}
       <Tabs defaultValue="overview" className="mb-8">
         <TabsList className="w-full justify-start flex-wrap h-auto gap-1 bg-transparent p-0">
-          {["Overview", "Coverage & Volumes", "Sample Data", "Data Dictionary", "Related Products"].map((tab) => (
+          {["Overview", "Volumes & Samples", "Sample Data", "Data Dictionary", "Related Products"].map((tab) => (
             <TabsTrigger key={tab} value={tab.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")} className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full px-4">
               {tab}
             </TabsTrigger>
@@ -298,7 +298,7 @@ const ProductPage = () => {
                         <Shield className="h-4 w-4 text-primary shrink-0 mt-0.5" />{reason}
                       </li>
                     ))}
-                </ul>
+                  </ul>
                 </CardContent>
               </Card>
               <CaseStudiesCTA />
@@ -308,7 +308,7 @@ const ProductPage = () => {
         </TabsContent>
 
         {/* Coverage & Volumes */}
-        <TabsContent value="coverage-volumes" className="mt-6 space-y-8">
+        <TabsContent value="volumes-samples" className="mt-6 space-y-8">
           {product.id === "tele" ? (
             <TelemarketingCoverageBlock />
           ) : (

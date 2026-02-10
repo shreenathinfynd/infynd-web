@@ -5,8 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Shield } from "lucide-react";
 
+import { useSearchParams } from "react-router-dom";
+
 const ComparePage = () => {
-  const [selected, setSelected] = useState<string[]>([products[0].id, products[2].id]);
+  const [searchParams] = useSearchParams();
+  const initialIds = searchParams.get("ids")?.split(",") || [products[0].id, products[2].id];
+  const [selected, setSelected] = useState<string[]>(initialIds);
 
   const updateSelection = (index: number, value: string) => {
     setSelected((prev) => {

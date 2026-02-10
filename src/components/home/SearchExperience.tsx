@@ -192,7 +192,7 @@ const SearchExperience = ({ externalQuery }: SearchExperienceProps) => {
             <div className="flex items-center gap-2 mb-6">
               <Globe className="h-5 w-5 text-primary" />
               <span className="text-base font-semibold text-foreground">
-                Stage 1 — Scanning global coverage
+                Scanning global coverage
               </span>
               <motion.div
                 animate={{ rotate: 360 }}
@@ -205,7 +205,7 @@ const SearchExperience = ({ externalQuery }: SearchExperienceProps) => {
               Searching: <span className="text-foreground font-medium">"{query}"</span>
             </p>
 
-            <svg viewBox="0 0 960 500" className="w-full h-64 md:h-80">
+            <svg viewBox="0 0 960 500" className="w-full h-auto">
               <defs>
                 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
                   <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--muted))" strokeWidth="0.5" opacity="0.3" />
@@ -276,7 +276,7 @@ const SearchExperience = ({ externalQuery }: SearchExperienceProps) => {
             <div className="flex items-center gap-2 mb-6">
               <Database className="h-5 w-5 text-primary" />
               <span className="text-base font-semibold text-foreground">
-                Stage 2 — Fetching matching product modules
+                Fetching matching product modules
               </span>
               <motion.div
                 animate={{ rotate: 360 }}
@@ -343,7 +343,7 @@ const SearchExperience = ({ externalQuery }: SearchExperienceProps) => {
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
               <span className="text-base font-semibold text-foreground">
-                Stage 3 — Recommended data products
+                Recommended data products
               </span>
             </div>
             <button onClick={handleReset}

@@ -35,18 +35,18 @@ const countryKeywords: Record<string, string[]> = {
 };
 
 const mapPoints: Record<string, { cx: number; cy: number }> = {
-  "United Kingdom": { cx: 470, cy: 160 },
+  "United Kingdom": { cx: 460, cy: 140 },
   "United States": { cx: 180, cy: 210 },
-  Germany: { cx: 505, cy: 180 },
-  France: { cx: 480, cy: 200 },
+  Germany: { cx: 530, cy: 170 },
+  France: { cx: 470, cy: 210 },
   Australia: { cx: 810, cy: 400 },
   India: { cx: 670, cy: 280 },
   Canada: { cx: 200, cy: 140 },
-  Ireland: { cx: 455, cy: 165 },
+  Ireland: { cx: 435, cy: 155 },
   Singapore: { cx: 730, cy: 320 },
-  Netherlands: { cx: 492, cy: 172 },
-  Spain: { cx: 465, cy: 220 },
-  Belgium: { cx: 488, cy: 185 },
+  Netherlands: { cx: 500, cy: 150 },
+  Spain: { cx: 450, cy: 250 },
+  Belgium: { cx: 485, cy: 175 },
 };
 
 function matchProducts(query: string): Product[] {

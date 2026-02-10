@@ -80,23 +80,121 @@ const CoverageTab = ({ product }: { product: Product }) => {
   );
 };
 
+const sampleAddonValues: Record<string, string[]> = {
+  "Funding Amount": ["£250K", "£1.5M", "£5M", "£12M", "£45M"],
+  "Funding Type": ["Pre-Seed", "Seed", "Series A", "Series B", "Growth"],
+  "Lead Investor Name": ["LocalGlobe", "Index Ventures", "Accel", "Balderton", "Insight Partners"],
+  "Lead Investor Industry": ["Tech", "Fintech", "SaaS", "Health", "Generalist"],
+  "No. of Investors": ["2", "4", "6", "8", "12"],
+  "Funding Announced Date": ["Jan 2023", "Mar 2023", "Jun 2023", "Sep 2023", "Dec 2023"],
+  "Director Changes 12M": ["0", "1", "2", "0", "3"],
+  "Senior Hiring Trend": ["Stable", "Growing", "Rapid Growth", "Stable", "Declining"],
+  "Attrition Rate Estimated": ["Low", "Low", "Medium", "Low", "High"],
+  "Control Risk Score": ["Low", "Low", "Medium", "Low", "High"],
+  "Critical Role Vacancies": ["None", "CTO", "None", "CFO", "None"],
+  "Key Person Dependency": ["Low", "Medium", "Low", "High", "Low"],
+  "Technology Product Name": ["Salesforce", "HubSpot", "AWS", "Azure", "Google Cloud"],
+  "Technology Category": ["CRM", "Marketing", "Cloud", "Cloud", "Cloud"],
+  "Technology Version": ["Enterprise", "Pro", "2023", "v4.5", "N/A"],
+  "Technology Vendor": ["Salesforce", "HubSpot", "Amazon", "Microsoft", "Google"],
+  "Technology Domain": ["Sales", "Marketing", "Infra", "Infra", "Infra"],
+  "Target Markets": ["UK Only", "UK & EU", "Global", "US & UK", "Global"],
+  "Customer Type": ["SME", "Mid-Market", "Enterprise", "Mid-Market", "Enterprise"],
+  "Go-To-Market Model": ["PLG", "Sales-Led", "Channel", "Sales-Led", "Hybrid"],
+  "Competitive Density": ["Low", "Medium", "High", "Medium", "High"],
+  "Market Growth Rate": ["5%", "10%", "15%", "8%", "20%"],
+  "Moat Type": ["IP", "Brand", "Network Effect", "Cost", "Switching Cost"],
+  "Strategic Position": ["Challenger", "Leader", "Niche", "Leader", "Incumbent"],
+  "Core Product Type": ["Service", "Platform", "Hardware", "Marketplace", "Data"],
+  "Regulatory Dependency": ["Low", "Medium", "High", "High", "Medium"],
+  "Compliance Readiness": ["High", "Medium", "High", "High", "Medium"],
+  "AI Act Exposure": ["None", "Low", "High", "Medium", "Low"],
+  "Data Privacy Risk": ["Low", "Medium", "High", "Low", "Medium"],
+  "Vendor Lock-In Risk": ["Low", "High", "Medium", "High", "Low"],
+  "Glassdoor Rating": ["4.5★", "3.2★", "4.0★", "4.8★", "3.8★"],
+  "Trustpilot Rating": ["4.8/5", "2.5/5", "4.2/5", "4.6/5", "3.5/5"],
+  "Google Rating": ["4.7", "3.0", "4.3", "4.5", "3.9"],
+  "Controversy Flag": ["None", "Minor", "None", "None", "Major"],
+  "Sentiment Score": ["Positive", "Negative", "Neutral", "Positive", "Neutral"],
+  "Thought Leadership Score": ["High", "Low", "Medium", "High", "Low"],
+  "Domain Authority": ["45", "25", "65", "80", "35"],
+  "Ranking Keywords": ["500", "1.2K", "50K", "120K", "5K"],
+  "Domain Organic Traffic": ["2K", "5K", "150K", "500K", "10K"],
+  "Traffic Value": ["£1K", "£5K", "£80K", "£250K", "£15K"],
+  "Spam Score": ["1%", "5%", "0%", "1%", "12%"],
+  "Domain Age Days": ["1200", "800", "5000", "8500", "2000"],
+  "Ultimate Parent Name": ["Private", "Global Corp", "Holding Group", "Investment Fund", "Private"],
+  "Immediate Parent Name": ["N/A", "Regional Sub", "N/A", "Portfolio Co", "N/A"],
+  "Corporate Group L1": ["N/A", "EMEA Div", "N/A", "Fund IV", "N/A"],
+  "Corporate Group L2": ["N/A", "UK Ops", "N/A", "Tech Assets", "N/A"],
+};
+
+const getSampleAddonData = (field: string, index: number) => {
+  const values = sampleAddonValues[field];
+  if (!values || values.length === 0) return "Sample";
+  return values[index % values.length];
+};
+
 /* ── Sample Data Tab ── */
 const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields: string[] }) => {
   const [view, setView] = useState<"company" | "contact">("company");
-  const data = view === "company" ? product.sampleDataCompany : product.sampleDataContact;
-  const baseColumns = data.length > 0 ? Object.keys(data[0]) : [];
+  const [selectedCountry, setSelectedCountry] = useState("all");
+
+  const rawData = view === "company" ? product.sampleDataCompany : product.sampleDataContact;
+
+  // Get unique countries for the filter dropdown
+  const availableCountries = [...new Set(product.coverageRegions.map((r) => r.country))].sort();
+
+  // Filter data based on selected country
+  const filteredData = rawData.filter((row) => {
+    if (selectedCountry === "all") return true;
+    // Check common keys for country information
+    const rowCountry = row["Country"] || row["Main Country"] || row["country"];
+
+    // If the row specifically has a country field, filter by it. 
+    // If it doesn't have a country field, we choose to show it (or could hide it).
+    // Given we standardized the data to have "Country", strict filtering is better.
+    if (rowCountry) {
+      return String(rowCountry) === selectedCountry;
+    }
+    return true; // Fallback: show rows without country data to avoid empty tables on legacy/unmapped data
+  });
+
+  const data = filteredData;
+  // Use rawData for columns if filtered data is empty to preserve table headers
+  const baseColumns = data.length > 0 ? Object.keys(data[0]) : (rawData.length > 0 ? Object.keys(rawData[0]) : []);
   const columns = [...baseColumns, ...addonFields];
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-4">
-        <Button variant={view === "company" ? "default" : "outline"} size="sm" onClick={() => setView("company")}>
-          <Building className="h-4 w-4 mr-1" /> Company View
-        </Button>
-        <Button variant={view === "contact" ? "default" : "outline"} size="sm" onClick={() => setView("contact")}>
-          <Users className="h-4 w-4 mr-1" /> Contact View
-        </Button>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <Button variant={view === "company" ? "default" : "outline"} size="sm" onClick={() => setView("company")}>
+            <Building className="h-4 w-4 mr-1" /> Company View
+          </Button>
+          <Button variant={view === "contact" ? "default" : "outline"} size="sm" onClick={() => setView("contact")}>
+            <Users className="h-4 w-4 mr-1" /> Contact View
+          </Button>
+        </div>
+
+        {availableCountries.length > 0 && (
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground hidden sm:inline-block">Filter by region:</span>
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+              <SelectTrigger className="w-[180px] h-8 text-xs">
+                <SelectValue placeholder="All Countries" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Countries</SelectItem>
+                {availableCountries.map((country) => (
+                  <SelectItem key={country} value={country}>{country}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
+
       <div className="rounded-lg border overflow-x-auto">
         <Table>
           <TableHeader>
@@ -104,7 +202,7 @@ const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields
               {baseColumns.map((col) => (
                 <TableHead key={col}>
                   <Tooltip>
-                    <TooltipTrigger className="flex items-center gap-1 cursor-help">
+                    <TooltipTrigger className="flex items-center gap-1 cursor-help whitespace-nowrap">
                       {col} <Info className="h-3 w-3 text-muted-foreground" />
                     </TooltipTrigger>
                     <TooltipContent>Field: {col}</TooltipContent>
@@ -114,7 +212,7 @@ const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields
               {addonFields.map((col) => (
                 <TableHead key={`addon-${col}`} className="bg-primary/5">
                   <Tooltip>
-                    <TooltipTrigger className="flex items-center gap-1 cursor-help text-primary">
+                    <TooltipTrigger className="flex items-center gap-1 cursor-help text-primary whitespace-nowrap">
                       {col} <Sparkles className="h-3 w-3" />
                     </TooltipTrigger>
                     <TooltipContent>Add-On Field: {col}</TooltipContent>
@@ -124,16 +222,26 @@ const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((row, i) => (
-              <TableRow key={i}>
-                {baseColumns.map((col) => (
-                  <TableCell key={col} className="text-sm">{String(row[col])}</TableCell>
-                ))}
-                {addonFields.map((col) => (
-                  <TableCell key={`addon-${col}`} className="text-sm text-muted-foreground/60 bg-primary/5 italic">Sample</TableCell>
-                ))}
+            {data.length > 0 ? (
+              data.map((row, i) => (
+                <TableRow key={i}>
+                  {baseColumns.map((col) => (
+                    <TableCell key={col} className="text-sm whitespace-nowrap">{String(row[col])}</TableCell>
+                  ))}
+                  {addonFields.map((col) => (
+                    <TableCell key={`addon-${col}`} className="text-sm text-foreground italic bg-primary/5 whitespace-nowrap">
+                      {getSampleAddonData(col, i)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">
+                  No sample data available for {selectedCountry}
+                </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </div>

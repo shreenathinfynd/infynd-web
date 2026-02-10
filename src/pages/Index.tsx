@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles, Search, Shield, Globe, Database, ArrowRight, Building2, Users, Layers, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
+import SearchExperience from "@/components/home/SearchExperience";
 
 const iconMap: Record<string, React.ElementType> = {
   Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
@@ -73,18 +74,13 @@ const Index = () => {
             The unified product experience platform for B2B data. Explore, compare, and understand every dataset — no sales call needed.
           </motion.p>
 
-          {/* Search / Ask Bar */}
+          {/* Interactive Search Experience */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative max-w-xl mx-auto mb-8"
           >
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <input
-              className="w-full h-14 rounded-2xl border bg-card pl-12 pr-4 text-base shadow-lg shadow-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground"
-              placeholder="Ask anything about our data products..."
-            />
+            <SearchExperience />
           </motion.div>
 
           {/* Prompt Chips */}
@@ -92,7 +88,7 @@ const Index = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-2"
+            className="flex flex-wrap justify-center gap-2 mt-4"
           >
             {promptChips.map((chip) => (
               <button

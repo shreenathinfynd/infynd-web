@@ -34,19 +34,19 @@ const countryKeywords: Record<string, string[]> = {
   Belgium: ["belgium", "belgian"],
 };
 
-const mapPoints: Record<string, { cx: number; cy: number }> = {
-  "United Kingdom": { cx: 460, cy: 140 },
-  "United States": { cx: 180, cy: 210 },
-  Germany: { cx: 530, cy: 170 },
-  France: { cx: 470, cy: 210 },
-  Australia: { cx: 810, cy: 400 },
-  India: { cx: 670, cy: 280 },
-  Canada: { cx: 200, cy: 140 },
-  Ireland: { cx: 435, cy: 155 },
-  Singapore: { cx: 730, cy: 320 },
-  Netherlands: { cx: 500, cy: 150 },
-  Spain: { cx: 450, cy: 250 },
-  Belgium: { cx: 485, cy: 175 },
+const mapPoints: Record<string, { cx: number; cy: number; align?: "top" | "bottom" | "left" | "right" }> = {
+  "United Kingdom": { cx: 460, cy: 190, align: "top" },
+  "United States": { cx: 240, cy: 260, align: "left" },
+  Germany: { cx: 510, cy: 210, align: "right" },
+  France: { cx: 475, cy: 240, align: "bottom" },
+  Australia: { cx: 780, cy: 450, align: "bottom" },
+  India: { cx: 640, cy: 300, align: "bottom" },
+  Canada: { cx: 200, cy: 160, align: "top" },
+  Ireland: { cx: 435, cy: 195, align: "left" },
+  Singapore: { cx: 700, cy: 350, align: "right" },
+  Netherlands: { cx: 490, cy: 185, align: "top" },
+  Spain: { cx: 455, cy: 280, align: "bottom" },
+  Belgium: { cx: 485, cy: 215, align: "right" },
 };
 
 function matchProducts(query: string): Product[] {
@@ -205,22 +205,41 @@ const SearchExperience = ({ externalQuery }: SearchExperienceProps) => {
               Searching: <span className="text-foreground font-medium">"{query}"</span>
             </p>
 
-            <svg viewBox="0 0 960 500" className="w-full h-auto">
+            <svg viewBox="0 0 960 600" className="w-full h-auto">
               <defs>
-                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--muted))" strokeWidth="0.5" opacity="0.3" />
-                </pattern>
+                <radialGradient id="globe-gradient" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.05" />
+                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                </radialGradient>
               </defs>
-              <rect width="960" height="500" fill="url(#grid)" />
-              <ellipse cx="200" cy="190" rx="120" ry="90" fill="hsl(var(--muted))" opacity="0.15" />
-              <ellipse cx="260" cy="370" rx="60" ry="80" fill="hsl(var(--muted))" opacity="0.15" />
-              <ellipse cx="490" cy="180" rx="60" ry="50" fill="hsl(var(--muted))" opacity="0.15" />
-              <ellipse cx="500" cy="320" rx="60" ry="80" fill="hsl(var(--muted))" opacity="0.15" />
-              <ellipse cx="680" cy="220" rx="120" ry="80" fill="hsl(var(--muted))" opacity="0.15" />
-              <ellipse cx="810" cy="390" rx="50" ry="35" fill="hsl(var(--muted))" opacity="0.15" />
+
+              {/* Globe Background */}
+              <circle cx="480" cy="300" r="280" fill="url(#globe-gradient)" opacity="0.5" />
+              <circle cx="480" cy="300" r="280" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" opacity="0.2" />
+              <ellipse cx="480" cy="300" rx="280" ry="100" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" opacity="0.1" />
+              <ellipse cx="480" cy="300" rx="280" ry="200" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" opacity="0.1" />
+              <line x1="480" y1="20" x2="480" y2="580" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" opacity="0.1" />
+              <path d="M 200 300 Q 480 50 760 300" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" opacity="0.1" />
+              <path d="M 200 300 Q 480 550 760 300" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" opacity="0.1" />
+
+              {/* Simplified Continents (Abstract) */}
+              <path d="M 180 140 Q 250 120 300 180 T 260 280 T 180 260 Z" fill="hsl(var(--muted))" opacity="0.1" /> {/* NA */}
+              <path d="M 420 160 Q 480 140 540 180 T 520 260 T 450 280 T 420 240 Z" fill="hsl(var(--muted))" opacity="0.1" /> {/* EU */}
+              <path d="M 600 240 Q 700 200 780 280 T 700 380 T 620 320 Z" fill="hsl(var(--muted))" opacity="0.1" /> {/* AS */}
+              <path d="M 750 420 Q 800 400 840 440 T 800 480 T 740 460 Z" fill="hsl(var(--muted))" opacity="0.1" /> {/* AU */}
 
               {Object.entries(mapPoints).map(([country, pos]) => {
                 const isHighlighted = highlightedCountries.includes(country);
+
+                // Label positioning logic
+                let labelX = pos.cx;
+                let labelY = pos.cy - 14;
+                let textAnchor = "middle";
+
+                if (pos.align === "bottom") { labelY = pos.cy + 20; }
+                if (pos.align === "left") { labelX = pos.cx - 12; labelY = pos.cy + 4; textAnchor = "end"; }
+                if (pos.align === "right") { labelX = pos.cx + 12; labelY = pos.cy + 4; textAnchor = "start"; }
+
                 return (
                   <g key={country}>
                     {isHighlighted && (
@@ -235,9 +254,9 @@ const SearchExperience = ({ externalQuery }: SearchExperienceProps) => {
                     )}
                     <circle cx={pos.cx} cy={pos.cy} r={isHighlighted ? 6 : 3}
                       fill={isHighlighted ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
-                      opacity={isHighlighted ? 1 : 0.3} />
+                      opacity={isHighlighted ? 1 : 0.4} />
                     {isHighlighted && (
-                      <text x={pos.cx} y={pos.cy - 14} textAnchor="middle"
+                      <text x={labelX} y={labelY} textAnchor={textAnchor}
                         fill="hsl(var(--foreground))" fontSize="11" fontWeight="600">
                         {country}
                       </text>
@@ -246,7 +265,7 @@ const SearchExperience = ({ externalQuery }: SearchExperienceProps) => {
                 );
               })}
 
-              <motion.line x1={0} y1={0} x2={0} y2={500}
+              <motion.line x1={0} y1={0} x2={0} y2={600}
                 stroke="hsl(var(--primary))" strokeWidth="2" opacity="0.4"
                 initial={{ x1: 0, x2: 0 }} animate={{ x1: 960, x2: 960 }}
                 transition={{ duration: 1.8, ease: "easeInOut" }} />

@@ -69,28 +69,28 @@ const AboutSlideshow = ({ children }: AboutSlideshowProps) => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Controls */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 bg-background/80 backdrop-blur-md px-6 py-3 rounded-full border shadow-lg">
+      {/* Navigation Controls - Centered */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-3 bg-background/80 backdrop-blur-md px-5 py-2.5 rounded-full border shadow-lg">
         {/* Previous Button */}
         <Button
           variant="ghost"
           size="icon"
           onClick={() => paginate(-1)}
           disabled={currentSlide === 0}
-          className="h-10 w-10 rounded-full"
+          className="h-8 w-8 rounded-full"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeft className="h-4 w-4" />
         </Button>
 
         {/* Slide Indicators */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           {children.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 index === currentSlide
-                  ? "w-8 bg-primary"
+                  ? "w-6 bg-primary"
                   : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -104,15 +104,10 @@ const AboutSlideshow = ({ children }: AboutSlideshowProps) => {
           size="icon"
           onClick={() => paginate(1)}
           disabled={currentSlide === totalSlides - 1}
-          className="h-10 w-10 rounded-full"
+          className="h-8 w-8 rounded-full"
         >
-          <ChevronRight className="h-5 w-5" />
+          <ChevronRight className="h-4 w-4" />
         </Button>
-
-        {/* Slide Counter */}
-        <span className="text-sm text-muted-foreground ml-2 tabular-nums">
-          {currentSlide + 1} / {totalSlides}
-        </span>
       </div>
 
       {/* Keyboard Navigation Hint */}

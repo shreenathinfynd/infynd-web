@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { products } from "@/data/products";
 import { Badge } from "@/components/ui/badge";
@@ -5,10 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles, Search, Shield, Globe, Database, ArrowRight, Building2, Users, Layers, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 import SearchExperience from "@/components/home/SearchExperience";
-
-const iconMap: Record<string, React.ElementType> = {
-  Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
-};
 
 const promptChips = [
   "Show me UK email data for retail",
@@ -19,40 +16,12 @@ const promptChips = [
   "SOHO data for insurance",
 ];
 
-const dataCategories = [
-  {
-    title: "B2B Data",
-    description: "Access verified business data to target prospects and boost sales.",
-    icon: Building2,
-  },
-  {
-    title: "B2C Data",
-    description: "Understand consumer trends to power smarter marketing campaigns.",
-    icon: Users,
-  },
-  {
-    title: "Personalised Custom Build Data",
-    description: "Get datasets tailored to your unique business goals and needs.",
-    icon: Layers,
-  },
-  {
-    title: "Industry Based Data",
-    description: "Use sector-specific insights to refine and focus your strategy.",
-    icon: BarChart3,
-  },
-];
-
-const trustStats = [
-  { icon: Database, value: "180M+", label: "Total Records" },
-  { icon: Globe, value: "52", label: "Countries" },
-  { icon: Shield, value: "GDPR", label: "Compliant" },
-  { icon: Sparkles, value: "99.2%", label: "Accuracy Rate" },
-];
-
 const Index = () => {
+  const [chipQuery, setChipQuery] = useState<string | undefined>();
+
   return (
     <div className="min-h-screen">
-      {/* Hero — original style with search + prompt chips */}
+      {/* Hero */}
       <section className="relative overflow-hidden py-20 lg:py-28 px-6">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
         <div className="relative max-w-4xl mx-auto text-center">
@@ -80,10 +49,10 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <SearchExperience />
+            <SearchExperience externalQuery={chipQuery} />
           </motion.div>
 
-          {/* Prompt Chips */}
+          {/* Prompt Chips — clickable */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -93,7 +62,8 @@ const Index = () => {
             {promptChips.map((chip) => (
               <button
                 key={chip}
-                className="px-4 py-2 rounded-full text-sm bg-card border hover:border-primary/30 hover:bg-primary/5 text-muted-foreground hover:text-foreground transition-all"
+                onClick={() => setChipQuery(chip + "_" + Date.now())}
+                className="px-4 py-2 rounded-full text-sm bg-card border hover:border-primary/30 hover:bg-primary/5 text-muted-foreground hover:text-foreground transition-all cursor-pointer"
               >
                 {chip}
               </button>
@@ -101,8 +71,6 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
-
-
     </div>
   );
 };

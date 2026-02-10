@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Search, Sparkles, ArrowRight, MapPin, Globe, Database, Shield } from "lucide-react";
+import { Search, Sparkles, ArrowRight, MapPin, Globe, Database, Shield, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { products, Product } from "@/data/products";
@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Stage = "idle" | "scanning" | "modules" | "result";
 
-// Keyword→product matching
 const keywordMap: Record<string, string[]> = {
   postal: ["postal", "mail", "mailing", "direct mail", "catalogue", "address"],
   tele: ["tele", "telemarketing", "phone", "call", "outbound", "tps", "switchboard", "direct dial"],
@@ -35,7 +34,6 @@ const countryKeywords: Record<string, string[]> = {
   Belgium: ["belgium", "belgian"],
 };
 
-// Simple SVG map points for countries
 const mapPoints: Record<string, { cx: number; cy: number }> = {
   "United Kingdom": { cx: 470, cy: 160 },
   "United States": { cx: 180, cy: 210 },
@@ -60,7 +58,6 @@ function matchProducts(query: string): Product[] {
     for (const kw of keywords) {
       if (q.includes(kw)) score += 2;
     }
-    // Check use cases and industries
     for (const uc of product.useCases) {
       if (q.includes(uc.toLowerCase().slice(0, 8))) score += 1;
     }
@@ -72,10 +69,7 @@ function matchProducts(query: string): Product[] {
     if (score > 0) matched.push({ product, score });
   }
   matched.sort((a, b) => b.score - a.score);
-  if (matched.length === 0) {
-    // Default: return first 2
-    return products.slice(0, 2);
-  }
+  if (matched.length === 0) return products.slice(0, 2);
   return matched.slice(0, 3).map((m) => m.product);
 }
 
@@ -90,59 +84,74 @@ function matchCountries(query: string): string[] {
       }
     }
   }
-  return found.length > 0 ? found : ["United Kingdom"]; // default UK
+  return found.length > 0 ? found : ["United Kingdom"];
 }
 
-const iconMap: Record<string, React.ElementType> = {
-  Mail: Database,
-  Phone: Database,
-  AtSign: Database,
-  Rocket: Database,
-  Home: Database,
-  MapPin: MapPin,
-  Heart: Database,
-  Sparkles: Sparkles,
-};
+interface SearchExperienceProps {
+  externalQuery?: string;
+}
 
-const SearchExperience = () => {
+const SearchExperience = ({ externalQuery }: SearchExperienceProps) => {
   const [query, setQuery] = useState("");
   const [stage, setStage] = useState<Stage>("idle");
   const [highlightedCountries, setHighlightedCountries] = useState<string[]>([]);
   const [matchedProducts, setMatchedProducts] = useState<Product[]>([]);
+  const timersRef = useRef<NodeJS.Timeout[]>([]);
 
-  const handleSearch = useCallback(() => {
-    const q = query.trim();
-    if (!q) return;
+  const clearTimers = () => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+  };
 
-    // Reset
+  const triggerSearch = useCallback((q: string) => {
+    if (!q.trim()) return;
+    clearTimers();
+
     setStage("scanning");
     const countries = matchCountries(q);
     setHighlightedCountries(countries);
+    setMatchedProducts([]);
 
-    // Stage B after 1.5s
-    setTimeout(() => {
+    const t1 = setTimeout(() => {
       const prods = matchProducts(q);
       setMatchedProducts(prods);
       setStage("modules");
-    }, 1800);
+    }, 2000);
 
-    // Stage C after 3.5s
-    setTimeout(() => {
+    const t2 = setTimeout(() => {
       setStage("result");
-    }, 3500);
-  }, [query]);
+    }, 3800);
+
+    timersRef.current = [t1, t2];
+  }, []);
+
+  const handleSearch = useCallback(() => {
+    triggerSearch(query);
+  }, [query, triggerSearch]);
+
+  // Handle external query from prompt chips (format: "text_timestamp")
+  useEffect(() => {
+    if (externalQuery) {
+      const actualQuery = externalQuery.replace(/_\d+$/, "");
+      setQuery(actualQuery);
+      triggerSearch(actualQuery);
+    }
+  }, [externalQuery, triggerSearch]);
 
   const handleReset = () => {
+    clearTimers();
     setStage("idle");
     setQuery("");
     setHighlightedCountries([]);
     setMatchedProducts([]);
   };
 
+  useEffect(() => () => clearTimers(), []);
+
   return (
-    <div className="space-y-8">
+    <div>
       {/* Search Bar with Ask Me button */}
-      <div className="relative max-w-xl mx-auto">
+      <div className="relative max-w-xl mx-auto mb-6">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <input
           className="w-full h-14 rounded-2xl border bg-card pl-12 pr-32 text-base shadow-lg shadow-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground"
@@ -161,104 +170,64 @@ const SearchExperience = () => {
         </Button>
       </div>
 
-      {/* Staged Animation Area */}
+      {/* Full-screen stage transitions — one stage at a time */}
       <AnimatePresence mode="wait">
-        {stage !== "idle" && (
+        {stage === "scanning" && (
           <motion.div
-            key="search-results"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            key="stage-scanning"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96, y: -10 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="max-w-4xl mx-auto"
           >
-            {/* Stage A: Map Scan */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="relative bg-card rounded-2xl border shadow-lg p-6 mb-6 overflow-hidden"
-            >
+            <div className="relative bg-card rounded-2xl border shadow-lg p-6 overflow-hidden">
               <div className="flex items-center gap-2 mb-4">
                 <Globe className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-muted-foreground">
-                  {stage === "scanning" ? "Scanning global coverage..." : "Coverage identified"}
+                  Stage 1 — Scanning global coverage...
                 </span>
-                {stage === "scanning" && (
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                    className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full"
-                  />
-                )}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                  className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full"
+                />
               </div>
 
-              {/* Simple World Map SVG */}
-              <svg viewBox="0 0 960 500" className="w-full h-48 md:h-64">
-                {/* Background grid */}
+              <svg viewBox="0 0 960 500" className="w-full h-56 md:h-72">
                 <defs>
                   <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
                     <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--muted))" strokeWidth="0.5" opacity="0.3" />
                   </pattern>
                 </defs>
                 <rect width="960" height="500" fill="url(#grid)" />
-
-                {/* Continent outlines (simplified) */}
-                {/* North America */}
                 <ellipse cx="200" cy="190" rx="120" ry="90" fill="hsl(var(--muted))" opacity="0.15" />
-                {/* South America */}
                 <ellipse cx="260" cy="370" rx="60" ry="80" fill="hsl(var(--muted))" opacity="0.15" />
-                {/* Europe */}
                 <ellipse cx="490" cy="180" rx="60" ry="50" fill="hsl(var(--muted))" opacity="0.15" />
-                {/* Africa */}
                 <ellipse cx="500" cy="320" rx="60" ry="80" fill="hsl(var(--muted))" opacity="0.15" />
-                {/* Asia */}
                 <ellipse cx="680" cy="220" rx="120" ry="80" fill="hsl(var(--muted))" opacity="0.15" />
-                {/* Australia */}
                 <ellipse cx="810" cy="390" rx="50" ry="35" fill="hsl(var(--muted))" opacity="0.15" />
 
-                {/* All country dots */}
                 {Object.entries(mapPoints).map(([country, pos]) => {
                   const isHighlighted = highlightedCountries.includes(country);
                   return (
                     <g key={country}>
-                      {/* Ping animation for highlighted */}
                       {isHighlighted && (
                         <>
-                          <motion.circle
-                            cx={pos.cx}
-                            cy={pos.cy}
-                            r={4}
-                            fill="hsl(var(--primary))"
-                            initial={{ r: 4, opacity: 0.8 }}
-                            animate={{ r: 25, opacity: 0 }}
-                            transition={{ repeat: Infinity, duration: 1.5, ease: "easeOut" }}
-                          />
-                          <motion.circle
-                            cx={pos.cx}
-                            cy={pos.cy}
-                            r={4}
-                            fill="hsl(var(--primary))"
-                            initial={{ r: 4, opacity: 0.6 }}
-                            animate={{ r: 18, opacity: 0 }}
-                            transition={{ repeat: Infinity, duration: 1.5, ease: "easeOut", delay: 0.3 }}
-                          />
+                          <motion.circle cx={pos.cx} cy={pos.cy} r={4} fill="hsl(var(--primary))"
+                            initial={{ r: 4, opacity: 0.8 }} animate={{ r: 28, opacity: 0 }}
+                            transition={{ repeat: Infinity, duration: 1.5, ease: "easeOut" }} />
+                          <motion.circle cx={pos.cx} cy={pos.cy} r={4} fill="hsl(var(--primary))"
+                            initial={{ r: 4, opacity: 0.6 }} animate={{ r: 18, opacity: 0 }}
+                            transition={{ repeat: Infinity, duration: 1.5, ease: "easeOut", delay: 0.3 }} />
                         </>
                       )}
-                      <circle
-                        cx={pos.cx}
-                        cy={pos.cy}
-                        r={isHighlighted ? 6 : 3}
+                      <circle cx={pos.cx} cy={pos.cy} r={isHighlighted ? 6 : 3}
                         fill={isHighlighted ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
-                        opacity={isHighlighted ? 1 : 0.3}
-                      />
+                        opacity={isHighlighted ? 1 : 0.3} />
                       {isHighlighted && (
-                        <text
-                          x={pos.cx}
-                          y={pos.cy - 12}
-                          textAnchor="middle"
-                          fill="hsl(var(--foreground))"
-                          fontSize="11"
-                          fontWeight="600"
-                        >
+                        <text x={pos.cx} y={pos.cy - 14} textAnchor="middle"
+                          fill="hsl(var(--foreground))" fontSize="11" fontWeight="600">
                           {country}
                         </text>
                       )}
@@ -266,141 +235,142 @@ const SearchExperience = () => {
                   );
                 })}
 
-                {/* Scan line animation */}
-                {stage === "scanning" && (
-                  <motion.line
-                    x1={0}
-                    y1={0}
-                    x2={0}
-                    y2={500}
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2"
-                    opacity="0.3"
-                    initial={{ x1: 0, x2: 0 }}
-                    animate={{ x1: 960, x2: 960 }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                  />
-                )}
+                <motion.line x1={0} y1={0} x2={0} y2={500}
+                  stroke="hsl(var(--primary))" strokeWidth="2" opacity="0.4"
+                  initial={{ x1: 0, x2: 0 }} animate={{ x1: 960, x2: 960 }}
+                  transition={{ duration: 1.8, ease: "easeInOut" }} />
               </svg>
-            </motion.div>
 
-            {/* Stage B: Product Module Tags */}
-            <AnimatePresence>
-              {(stage === "modules" || stage === "result") && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-6"
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <Database className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-medium text-muted-foreground">
-                      Matching product modules...
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {matchedProducts.map((product, i) => (
-                      <motion.div
-                        key={product.id}
-                        initial={{ opacity: 0, x: -20, scale: 0.9 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                        transition={{ delay: i * 0.15, type: "spring", stiffness: 200 }}
-                      >
-                        <Badge
-                          variant="secondary"
-                          className="px-4 py-2 text-sm gap-2 cursor-default"
-                        >
-                          <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                          {product.shortName}
-                          <span className="text-muted-foreground font-normal">
-                            {product.totalRecords}
-                          </span>
-                        </Badge>
-                      </motion.div>
-                    ))}
-                    {highlightedCountries.map((c, i) => (
-                      <motion.div
-                        key={c}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 + i * 0.1 }}
-                      >
-                        <Badge variant="outline" className="px-3 py-2 text-sm gap-1.5">
-                          <MapPin className="h-3 w-3" />
-                          {c}
-                        </Badge>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+              <div className="mt-3 flex items-center gap-2">
+                {highlightedCountries.map((c) => (
+                  <Badge key={c} variant="outline" className="text-xs gap-1.5 animate-fade-in">
+                    <MapPin className="h-3 w-3 text-primary" /> {c}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
 
-            {/* Stage C: Final Product Cards */}
-            <AnimatePresence>
-              {stage === "result" && (
+        {stage === "modules" && (
+          <motion.div
+            key="stage-modules"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96, y: -10 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="bg-card rounded-2xl border shadow-lg p-8 text-left">
+              <div className="flex items-center gap-2 mb-5">
+                <Database className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium text-muted-foreground">
+                  Stage 2 — Fetching matching product modules...
+                </span>
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium text-foreground">
-                        Recommended for you
-                      </span>
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                  className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full"
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-3 mb-6">
+                {matchedProducts.map((product, i) => (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, x: -30, scale: 0.85 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    transition={{ delay: i * 0.2, type: "spring", stiffness: 180, damping: 14 }}
+                  >
+                    <div className="flex items-center gap-3 bg-secondary/50 border rounded-xl px-5 py-3">
+                      <span className="h-3 w-3 rounded-full bg-primary animate-pulse shrink-0" />
+                      <div>
+                        <p className="font-semibold text-foreground text-sm">{product.name}</p>
+                        <p className="text-xs text-muted-foreground">{product.totalRecords} records · {product.countries} countries</p>
+                      </div>
                     </div>
-                    <button
-                      onClick={handleReset}
-                      className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      New search
-                    </button>
-                  </div>
+                  </motion.div>
+                ))}
+              </div>
 
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {matchedProducts.map((product, i) => (
-                      <motion.div
-                        key={product.id}
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.12, type: "spring", stiffness: 150 }}
-                      >
-                        <Link
-                          to={`/products/${product.slug}`}
-                          className="block bg-card rounded-xl border p-5 hover:shadow-lg hover:border-primary/30 transition-all group"
-                        >
-                          <div className="flex items-start justify-between mb-3">
-                            <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors">
-                              {product.name}
-                            </h3>
-                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
-                          </div>
-                          <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                            {product.tagline}
-                          </p>
-                          <div className="flex flex-wrap gap-1.5">
-                            <Badge variant="outline" className="text-xs">
-                              {product.totalRecords} records
-                            </Badge>
-                            <Badge variant="outline" className="text-xs">
-                              {product.countries} countries
-                            </Badge>
-                            {product.complianceStandards.slice(0, 2).map((c) => (
-                              <Badge key={c} variant="secondary" className="text-xs gap-1">
-                                <Shield className="h-3 w-3" />
-                                {c}
-                              </Badge>
-                            ))}
-                          </div>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {highlightedCountries.map((c, i) => (
+                  <motion.div key={c} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 + i * 0.1 }}>
+                    <Badge variant="outline" className="px-3 py-1.5 text-xs gap-1.5">
+                      <MapPin className="h-3 w-3 text-primary" /> {c}
+                    </Badge>
+                  </motion.div>
+                ))}
+                {matchedProducts.flatMap(p => p.complianceStandards.slice(0, 1)).filter((v, i, a) => a.indexOf(v) === i).map((std, i) => (
+                  <motion.div key={std} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 + i * 0.1 }}>
+                    <Badge variant="secondary" className="px-3 py-1.5 text-xs gap-1">
+                      <Shield className="h-3 w-3" /> {std}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {stage === "result" && (
+          <motion.div
+            key="stage-result"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <span className="text-sm font-semibold text-foreground">
+                  Stage 3 — Recommended data products
+                </span>
+              </div>
+              <button onClick={handleReset}
+                className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors">
+                <RotateCcw className="h-3 w-3" /> New search
+              </button>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {matchedProducts.map((product, i) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.12, type: "spring", stiffness: 150 }}
+                >
+                  <Link
+                    to={`/products/${product.slug}`}
+                    className="block bg-card rounded-xl border p-5 hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-200 group"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors">
+                        {product.name}
+                      </h3>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {product.tagline}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      <Badge variant="outline" className="text-xs">{product.totalRecords} records</Badge>
+                      <Badge variant="outline" className="text-xs">{product.countries} countries</Badge>
+                      {product.complianceStandards.slice(0, 2).map((c) => (
+                        <Badge key={c} variant="secondary" className="text-xs gap-1">
+                          <Shield className="h-3 w-3" /> {c}
+                        </Badge>
+                      ))}
+                    </div>
+                  </Link>
                 </motion.div>
-              )}
-            </AnimatePresence>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

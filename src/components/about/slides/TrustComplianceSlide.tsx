@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { Shield, FileCheck, Scale, Database, Users, CheckCircle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Shield, FileCheck, Scale, Database, Users, CheckCircle, Phone, Mail, ArrowRight } from "lucide-react";
+import { caseStudies } from "@/data/caseStudies";
 
 const items = [
   { icon: FileCheck, title: "Public-source data only", desc: "No scraped personal data" },
@@ -9,6 +11,12 @@ const items = [
   { icon: Users, title: "Suppression by design", desc: "Opt-outs respected automatically" },
   { icon: CheckCircle, title: "Audit-ready documentation", desc: "Enterprise compliance packs" },
 ];
+
+const iconMap: Record<string, React.ElementType> = {
+  Phone,
+  Mail,
+  Database,
+};
 
 const TrustComplianceSlide = () => (
   <section className="min-h-screen flex items-center py-20 px-6">
@@ -56,6 +64,62 @@ const TrustComplianceSlide = () => (
         >
           "Compliance is not a checkbox. It's built into the process."
         </motion.p>
+
+        {/* Case Studies Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="pt-8 border-t"
+        >
+          <h3 className="font-display text-xl font-semibold text-foreground mb-4">
+            Success Stories
+          </h3>
+          <p className="text-sm text-muted-foreground mb-6">
+            See how our data solutions have helped businesses achieve their goals.
+          </p>
+
+          <div className="grid sm:grid-cols-3 gap-4">
+            {caseStudies.map((caseStudy, i) => {
+              const Icon = iconMap[caseStudy.icon] || Database;
+              return (
+                <Link
+                  key={caseStudy.id}
+                  to={`/case-studies/${caseStudy.slug}`}
+                  className="block"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.2 + i * 0.1 }}
+                    className="p-4 rounded-lg bg-background border hover:border-primary/50 hover:shadow-md transition-all duration-300 group h-full"
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                        <Icon className="h-4 w-4 text-primary" />
+                      </div>
+                      <span className="text-xs font-medium text-primary uppercase tracking-wide">
+                        {caseStudy.category}
+                      </span>
+                    </div>
+
+                    <h4 className="font-semibold text-sm text-foreground mb-2 group-hover:text-primary transition-colors">
+                      {caseStudy.client}
+                    </h4>
+
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-3">
+                      {caseStudy.subtitle}
+                    </p>
+
+                    <div className="flex items-center gap-1 text-xs text-primary group-hover:gap-2 transition-all">
+                      View case study <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </motion.div>
+                </Link>
+              );
+            })}
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   </section>

@@ -22,29 +22,24 @@ const iconMap: Record<string, React.ElementType> = {
   Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
 };
 
-/* ── Coverage Tab ── */
-const CoverageTab = ({ product }: { product: Product }) => {
-  const [selectedCountry, setSelectedCountry] = useState("all");
+const CoverageTab = ({ product, region }: { product: Product; region: string }) => {
   const [selectedIndustry, setSelectedIndustry] = useState("all");
+
+  const europeCountries = ["Germany", "France", "Netherlands", "Ireland", "Belgium", "Spain", "Italy", "Austria", "Switzerland", "Poland", "Sweden", "Norway", "Denmark", "Finland", "Portugal"];
 
   const allIndustries = [...new Set(product.coverageRegions.flatMap((r) => r.industries))];
   const filtered = product.coverageRegions
-    .filter((r) => selectedCountry === "all" || r.country === selectedCountry)
+    .filter((r) => {
+      if (region === "UK") return r.country === "United Kingdom";
+      if (region === "EU") return europeCountries.includes(r.country);
+      return true; // Global
+    })
     .filter((r) => selectedIndustry === "all" || r.industries.includes(selectedIndustry));
   const totalFiltered = filtered.reduce((sum, r) => sum + r.records, 0);
 
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-4">
-        <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-          <SelectTrigger className="w-48"><SelectValue placeholder="All Countries" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Countries</SelectItem>
-            {product.coverageRegions.map((r) => (
-              <SelectItem key={r.country} value={r.country}>{r.country}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
         <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
           <SelectTrigger className="w-48"><SelectValue placeholder="All Industries" /></SelectTrigger>
           <SelectContent>
@@ -136,28 +131,19 @@ const getSampleAddonData = (field: string, index: number) => {
 };
 
 /* ── Sample Data Tab ── */
-const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields: string[] }) => {
+const SampleDataTab = ({ product, addonFields, region }: { product: Product; addonFields: string[]; region: string }) => {
   const [view, setView] = useState<"company" | "contact">("company");
-  const [selectedCountry, setSelectedCountry] = useState("all");
 
   const rawData = view === "company" ? product.sampleDataCompany : product.sampleDataContact;
+  const europeCountries = ["Germany", "France", "Netherlands", "Ireland", "Belgium", "Spain", "Italy", "Austria", "Switzerland", "Poland", "Sweden", "Norway", "Denmark", "Finland", "Portugal"];
 
-  // Get unique countries for the filter dropdown
-  const availableCountries = [...new Set(product.coverageRegions.map((r) => r.country))].sort();
-
-  // Filter data based on selected country
+  // Filter data based on region prop
   const filteredData = rawData.filter((row) => {
-    if (selectedCountry === "all") return true;
-    // Check common keys for country information
-    const rowCountry = row["Country"] || row["Main Country"] || row["country"];
+    const rowCountry = String(row["Country"] || row["Main Country"] || row["country"] || "");
 
-    // If the row specifically has a country field, filter by it. 
-    // If it doesn't have a country field, we choose to show it (or could hide it).
-    // Given we standardized the data to have "Country", strict filtering is better.
-    if (rowCountry) {
-      return String(rowCountry) === selectedCountry;
-    }
-    return true; // Fallback: show rows without country data to avoid empty tables on legacy/unmapped data
+    if (region === "UK") return rowCountry === "United Kingdom";
+    if (region === "EU") return europeCountries.includes(rowCountry);
+    return true; // Global matches all
   });
 
   const data = filteredData;
@@ -177,22 +163,7 @@ const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields
           </Button>
         </div>
 
-        {availableCountries.length > 0 && (
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground hidden sm:inline-block">Filter by region:</span>
-            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="w-[180px] h-8 text-xs">
-                <SelectValue placeholder="All Countries" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Countries</SelectItem>
-                {availableCountries.map((country) => (
-                  <SelectItem key={country} value={country}>{country}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        )}
+
       </div>
 
       <div className="rounded-lg border overflow-x-auto">
@@ -230,7 +201,7 @@ const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields
                   ))}
                   {addonFields.map((col) => (
                     <TableCell key={`addon-${col}`} className="text-sm text-foreground italic bg-primary/5 whitespace-nowrap">
-                      {getSampleAddonData(col, i)}
+                      {row[col] || getSampleAddonData(col, i)}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -238,7 +209,7 @@ const SampleDataTab = ({ product, addonFields }: { product: Product; addonFields
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">
-                  No sample data available for {selectedCountry}
+                  No sample data available for {region}
                 </TableCell>
               </TableRow>
             )}
@@ -290,6 +261,9 @@ const ProductPage = () => {
   const product = getProductBySlug(slug || "");
 
   const [activeAddOns, setActiveAddOns] = useState<Set<string>>(new Set());
+  const [region, setRegion] = useState("Global");
+  const [activeTab, setActiveTab] = useState("overview");
+
   const toggleAddOn = (id: string) => {
     setActiveAddOns((prev) => {
       const next = new Set(prev);
@@ -298,6 +272,10 @@ const ProductPage = () => {
     });
   };
   const addonFields = addOns.filter((a) => activeAddOns.has(a.id)).flatMap((a) => a.fields);
+
+  // Data Dictionary Filtering (Pass-through for now as fields are global)
+  // If in future fields become region-specific, add logic here.
+  const filteredDictionary = product.dataDictionary;
 
   if (!product) return <NotFound />;
 
@@ -354,14 +332,38 @@ const ProductPage = () => {
       </motion.div>
 
       {/* Tabs */}
-      <Tabs defaultValue="overview" className="mb-8">
-        <TabsList className="w-full justify-start flex-wrap h-auto gap-1 bg-transparent p-0">
-          {["Overview", "Volumes & Samples", "Sample Data", "Data Dictionary", "Related Products"].map((tab) => (
-            <TabsTrigger key={tab} value={tab.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")} className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full px-4">
-              {tab}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-0">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-4 mb-8">
+          <TabsList className="bg-transparent p-0 justify-start h-auto gap-2 flex-wrap">
+            {["Overview", "Volumes & Samples", "Sample Data", "Data Dictionary", "Related Products"].map((tab) => (
+              <TabsTrigger
+                key={tab}
+                value={tab.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}
+                className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-full px-4 border border-transparent data-[state=active]:border-primary/20"
+              >
+                {tab}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {/* Region Tabs - Only show on relevant tabs */}
+          {["volumes-samples", "sample-data", "data-dictionary"].includes(activeTab) && (
+            <div className="flex bg-muted p-1 rounded-lg self-start md:self-auto shrink-0">
+              {["Global", "UK", "EU"].map((r) => (
+                <button
+                  key={r}
+                  onClick={() => setRegion(r)}
+                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${region === r
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                    }`}
+                >
+                  {r}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* Overview */}
         <TabsContent value="overview" className="mt-6 space-y-6">
@@ -421,7 +423,7 @@ const ProductPage = () => {
             <TelemarketingCoverageBlock />
           ) : (
             <>
-              <CoverageTab product={product} />
+              <CoverageTab product={product} region={region} />
               {product.filledRates && <FilledRatesSection data={product.filledRates} />}
             </>
           )}
@@ -429,7 +431,7 @@ const ProductPage = () => {
 
         {/* Sample Data */}
         <TabsContent value="sample-data" className="mt-6">
-          <SampleDataTab product={product} addonFields={addonFields} />
+          <SampleDataTab product={product} addonFields={addonFields} region={region} />
           <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
         </TabsContent>
 
@@ -449,7 +451,7 @@ const ProductPage = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {product.dataDictionary.map((field) => (
+                {filteredDictionary.map((field) => (
                   <TableRow key={field.name}>
                     <TableCell><Badge variant="secondary" className="text-[10px] whitespace-nowrap">{field.dataGroup || "General"}</Badge></TableCell>
                     <TableCell className="font-mono text-sm">{field.name}</TableCell>

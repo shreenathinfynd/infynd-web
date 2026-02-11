@@ -9,7 +9,6 @@ const WhyItMattersSlide = () => (
     {/* Background Image */}
     <div
       className="absolute inset-0 bg-cover bg-center"
-      style={{ backgroundImage: `url(${infyndTeam})` }}
     >
       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/60 to-background/50" />
     </div>

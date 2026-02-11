@@ -17,17 +17,14 @@ const chipStyles = {
 };
 
 const HeroSlide = () => (
-  <section className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden">
-    {/* Background Image */}
+  <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
     <div
       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${infyndTeam})` }}
     />
-    <div className="absolute inset-0 bg-black/40" />
+    <div className="absolute inset-0 bg-black/50" />
 
-    {/* Content */}
-    <div className="relative z-10 flex flex-col items-center w-full max-w-5xl mx-auto px-6 pt-24 pb-32 flex-1">
-      {/* Title */}
+    <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center -mt-24">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -43,56 +40,9 @@ const HeroSlide = () => (
         </p>
       </motion.div>
 
-      {/* Founder Chip - centered */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.4 }}
-        className="mb-auto"
-      >
-        <div className={`${chipStyles[topChip.variant]} px-8 py-3 rounded-full text-center shadow-lg`}>
-          <div className="text-sm font-semibold">{topChip.label}</div>
-          <div className="text-sm font-medium">{topChip.sublabel}</div>
-        </div>
-      </motion.div>
-
-      {/* Bottom Chips Row */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.6 }}
-        className="flex flex-wrap items-center justify-center gap-4 mt-auto"
-      >
-        {bottomChips.map((chip, i) => (
-          <motion.div
-            key={chip.label}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 + i * 0.1 }}
-            className={`${chipStyles[chip.variant]} px-6 py-3 rounded-full text-center shadow-lg min-w-[140px]`}
-          >
-            <div className="text-sm font-semibold">{chip.label}</div>
-            <div className="text-sm font-medium">{chip.sublabel}</div>
-          </motion.div>
-        ))}
-      </motion.div>
+      
     </div>
 
-    {/* Scroll Hint */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1.5 }}
-      className="absolute bottom-32 left-1/2 -translate-x-1/2 z-10"
-    >
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 1.5 }}
-        className="text-white/50 text-sm"
-      >
-        Click next to continue →
-      </motion.div>
-    </motion.div>
   </section>
 );
 

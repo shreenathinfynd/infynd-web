@@ -13,6 +13,7 @@ import UseCasesPage from "./pages/UseCasesPage";
 import CompliancePage from "./pages/CompliancePage";
 import NotFound from "./pages/NotFound";
 import AboutPage from "./pages/AboutPage";
+import CaseStudyPage from "./pages/CaseStudyPage";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/use-cases" element={<UseCasesPage />} />
             <Route path="/compliance" element={<CompliancePage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/case-studies/:slug" element={<CaseStudyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AppLayout>

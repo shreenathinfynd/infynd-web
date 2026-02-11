@@ -29,7 +29,6 @@ const AboutSlideshow = ({ children }: AboutSlideshowProps) => {
   const [[currentSlide, direction], setSlide] = useState([initialSlide, 0]);
   const totalSlides = children.length;
 
-  // Reset to the correct slide when returning from product page
   useEffect(() => {
     if (location.state?.returnToSlide !== undefined) {
       setSlide([location.state.returnToSlide, 0]);
@@ -50,7 +49,6 @@ const AboutSlideshow = ({ children }: AboutSlideshowProps) => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Slide Content */}
       <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentSlide}
@@ -69,46 +67,34 @@ const AboutSlideshow = ({ children }: AboutSlideshowProps) => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Controls - Centered */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-3 bg-background/80 backdrop-blur-md px-5 py-2.5 rounded-full border shadow-lg">
-        {/* Previous Button */}
+      {/* Navigation Controls */}
+      {/* Left Navigation Arrow */}
+      <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50">
         <Button
-          variant="ghost"
+          variant="secondary"
           size="icon"
           onClick={() => paginate(-1)}
           disabled={currentSlide === 0}
-          className="h-8 w-8 rounded-full"
+          className="h-12 w-12 rounded-full shadow-lg bg-background/50 hover:bg-background/80 backdrop-blur-sm"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-6 w-6" />
         </Button>
+      </div>
 
-        {/* Slide Indicators */}
-        <div className="flex items-center gap-1.5">
-          {children.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide
-                  ? "w-6 bg-primary"
-                  : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Next Button */}
+      {/* Right Navigation Arrow */}
+      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50">
         <Button
-          variant="ghost"
+          variant="secondary"
           size="icon"
           onClick={() => paginate(1)}
           disabled={currentSlide === totalSlides - 1}
-          className="h-8 w-8 rounded-full"
+          className="h-12 w-12 rounded-full shadow-lg bg-background/50 hover:bg-background/80 backdrop-blur-sm"
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-6 w-6" />
         </Button>
       </div>
+
+
 
       {/* Keyboard Navigation Hint */}
       <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50">

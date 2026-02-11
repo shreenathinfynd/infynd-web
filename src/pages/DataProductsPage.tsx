@@ -115,7 +115,9 @@ const DataProductsPage = () => {
                 <div className="flex items-center gap-1.5 flex-wrap mb-3">
                   <Badge variant="secondary" className="text-[10px]">{product.totalRecords}</Badge>
                   {region !== "UK" && (
-                    <Badge variant="outline" className="text-[10px]">{product.countries} countries</Badge>
+                    <Badge variant="outline" className="text-[10px]">
+                      {region === "Global" ? "200+ countries" : `${product.countries} countries`}
+                    </Badge>
                   )}
                 </div>
 

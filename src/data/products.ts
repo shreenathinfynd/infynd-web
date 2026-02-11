@@ -613,6 +613,11 @@ export const products: Product[] = [
       { country: "New Zealand", records: 180000, industries: ["Trades", "Consulting", "Agriculture"] },
     ],
     sampleDataCompany: [
+       { "Business Name": "Sarah's Design Studio", "Company Type": "Sole Trader", "Main Sector": "Creative Services", "City": "Brighton", "Country": "United Kingdom", "Working From": "Home Office", "Est. Revenue": "£50K–£100K", "Year Founded": 2019, "Website Domain": "sarahsdesign.co.uk" },
+      { "Business Name": "CodeCraft Consulting", "Company Type": "Ltd Company", "Main Sector": "IT Consulting", "City": "Reading", "Country": "United Kingdom", "Working From": "Home Office", "Est. Revenue": "£100K–£250K", "Year Founded": 2017, "Website Domain": "codecraft.co.uk" },
+      { "Business Name": "Aussie Freelance", "Company Type": "Sole Trader", "Main Sector": "Writing", "City": "Melbourne", "Country": "Australia", "Working From": "Home Office", "Est. Revenue": "$60K–$120K", "Year Founded": 2021, "Website Domain": "aussiefree.com.au" },
+      { "Business Name": "Toronto Tech Services", "Company Type": "Partnership", "Main Sector": "IT Services", "City": "Toronto", "Country": "Canada", "Working From": "Home Office", "Est. Revenue": "$75K–$150K", "Year Founded": 2015, "Website Domain": "torontotech.ca" },
+      { "Business Name": "Dublin Creative", "Company Type": "Ltd Company", "Main Sector": "Design", "City": "Dublin", "Country": "Ireland", "Working From": "Home Office", "Est. Revenue": "€50K–€100K", "Year Founded": 2018, "Website Domain": "dublincreative.ie" },
       { "Business Name": "Connex Network Solutions Ltd", "Company Type": "Ltd Company", "Main Sector": "IT Services", "City": "Reading", "Country": "United Kingdom", "Working From": "Home Office", "Est. Revenue": "£100K", "Website Domain": "connexnetwork.org", "Postcode": "RG7 4AA" },
       { "Business Name": "TNC Accountancy Services", "Company Type": "Ltd Company", "Main Sector": "Accounting", "City": "Rayleigh", "Country": "United Kingdom", "Working From": "Home Office", "Est. Revenue": "£100K–£250K", "Website Domain": "tncaccountancy.co.uk", "Postcode": "SS6 8EG" },
       { "Business Name": "KitchenForce Scotland", "Company Type": "Ltd Company", "Main Sector": "Construction", "City": "Boness", "Country": "United Kingdom", "Working From": "Home Office", "Est. Revenue": "£100K–£250K", "Website Domain": "kitchenforcescotland.co.uk", "Postcode": "EH51 0EH" },
@@ -623,6 +628,11 @@ export const products: Product[] = [
       { "Business Name": "CONTACT INTERNATIONAL", "Company Type": "Ltd Company", "Main Sector": "International Trade", "City": "Glasgow", "Country": "United Kingdom", "Working From": "Home Office", "Est. Revenue": "£100K", "Website Domain": "contact-int.com", "Postcode": "G72 8TY" },
     ],
     sampleDataContact: [
+            { "Owner Name": "S. Mitchell", "Role": "Owner/Designer", "Business": "Sarah's Design Studio", "Phone": "01273 ***", "Country": "United Kingdom", "Email": "s.m***@sarahsdesign.co.uk", "LinkedIn": "linkedin.com/in/s-mitchell" },
+      { "Owner Name": "J. Patel", "Role": "Owner/Director", "Business": "CodeCraft Consulting", "Phone": "0118 ***", "Country": "United Kingdom", "Email": "j.p***@codecraft.co.uk", "LinkedIn": "linkedin.com/in/j-patel" },
+      { "Owner Name": "M. Jones", "Role": "Owner/Freelancer", "Business": "Aussie Freelance", "Phone": "+61 3 ***", "Country": "Australia", "Email": "m.j***@aussiefree.com.au", "LinkedIn": "linkedin.com/in/m-jones" },
+      { "Owner Name": "D. & L. Carter", "Role": "Partners", "Business": "Toronto Tech Services", "Phone": "+1 416 ***", "Country": "Canada", "Email": "info@torontotech.ca", "LinkedIn": "linkedin.com/in/d-carter" },
+      { "Owner Name": "A. McLeod", "Role": "Owner/Director", "Business": "Dublin Creative", "Phone": "+353 1 ***", "Country": "Ireland", "Email": "a.m***@dublincreative.ie", "LinkedIn": "linkedin.com/in/a-mcleod" },
       { "Owner Name": "Paul Brown", "Role": "Director", "Business": "Connex Network Solutions Ltd", "Phone": "070034***", "Country": "United Kingdom", "Email": "p.b***@connexnetwork.co.uk", "City": "Reading" },
       { "Owner Name": "Thin Chambers", "Role": "Director", "Business": "TNC Accountancy Services", "Phone": "070034***", "Country": "United Kingdom", "Email": "t.c***@tncaccountancy.co.uk", "City": "Rayleigh" },
       { "Owner Name": "Garth Hewison", "Role": "Director", "Business": "KitchenForce Scotland", "Phone": "070058***", "Country": "United Kingdom", "Email": "g.h***@kitchenforcescotland.co.uk", "City": "Boness" },

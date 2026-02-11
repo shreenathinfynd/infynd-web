@@ -1,0 +1,351 @@
+{
+  "sampleDataCompany": [
+    {
+      "Company Name": "1-2-Mobile Limited",
+      "Company Type": "Private",
+      "Primary Phone": "(+44) 3451260882",
+      "Phone Type": "Direct Dial",
+      "Main Industry": "Software & Services",
+      "Main Sector": "Information Technology",
+      "City": "Bradford",
+      "Country": "United Kingdom",
+      "Employees": "1 to 5"
+    },
+    {
+      "Company Name": "10-11 Carlton House Terrace",
+      "Company Type": "Private",
+      "Primary Phone": "(+44) 2079695224",
+      "Phone Type": "Direct Dial",
+      "Main Industry": "Events",
+      "Main Sector": "Professional Services",
+      "City": "London",
+      "Country": "United Kingdom",
+      "Employees": "Uncategorised"
+    },
+    {
+      "Company Name": "10 Design Interior Design Consultants",
+      "Company Type": "Private",
+      "Primary Phone": "(+44) 1419517827",
+      "Phone Type": "Direct Dial",
+      "Main Industry": "Interior Design",
+      "Main Sector": "Professional Services",
+      "City": "Clydebank",
+      "Country": "United Kingdom",
+      "Employees": "20 to 49"
+    },
+    {
+      "Company Name": "1000TRAX",
+      "Company Type": "Private",
+      "Primary Phone": "(+44) 4525131380",
+      "Phone Type": "Direct Dial",
+      "Main Industry": "Music Production",
+      "Main Sector": "Media, Publishing & Entertainment",
+      "City": "Colchester",
+      "Country": "United Kingdom",
+      "Employees": "6 to 10"
+    },
+    {
+      "Company Name": "LUCAS MACHINERY",
+      "Company Type": "Private",
+      "Primary Phone": "(+44) 1673780705",
+      "Phone Type": "Direct Dial",
+      "Main Industry": "Plant & Machinery Dealers",
+      "Main Sector": "Manufacturing & Industrials",
+      "City": "Market Rasen",
+      "Country": "United Kingdom",
+      "Employees": "1 to 5"
+    },
+    {
+      "Company Name": "100 Black Men of London",
+      "Company Type": "Private",
+      "Primary Phone": "(+44) 2077543550",
+      "Phone Type": "Direct Dial",
+      "Main Industry": "Social Services Organizations",
+      "Main Sector": "Public Sector & Government",
+      "City": "London",
+      "Country": "United Kingdom",
+      "Employees": "11 to 19"
+    },
+    {
+      "Company Name": "100 Bricks",
+      "Company Type": "Private",
+      "Primary Phone": "(+44) 1514524245",
+      "Phone Type": "Direct Dial",
+      "Main Industry": "Property Investments",
+      "Main Sector": "Real Estate",
+      "City": "Croydon",
+      "Country": "United Kingdom",
+      "Employees": "Uncategorised"
+    }
+  ],
+  "sampleDataContact": [
+    {
+      "Full Name": "Morten Lamoey",
+      "Job Title": "Director",
+      "Title Level": "Director",
+      "Title Function": "IT",
+      "Direct Dial": "(+44) 3451260882",
+      "Company": "1-2-Mobile Limited",
+      "TPS Status": "Clear",
+      "Country": "United Kingdom",
+      "Email": "N/A"
+    },
+    {
+      "Full Name": "Anne Catherine Morrison",
+      "Job Title": "Director",
+      "Title Level": "Director",
+      "Title Function": "IT",
+      "Direct Dial": "(+44) 2079695224",
+      "Company": "10-11 Carlton House Terrace",
+      "TPS Status": "Clear",
+      "Country": "United Kingdom",
+      "Email": "N/A"
+    },
+    {
+      "Full Name": "David Pringle",
+      "Job Title": "Managing Partner",
+      "Title Level": "Manager",
+      "Title Function": "Management",
+      "Direct Dial": "(+44) 1419517827",
+      "Company": "10 Design Interior Design Consultants",
+      "TPS Status": "Clear",
+      "Country": "United Kingdom",
+      "Email": "N/A"
+    },
+    {
+      "Full Name": "Henrik Kaufmann",
+      "Job Title": "CSO",
+      "Title Level": "Director",
+      "Title Function": "Management",
+      "Direct Dial": "(+44) 4525131380",
+      "Company": "1000TRAX",
+      "TPS Status": "Clear",
+      "Country": "United Kingdom",
+      "Email": "N/A"
+    },
+    {
+      "Full Name": "David Lucas",
+      "Job Title": "Owner",
+      "Title Level": "Manager",
+      "Title Function": "Management",
+      "Direct Dial": "(+44) 1673780705",
+      "Company": "LUCAS MACHINERY",
+      "TPS Status": "Clear",
+      "Country": "United Kingdom",
+      "Email": "N/A"
+    },
+    {
+      "Full Name": "Olashope Oyalegan",
+      "Job Title": "Director",
+      "Title Level": "Director",
+      "Title Function": "IT",
+      "Direct Dial": "(+44) 2077543550",
+      "Company": "100 Black Men of London",
+      "TPS Status": "Clear",
+      "Country": "United Kingdom",
+      "Email": "N/A"
+    },
+    {
+      "Full Name": "Jared Hynon-anderson",
+      "Job Title": "Director",
+      "Title Level": "Director",
+      "Title Function": "IT",
+      "Direct Dial": "(+44) 1514524245",
+      "Company": "100 Bricks",
+      "TPS Status": "Clear",
+      "Country": "United Kingdom",
+      "Email": "N/A"
+    }
+  ],
+  "dataDictionary": [
+    {
+      "name": "company_registration_number",
+      "description": "Official UK Companies House registration number",
+      "sourceType": "Registry",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 100,
+      "dataGroup": "Company Core Profile",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_company_name",
+      "description": "Legal or trading name of the company",
+      "sourceType": "Registry",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 99,
+      "dataGroup": "Company Core Profile",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_address_1",
+      "description": "Primary address line (street address)",
+      "sourceType": "Registry",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 98,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_address_2",
+      "description": "Secondary address line (locality/district)",
+      "sourceType": "Registry",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 98,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_address_3",
+      "description": "Tertiary address line (city/region)",
+      "sourceType": "Registry",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 98,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_Post_Town",
+      "description": "Post town as defined by Royal Mail",
+      "sourceType": "PAF Verified",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 100,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_County",
+      "description": "County or administrative region",
+      "sourceType": "Registry",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 97,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_Post_Code",
+      "description": "UK postcode verified against Royal Mail PAF",
+      "sourceType": "PAF Verified",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 100,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Phone",
+      "description": "Primary contact phone number (direct dial or switchboard)",
+      "sourceType": "Verified Call",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 92,
+      "dataGroup": "Contact Details",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Location_type",
+      "description": "Classification of site (Head Office, Single Site, Branch, etc.)",
+      "sourceType": "Derived",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 85,
+      "dataGroup": "Company Core Profile",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Techstack",
+      "description": "Technology stack and software used by the company",
+      "sourceType": "Web Scrape",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 70,
+      "dataGroup": "Firmographic Attributes",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Sic_code",
+      "description": "Standard Industrial Classification (SIC) code",
+      "sourceType": "Registry",
+      "updateFrequency": "Annually",
+      "confidenceScore": 100,
+      "dataGroup": "Industry Classification",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Sic_text",
+      "description": "Human-readable description of the SIC code",
+      "sourceType": "Registry",
+      "updateFrequency": "Annually",
+      "confidenceScore": 100,
+      "dataGroup": "Industry Classification",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Sub_industry",
+      "description": "Granular industry classification (sub-category)",
+      "sourceType": "Derived",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 90,
+      "dataGroup": "Industry Classification",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Industry",
+      "description": "Primary industry sector of the company",
+      "sourceType": "Derived",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 92,
+      "dataGroup": "Industry Classification",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Sector",
+      "description": "Broad business sector classification",
+      "sourceType": "Derived",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 95,
+      "dataGroup": "Industry Classification",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Employee_range",
+      "description": "Estimated number of employees at this location",
+      "sourceType": "Registry",
+      "updateFrequency": "Annually",
+      "confidenceScore": 82,
+      "dataGroup": "Firmographic Attributes",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Turnover_range",
+      "description": "Estimated annual turnover/revenue bracket",
+      "sourceType": "Registry",
+      "updateFrequency": "Annually",
+      "confidenceScore": 78,
+      "dataGroup": "Firmographic Attributes",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "First_name",
+      "description": "First name of the business contact",
+      "sourceType": "Verified",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 88,
+      "dataGroup": "Contact Details",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Last_name",
+      "description": "Last name of the business contact",
+      "sourceType": "Verified",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 88,
+      "dataGroup": "Contact Details",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "Jobtitle",
+      "description": "Job title or role of the business contact",
+      "sourceType": "Verified",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 85,
+      "dataGroup": "Contact Details",
+      "availability": "API & Batch"
+    }
+  ]
+}

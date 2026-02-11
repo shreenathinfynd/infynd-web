@@ -1,0 +1,285 @@
+{
+  "sampleDataCompany": [
+    {
+      "Company Name": "19c Ltd",
+      "Company Type": "Private",
+      "Website Domain": "19c.co.uk",
+      "Company Email": "N/A",
+      "Main Industry": "Surveyors - Building",
+      "Main Sector": "Construction & Materials",
+      "City": "London",
+      "Country": "United Kingdom",
+      "Employees": "Uncategorised"
+    },
+    {
+      "Company Name": "IPAD REPAIRS",
+      "Company Type": "Private",
+      "Website Domain": "ipadrepairsportsmouth.co.uk",
+      "Company Email": "enquiries@19computing.co.uk",
+      "Main Industry": "Computer Repair & Maintenance Services",
+      "Main Sector": "Information Technology",
+      "City": "Portsmouth",
+      "Country": "United Kingdom",
+      "Employees": "1 to 5"
+    },
+    {
+      "Company Name": "1Architects",
+      "Company Type": "Private",
+      "Website Domain": "1architects.com",
+      "Company Email": "reception@1architects.com",
+      "Main Industry": "Property Developers",
+      "Main Sector": "Real Estate",
+      "City": "Forres",
+      "Country": "United Kingdom",
+      "Employees": "Uncategorised"
+    },
+    {
+      "Company Name": "1fs Wealth Limited",
+      "Company Type": "Private",
+      "Website Domain": "1fs.co",
+      "Company Email": "info@1fs.co",
+      "Main Industry": "Wealth Management",
+      "Main Sector": "Financial Services",
+      "City": "Richmond",
+      "Country": "United Kingdom",
+      "Employees": "20 to 49"
+    }
+  ],
+  "sampleDataContact": [
+    {
+      "Full Name": "Bruce James Drew",
+      "Job Title": "Director",
+      "Title Level": "Director",
+      "Title Function": "IT",
+      "Email": "bruce@19c.co.uk",
+      "Company": "19c Ltd",
+      "Country": "United Kingdom"
+    },
+    {
+      "Full Name": "James Clay",
+      "Job Title": "Managing Director",
+      "Title Level": "Director",
+      "Title Function": "IT",
+      "Email": "james@19computing.co.uk",
+      "Company": "IPAD REPAIRS",
+      "Country": "United Kingdom"
+    },
+    {
+      "Full Name": "Ian Sutherland Mccook",
+      "Job Title": "Director",
+      "Title Level": "Director",
+      "Title Function": "IT",
+      "Email": "ian@1architects.com",
+      "Company": "1Architects",
+      "Country": "United Kingdom"
+    },
+    {
+      "Full Name": "1fs Wealth",
+      "Job Title": "Owner",
+      "Title Level": "Manager",
+      "Title Function": "Management",
+      "Email": "wealth@1fs.co",
+      "Company": "1fs Wealth Limited",
+      "Country": "United Kingdom"
+    }
+  ],
+  "dataDictionary": [
+    {
+      "name": "domain",
+      "description": "Company website domain name",
+      "sourceType": "DNS Verified",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 99,
+      "dataGroup": "Company Core Profile",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "company_email",
+      "description": "General company email address (info@, contact@, etc.)",
+      "sourceType": "Web Scrape",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 85,
+      "dataGroup": "Contact Details",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "people_email",
+      "description": "Direct professional email address of the business contact",
+      "sourceType": "SMTP Verified",
+      "updateFrequency": "Weekly",
+      "confidenceScore": 94,
+      "dataGroup": "Leadership & Workforce Intelligence",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "location_type",
+      "description": "Classification of business site (Head Office, Branch, Single Site)",
+      "sourceType": "Derived",
+      "updateFrequency": "Quarterly",
+      "confidenceScore": 85,
+      "dataGroup": "Company Core Profile",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_address_1",
+      "description": "Primary address line (street address)",
+      "sourceType": "Registry",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 98,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_address_2",
+      "description": "Secondary address line (locality/district)",
+      "sourceType": "Registry",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 98,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "td_Post_Code",
+      "description": "UK postcode verified against Royal Mail PAF",
+      "sourceType": "PAF Verified",
+      "updateFrequency": "Monthly",
+      "confidenceScore": 100,
+      "dataGroup": "Geographic Footprint",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "sic_code",
+      "description": "Standard Industrial Classification (SIC) code",
+      "sourceType": "Registry",
+      "updateFrequency": "Annually",
+      "confidenceScore": 100,
+      "dataGroup": "Industry Classification",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "sic_text",
+      "description": "Human-readable description of the SIC code",
+      "sourceType": "Registry",
+      "updateFrequency": "Annually",
+      "confidenceScore": 100,
+      "dataGroup": "Industry Classification",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "employee_range",
+      "description": "Estimated number of employees at this location",
+      "sourceType": "Registry",
+      "updateFrequency": "Annually",
+      "confidenceScore": 82,
+      "dataGroup": "Firmographic Attributes",
+      "availability": "API & Batch"
+    },
+    {
+      "name": "turnover_range",
+      "description": "Estimated annual turnover/revenue bracket",
+      "sourceType": "Registry",
+      "updateFrequency": "Annually",
+      "confidenceScore": 78,
+      "dataGroup": "Firmographic Attributes",
+      "availability": "API & Batch"
+    }
+  ],
+  "rawDataSummary": [
+    {
+      "company_registration_number": "8812942",
+      "td_company_name": "19c Ltd",
+      "td_address_1": "The Engine,circus Road South",
+      "td_address_2": "Room 18 The Power Station",
+      "td_address_3": "London",
+      "td_Post_Town": "London",
+      "td_County": "London",
+      "td_Post_Code": "SW11 8BZ",
+      "location_type": "Head Office",
+      "domain": "19c.co.uk",
+      "company_email": null,
+      "sic_code": "74902",
+      "sic_text": "Quantity surveying activities",
+      "sub_industry": "Surveyors - Building",
+      "industry": "Building Surveying",
+      "sector": "Construction & Materials",
+      "employee_range": "Uncategorised",
+      "turnover_range": "Uncategorised",
+      "first_name": "Bruce James",
+      "last_name": "Drew",
+      "jobtitle": "Director",
+      "people_email": "bruce@19c.co.uk"
+    },
+    {
+      "company_registration_number": "5756440",
+      "td_company_name": "IPAD REPAIRS",
+      "td_address_1": "unit 4, terminus industrial estate durham street",
+      "td_address_2": null,
+      "td_address_3": null,
+      "td_Post_Town": "Portsmouth",
+      "td_County": "Hampshire",
+      "td_Post_Code": "PO1 1NR",
+      "location_type": "Head office",
+      "domain": "ipadrepairsportsmouth.co.uk",
+      "company_email": "enquiries@19computing.co.uk",
+      "sic_code": "95110",
+      "sic_text": "Repair of computers and peripheral equipment",
+      "sub_industry": "Computer Repair & Maintenance Services",
+      "industry": "IT Services & Support",
+      "sector": "Information Technology",
+      "employee_range": "1 to 5",
+      "turnover_range": "Uncategorised",
+      "first_name": "James",
+      "last_name": "Clay",
+      "jobtitle": "Managing Director",
+      "people_email": "james@19computing.co.uk"
+    },
+    {
+      "company_registration_number": "SC362440",
+      "td_company_name": "1Architects",
+      "td_address_1": "Seapark Studios",
+      "td_address_2": "Kinloss",
+      "td_address_3": null,
+      "td_Post_Town": "Forres",
+      "td_County": "Morayshire",
+      "td_Post_Code": null,
+      "location_type": "Head Office",
+      "domain": "1architects.com",
+      "company_email": "reception@1architects.com",
+      "sic_code": "41100",
+      "sic_text": "Development of building projects",
+      "sub_industry": "Property Developers",
+      "industry": "Property Rental & Real Estate Services",
+      "sector": "Real Estate",
+      "employee_range": "Uncategorised",
+      "turnover_range": "Uncategorised",
+      "first_name": "Ian Sutherland",
+      "last_name": "Mccook",
+      "jobtitle": "Director",
+      "people_email": "ian@1architects.com"
+    },
+    {
+      "company_registration_number": "12495846",
+      "td_company_name": "1fs Wealth Limited",
+      "td_address_1": "12 Park House Hill,richmond Hill",
+      "td_address_2": "England",
+      "td_address_3": "Richmond",
+      "td_Post_Town": "Richmond",
+      "td_County": "Surrey",
+      "td_Post_Code": "TW10 6RA",
+      "location_type": "single site",
+      "domain": "1fs.co",
+      "company_email": "info@1fs.co",
+      "sic_code": "66300",
+      "sic_text": "Fund management activities",
+      "sub_industry": "Wealth Management",
+      "industry": "Investment Management",
+      "sector": "Financial Services",
+      "employee_range": "20 to 49",
+      "turnover_range": "Uncategorised",
+      "first_name": "1fs",
+      "last_name": "Wealth",
+      "jobtitle": "Owner",
+      "people_email": "wealth@1fs.co"
+    }
+  ]
+}

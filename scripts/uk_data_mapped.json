@@ -1,0 +1,324 @@
+{
+  "tele": {
+    "sampleDataCompany": [
+      {
+        "Company Name": "1-2-Mobile Limited",
+        "Main Industry": "Software & Services",
+        "Main Sector": "Information Technology",
+        "Employees": "1 to 5",
+        "Company Type": "Private",
+        "Website Domain": "N/A",
+        "Primary Phone": "(+44) 3451260882",
+        "Phone Type": "Direct Dial",
+        "City": "Bradford",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      },
+      {
+        "Company Name": "10 Design Interior Design Consultants",
+        "Main Industry": "Interior Design",
+        "Main Sector": "Professional Services",
+        "Employees": "20 to 49",
+        "Company Type": "Private",
+        "Website Domain": "N/A",
+        "Primary Phone": "(+44) 1419517827",
+        "Phone Type": "Direct Dial",
+        "City": "Clydebank",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      },
+      {
+        "Company Name": "1000TRAX",
+        "Main Industry": "Music Production",
+        "Main Sector": "Media, Publishing & Entertainment",
+        "Employees": "6 to 10",
+        "Company Type": "Private",
+        "Website Domain": "N/A",
+        "Primary Phone": "(+44) 4525131380",
+        "Phone Type": "Direct Dial",
+        "City": "Colchester",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      },
+      {
+        "Company Name": "100 Black Men of London",
+        "Main Industry": "Social Services Organizations",
+        "Main Sector": "Public Sector & Government",
+        "Employees": "11 to 19",
+        "Company Type": "Private",
+        "Website Domain": "N/A",
+        "Primary Phone": "(+44) 2077543550",
+        "Phone Type": "Direct Dial",
+        "City": "London",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      },
+      {
+        "Company Name": "100 Bricks",
+        "Main Industry": "Property Investments",
+        "Main Sector": "Real Estate",
+        "Employees": "Uncategorised",
+        "Company Type": "Private",
+        "Website Domain": "N/A",
+        "Primary Phone": "(+44) 1514524245",
+        "Phone Type": "Direct Dial",
+        "City": "Croydon",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      }
+    ],
+    "sampleDataContact": [
+      {
+        "Company": "1-2-Mobile Limited",
+        "Job Title": "Director",
+        "Full Name": "Morten Lamoey",
+        "Title Level": "Director",
+        "Title Function": "IT",
+        "Direct Dial": "(+44) 3451260882",
+        "TPS Status": "Clear",
+        "Country": "United Kingdom",
+        "Email": "N/A"
+      },
+      {
+        "Company": "10 Design Interior Design Consultants",
+        "Job Title": "Managing Partner",
+        "Full Name": "David Pringle",
+        "Title Level": "Manager",
+        "Title Function": "Management",
+        "Direct Dial": "(+44) 1419517827",
+        "TPS Status": "Clear",
+        "Country": "United Kingdom",
+        "Email": "N/A"
+      },
+      {
+        "Company": "1000TRAX",
+        "Job Title": "CSO",
+        "Full Name": "Henrik Kaufmann",
+        "Title Level": "Manager",
+        "Title Function": "Management",
+        "Direct Dial": "(+44) 4525131380",
+        "TPS Status": "Clear",
+        "Country": "United Kingdom",
+        "Email": "N/A"
+      },
+      {
+        "Company": "100 Black Men of London",
+        "Job Title": "Director",
+        "Full Name": "Olashope Oyalegan",
+        "Title Level": "Director",
+        "Title Function": "IT",
+        "Direct Dial": "(+44) 2077543550",
+        "TPS Status": "Clear",
+        "Country": "United Kingdom",
+        "Email": "N/A"
+      },
+      {
+        "Company": "100 Bricks",
+        "Job Title": "Director",
+        "Full Name": "Jared Hynon-anderson",
+        "Title Level": "Director",
+        "Title Function": "IT",
+        "Direct Dial": "(+44) 1514524245",
+        "TPS Status": "Clear",
+        "Country": "United Kingdom",
+        "Email": "N/A"
+      }
+    ]
+  },
+  "email": {
+    "sampleDataCompany": [
+      {
+        "Company Name": "19c Ltd",
+        "Website Domain": "19c.co.uk",
+        "Primary Email": "bruce@19c.co.uk",
+        "Main Industry": "Surveyors - Building",
+        "Main Sector": "Construction & Materials",
+        "Employees": "Uncategorised",
+        "Company Type": "Private",
+        "Emails Available": 37,
+        "City": "London",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      },
+      {
+        "Company Name": "IPAD REPAIRS",
+        "Website Domain": "ipadrepairsportsmouth.co.uk",
+        "Primary Email": "enquiries@19computing.co.uk",
+        "Main Industry": "Computer Repair & Maintenance Services",
+        "Main Sector": "Information Technology",
+        "Employees": "1 to 5",
+        "Company Type": "Private",
+        "Emails Available": 28,
+        "City": "Portsmouth",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      },
+      {
+        "Company Name": "1Architects",
+        "Website Domain": "1architects.com",
+        "Primary Email": "reception@1architects.com",
+        "Main Industry": "Property Developers",
+        "Main Sector": "Real Estate",
+        "Employees": "Uncategorised",
+        "Company Type": "Private",
+        "Emails Available": 51,
+        "City": "Forres",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      },
+      {
+        "Company Name": "1fs Wealth Limited",
+        "Website Domain": "1fs.co",
+        "Primary Email": "info@1fs.co",
+        "Main Industry": "Wealth Management",
+        "Main Sector": "Financial Services",
+        "Employees": "20 to 49",
+        "Company Type": "Private",
+        "Emails Available": 32,
+        "City": "Richmond",
+        "Country": "United Kingdom",
+        "Year Founded": "N/A"
+      }
+    ],
+    "sampleDataContact": [
+      {
+        "Company": "19c Ltd",
+        "Job Title": "Director",
+        "Email": "bruce@19c.co.uk",
+        "Full Name": "Bruce James Drew",
+        "Title Level": "Director",
+        "Title Function": "IT",
+        "Verified": "Yes",
+        "Country": "United Kingdom",
+        "LinkedIn": "N/A"
+      },
+      {
+        "Company": "IPAD REPAIRS",
+        "Job Title": "Managing Director",
+        "Email": "james@19computing.co.uk",
+        "Full Name": "James Clay",
+        "Title Level": "C Level",
+        "Title Function": "Management",
+        "Verified": "Yes",
+        "Country": "United Kingdom",
+        "LinkedIn": "N/A"
+      },
+      {
+        "Company": "1Architects",
+        "Job Title": "Director",
+        "Email": "ian@1architects.com",
+        "Full Name": "Ian Sutherland Mccook",
+        "Title Level": "Director",
+        "Title Function": "IT",
+        "Verified": "Yes",
+        "Country": "United Kingdom",
+        "LinkedIn": "N/A"
+      },
+      {
+        "Company": "1fs Wealth Limited",
+        "Job Title": "Owner",
+        "Email": "wealth@1fs.co",
+        "Full Name": "1fs Wealth",
+        "Title Level": "Manager",
+        "Title Function": "Management",
+        "Verified": "Yes",
+        "Country": "United Kingdom",
+        "LinkedIn": "N/A"
+      }
+    ]
+  },
+  "newbiz": {
+    "sampleDataCompany": [
+      {
+        "Company Name": "19c Ltd",
+        "SIC Code": 74902,
+        "SIC Label": "Quantity surveying activities",
+        "Company Type": "Private",
+        "Incorporation Date": "2024-01-15",
+        "Main City": "London",
+        "Country": "United Kingdom",
+        "Postcode": "SW11 8BZ",
+        "Status": "Active",
+        "Director": "Bruce James Dre"
+      },
+      {
+        "Company Name": "IPAD REPAIRS",
+        "SIC Code": 95110,
+        "SIC Label": "Repair of computers and peripheral equipment",
+        "Company Type": "Private",
+        "Incorporation Date": "2024-01-15",
+        "Main City": "Portsmouth",
+        "Country": "United Kingdom",
+        "Postcode": "PO1 1NR",
+        "Status": "Active",
+        "Director": "James Clay"
+      },
+      {
+        "Company Name": "1Architects",
+        "SIC Code": 41100,
+        "SIC Label": "Development of building projects",
+        "Company Type": "Private",
+        "Incorporation Date": "2024-01-15",
+        "Main City": "Forres",
+        "Country": "United Kingdom",
+        "Postcode": "",
+        "Status": "Active",
+        "Director": "Ian Sutherland "
+      },
+      {
+        "Company Name": "1fs Wealth Limited",
+        "SIC Code": 66300,
+        "SIC Label": "Fund management activities",
+        "Company Type": "Private",
+        "Incorporation Date": "2024-01-15",
+        "Main City": "Richmond",
+        "Country": "United Kingdom",
+        "Postcode": "TW10 6RA",
+        "Status": "Active",
+        "Director": "1fs Wealth"
+      }
+    ],
+    "sampleDataContact": [
+      {
+        "Company": "19c Ltd",
+        "Role": "Director",
+        "Email": "bru***@19c.co.uk",
+        "Director Name": "Bruce James Drew",
+        "Appointed": "2024-01-15",
+        "Nationality": "British",
+        "Country": "United Kingdom",
+        "LinkedIn": "N/A"
+      },
+      {
+        "Company": "IPAD REPAIRS",
+        "Role": "Director",
+        "Email": "jam***@19computing.co.uk",
+        "Director Name": "James Clay",
+        "Appointed": "2024-01-15",
+        "Nationality": "British",
+        "Country": "United Kingdom",
+        "LinkedIn": "N/A"
+      },
+      {
+        "Company": "1Architects",
+        "Role": "Director",
+        "Email": "ian***@1architects.com",
+        "Director Name": "Ian Sutherland Mccook",
+        "Appointed": "2024-01-15",
+        "Nationality": "British",
+        "Country": "United Kingdom",
+        "LinkedIn": "N/A"
+      },
+      {
+        "Company": "1fs Wealth Limited",
+        "Role": "Director",
+        "Email": "wea***@1fs.co",
+        "Director Name": "1fs Wealth",
+        "Appointed": "2024-01-15",
+        "Nationality": "British",
+        "Country": "United Kingdom",
+        "LinkedIn": "N/A"
+      }
+    ]
+  }
+}

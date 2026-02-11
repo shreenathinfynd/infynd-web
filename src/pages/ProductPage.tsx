@@ -14,46 +14,30 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { Shield, ArrowRight, ArrowLeft, Info, Users, Building, ChevronRight, Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles } from "lucide-react";
+import { Shield, ArrowRight, ArrowLeft, Info, Users, Building, ChevronRight, Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import NotFound from "./NotFound";
+import { maskContactInfo } from "@/lib/maskData";
 
 const iconMap: Record<string, React.ElementType> = {
   Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
 };
 
 const CoverageTab = ({ product, region }: { product: Product; region: string }) => {
-  const [selectedIndustry, setSelectedIndustry] = useState("all");
-
   const europeCountries = ["Germany", "France", "Netherlands", "Ireland", "Belgium", "Spain", "Italy", "Austria", "Switzerland", "Poland", "Sweden", "Norway", "Denmark", "Finland", "Portugal"];
 
-  const allIndustries = [...new Set(product.coverageRegions.flatMap((r) => r.industries))];
-  const filtered = product.coverageRegions
-    .filter((r) => {
-      if (region === "UK") return r.country === "United Kingdom";
-      if (region === "EU") return europeCountries.includes(r.country);
-      return true; // Global
-    })
-    .filter((r) => selectedIndustry === "all" || r.industries.includes(selectedIndustry));
+  const filtered = product.coverageRegions.filter((r) => {
+    if (region === "UK") return r.country === "United Kingdom";
+    if (region === "EU") return europeCountries.includes(r.country);
+    return true; // Global
+  });
   const totalFiltered = filtered.reduce((sum, r) => sum + r.records, 0);
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-4">
-        <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
-          <SelectTrigger className="w-48"><SelectValue placeholder="All Industries" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Industries</SelectItem>
-            {allIndustries.map((ind) => (
-              <SelectItem key={ind} value={ind}>{ind}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-
       <div className="bg-primary/5 rounded-xl p-6 text-center">
         <div className="font-display text-4xl font-bold text-primary">{totalFiltered.toLocaleString()}</div>
-        <div className="text-sm text-muted-foreground mt-1">records match your filters</div>
+        <div className="text-sm text-muted-foreground mt-1">total records</div>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -181,9 +165,9 @@ const SampleDataTab = ({ product, addonFields, region }: { product: Product; add
                 </TableHead>
               ))}
               {addonFields.map((col) => (
-                <TableHead key={`addon-${col}`} className="bg-primary/5">
+                <TableHead key={`addon-${col}`} className="bg-primary/5 backdrop-blur-md">
                   <Tooltip>
-                    <TooltipTrigger className="flex items-center gap-1 cursor-help text-primary whitespace-nowrap">
+                    <TooltipTrigger className="flex items-center gap-1 cursor-help text-primary whitespace-nowrap blur-[2px]">
                       {col} <Sparkles className="h-3 w-3" />
                     </TooltipTrigger>
                     <TooltipContent>Add-On Field: {col}</TooltipContent>
@@ -196,11 +180,28 @@ const SampleDataTab = ({ product, addonFields, region }: { product: Product; add
             {data.length > 0 ? (
               data.map((row, i) => (
                 <TableRow key={i}>
-                  {baseColumns.map((col) => (
-                    <TableCell key={col} className="text-sm whitespace-nowrap">{String(row[col])}</TableCell>
-                  ))}
+                  {baseColumns.map((col) => {
+                    const value = String(row[col]);
+                    const lowerCol = col.toLowerCase();
+                    // Mask if column name suggests contact info
+                    const shouldMask = lowerCol.includes('email') ||
+                      lowerCol.includes('phone') ||
+                      lowerCol.includes('mobile') ||
+                      lowerCol.includes('tel') ||
+                      lowerCol.includes('dial');
+                    const displayValue = shouldMask ? maskContactInfo(value) : value;
+
+                    return (
+                      <TableCell key={col} className="text-sm whitespace-nowrap">
+                        {displayValue}
+                      </TableCell>
+                    );
+                  })}
                   {addonFields.map((col) => (
-                    <TableCell key={`addon-${col}`} className="text-sm text-foreground italic bg-primary/5 whitespace-nowrap">
+                    <TableCell
+                      key={`addon-${col}`}
+                      className="text-sm text-foreground italic bg-primary/5 whitespace-nowrap blur-md select-none min-w-[150px]"
+                    >
                       {row[col] || getSampleAddonData(col, i)}
                     </TableCell>
                   ))}
@@ -216,6 +217,26 @@ const SampleDataTab = ({ product, addonFields, region }: { product: Product; add
           </TableBody>
         </Table>
       </div>
+
+      {/* Unlock indicator below table - only show when addons are enabled */}
+      {addonFields.length > 0 && (
+        <div className="flex items-center justify-center gap-3 p-4 bg-primary/5 rounded-lg border border-primary/20">
+          <Lock className="h-5 w-5 text-primary/70" />
+          <div className="flex-1">
+            <p className="text-sm font-medium">Premium Add-Ons Active</p>
+            <p className="text-xs text-muted-foreground">Enhanced fields are blurred. Contact sales to unlock full access.</p>
+          </div>
+          <Button
+            size="sm"
+            variant="default"
+            className="shrink-0"
+            onClick={() => alert('Contact sales to unlock premium add-ons!')}
+          >
+            <Lock className="h-3 w-3 mr-1.5" />
+            Request Access
+          </Button>
+        </div>
+      )}
       <p className="text-xs text-muted-foreground">* Sample data shown is anonymised. Actual data includes full details.</p>
     </div>
   );
@@ -258,10 +279,10 @@ const ProductPage = () => {
   const { slug } = useParams();
   const location = useLocation();
   const fromPresentation = location.state?.fromPresentation === true;
+  const selectedRegion = location.state?.selectedRegion || "Global";
   const product = getProductBySlug(slug || "");
 
   const [activeAddOns, setActiveAddOns] = useState<Set<string>>(new Set());
-  const [region, setRegion] = useState("Global");
   const [activeTab, setActiveTab] = useState("overview");
 
   const toggleAddOn = (id: string) => {
@@ -281,6 +302,9 @@ const ProductPage = () => {
 
   const Icon = iconMap[product.icon] || Sparkles;
   const related = getRelatedProducts(product);
+
+  // Use region from navigation state (from DataProductsPage), default to Global
+  const region = selectedRegion;
 
   return (
     <div className="py-8 px-6 max-w-6xl mx-auto">
@@ -323,6 +347,11 @@ const ProductPage = () => {
         <div className="flex flex-wrap gap-2">
           <Badge>{product.totalRecords} records</Badge>
           <Badge variant="outline">{product.countries} countries</Badge>
+          {region !== "Global" && (
+            <Badge variant="default" className="bg-primary">
+              Showing {region} Data
+            </Badge>
+          )}
           {product.complianceStandards.map((std) => (
             <Badge key={std} variant="secondary" className="text-xs">
               <Shield className="h-3 w-3 mr-1" />{std}
@@ -333,7 +362,7 @@ const ProductPage = () => {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-0">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-4 mb-8">
+        <div className="border-b pb-4 mb-8">
           <TabsList className="bg-transparent p-0 justify-start h-auto gap-2 flex-wrap">
             {["Overview", "Volumes & Samples", "Sample Data", "Data Dictionary", "Related Products"].map((tab) => (
               <TabsTrigger
@@ -345,24 +374,6 @@ const ProductPage = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-
-          {/* Region Tabs - Only show on relevant tabs */}
-          {["volumes-samples", "sample-data", "data-dictionary"].includes(activeTab) && (
-            <div className="flex bg-muted p-1 rounded-lg self-start md:self-auto shrink-0">
-              {["Global", "UK", "EU"].map((r) => (
-                <button
-                  key={r}
-                  onClick={() => setRegion(r)}
-                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${region === r
-                    ? "bg-background text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                    }`}
-                >
-                  {r}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Overview */}

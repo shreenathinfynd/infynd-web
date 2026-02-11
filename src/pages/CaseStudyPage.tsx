@@ -1,16 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { getCaseStudyBySlug } from "@/data/caseStudies";
-import { ArrowLeft, Phone, Mail, Database, Building, TrendingUp, CheckCircle, Quote, AlertCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { ArrowLeft, CheckSquare } from "lucide-react";
 import NotFound from "./NotFound";
-
-const iconMap: Record<string, React.ElementType> = {
-    Phone,
-    Mail,
-    Database,
-};
 
 const CaseStudyPage = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -20,330 +11,181 @@ const CaseStudyPage = () => {
         return <NotFound />;
     }
 
-    const Icon = iconMap[caseStudy.icon] || Database;
-
     return (
         <div className="min-h-screen bg-background">
-            {/* Hero Section */}
-            <section className="py-12 px-6 border-b">
-                <div className="max-w-5xl mx-auto">
-                    {/* Back Button */}
+            {/* Header */}
+            <section className="py-6 px-6 border-b">
+                <div className="max-w-7xl mx-auto">
                     <Link
                         to="/about"
-                        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+                        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
                     >
                         <ArrowLeft className="h-4 w-4" />
                         Back to About
                     </Link>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                                <Icon className="h-5 w-5 text-primary" />
-                            </div>
-                            <Badge variant="secondary">{caseStudy.category}</Badge>
-                        </div>
-
-                        <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-                            {caseStudy.client}
-                        </h1>
-
-                        <p className="text-lg text-muted-foreground mb-6 max-w-3xl">
-                            {caseStudy.subtitle}
-                        </p>
-
-                        <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-                            <div>
-                                <span className="font-medium text-foreground">Industry:</span> {caseStudy.industry}
-                            </div>
-                            <div>
-                                <span className="font-medium text-foreground">Category:</span> {caseStudy.category}
-                            </div>
-                        </div>
-                    </motion.div>
                 </div>
             </section>
 
-            {/* Main Content */}
-            <section className="py-12 px-6">
-                <div className="max-w-5xl mx-auto space-y-8">
+            {/* Title */}
+            <section className="py-8 px-6">
+                <div className="max-w-7xl mx-auto">
+                    <h1 className="font-display text-4xl font-bold text-foreground italic">
+                        {caseStudy.title}
+                    </h1>
+                </div>
+            </section>
 
-                    {/* Overview */}
-                    {caseStudy.overview && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                        >
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2 text-lg">
-                                        <Building className="h-5 w-5 text-primary" />
-                                        Company Overview
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-muted-foreground leading-relaxed">{caseStudy.overview}</p>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    )}
-
-                    {/* Objective */}
-                    {caseStudy.objective && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                        >
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2 text-lg">
-                                        <TrendingUp className="h-5 w-5 text-primary" />
-                                        {caseStudy.objective.title}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-foreground leading-relaxed">
-                                        {caseStudy.objective.description}
-                                    </p>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    )}
-
-                    {/* Challenge */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                    >
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-lg">
-                                    <AlertCircle className="h-5 w-5 text-primary" />
-                                    {caseStudy.challenge.title}
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <ul className="space-y-3">
-                                    {caseStudy.challenge.points.map((point, idx) => (
-                                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-primary shrink-0 mt-2" />
-                                            {point}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardContent>
-                        </Card>
-                    </motion.div>
-
-                    {/* Solution */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                    >
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-lg">
-                                    <CheckCircle className="h-5 w-5 text-primary" />
-                                    {caseStudy.solution.title}
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-6">
-                                <ul className="space-y-2">
-                                    {caseStudy.solution.points.map((point, idx) => (
-                                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                                            <CheckCircle className="h-4 w-4 text-infynd-success shrink-0 mt-0.5" />
-                                            {point}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                {/* Sub-points */}
-                                {caseStudy.solution.subPoints && (
-                                    <div className="space-y-4 pt-4 border-t">
-                                        {caseStudy.solution.subPoints.map((section, idx) => (
-                                            <div key={idx}>
-                                                <h4 className="font-semibold text-foreground mb-2 text-sm">{section.title}</h4>
-                                                <ul className="space-y-1.5">
-                                                    {section.items.map((item, itemIdx) => (
-                                                        <li key={itemIdx} className="text-sm text-muted-foreground flex items-start gap-2 pl-4">
-                                                            <span className="text-primary">•</span>
-                                                            {item}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
+            {/* Top Data Table */}
+            {caseStudy.dataTable && (
+                <section className="px-6 pb-8">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="overflow-x-auto border rounded-lg">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="bg-black text-white">
+                                        <th className="p-3 text-left font-semibold border-r border-white/20">
+                                            {caseStudy.dataTable.headers[0]}
+                                        </th>
+                                        <th colSpan={2} className="p-3 text-center font-semibold border-r border-white/20">
+                                            Business level
+                                        </th>
+                                        <th colSpan={2} className="p-3 text-center font-semibold">
+                                            Contact level
+                                        </th>
+                                    </tr>
+                                    <tr className="bg-black text-white border-t border-white/20">
+                                        <th className="p-3 text-left font-semibold border-r border-white/20"></th>
+                                        {caseStudy.dataTable.headers.slice(1).map((header, idx) => (
+                                            <th key={idx} className="p-3 text-center font-semibold border-r border-white/20 last:border-r-0">
+                                                {header}
+                                            </th>
                                         ))}
-                                    </div>
-                                )}
-                            </CardContent>
-                        </Card>
-                    </motion.div>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {caseStudy.dataTable.rows.map((row, idx) => (
+                                        <tr key={idx} className="bg-muted/30">
+                                            {Object.values(row).map((value, cellIdx) => (
+                                                <td key={cellIdx} className={`p-3 ${cellIdx === 0 ? 'font-medium' : 'text-center'} border-r border-border last:border-r-0`}>
+                                                    {value}
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            )}
 
-                    {/* Benefits */}
-                    {caseStudy.benefits && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                        >
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-lg">{caseStudy.benefits.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <ul className="space-y-2">
-                                        {caseStudy.benefits.points.map((point, idx) => (
-                                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                                                <CheckCircle className="h-4 w-4 text-infynd-success shrink-0 mt-0.5" />
-                                                {point}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    )}
-
-                    {/* Results */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
-                    >
+            {/* Two Column Layout: Overview + Case Study */}
+            <section className="px-6 pb-12">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {/* Left Column: Company Overview */}
                         <div className="space-y-6">
-                            <h2 className="font-display text-2xl font-bold text-foreground">
-                                {caseStudy.results.title}
-                            </h2>
+                            <div>
+                                <h2 className="font-bold text-lg mb-4">Company Overview:</h2>
+                                <p className="text-sm leading-relaxed text-justify">
+                                    {caseStudy.overview}
+                                </p>
+                            </div>
 
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {caseStudy.results.metrics.map((metric, idx) => (
-                                    <Card key={idx}>
-                                        <CardContent className="pt-6 text-center">
-                                            <div className="text-4xl font-bold text-primary mb-2">
-                                                {metric.value}
-                                            </div>
-                                            <div className="font-medium text-foreground mb-1">
-                                                {metric.label}
-                                            </div>
-                                            {metric.description && (
-                                                <div className="text-xs text-muted-foreground">
-                                                    {metric.description}
-                                                </div>
-                                            )}
-                                        </CardContent>
-                                    </Card>
+                            {/* Solution Points */}
+                            <div className="space-y-2">
+                                {caseStudy.solution.points.map((point, idx) => (
+                                    <div key={idx} className="flex items-start gap-2">
+                                        <CheckSquare className="h-4 w-4 shrink-0 mt-0.5" />
+                                        <span className="text-sm font-semibold">{point}</span>
+                                    </div>
                                 ))}
                             </div>
-                        </div>
-                    </motion.div>
 
-                    {/* Data Table */}
-                    {caseStudy.dataTable && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.7 }}
-                        >
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-lg">{caseStudy.dataTable.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="overflow-x-auto">
-                                        <table className="w-full text-sm">
-                                            <thead>
-                                                <tr className="border-b">
-                                                    {caseStudy.dataTable.headers.map((header, idx) => (
-                                                        <th key={idx} className="p-3 text-left font-semibold text-foreground">
-                                                            {header}
-                                                        </th>
-                                                    ))}
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {caseStudy.dataTable.rows.map((row, idx) => (
-                                                    <tr key={idx} className="border-b">
-                                                        {Object.values(row).map((value, cellIdx) => (
-                                                            <td key={cellIdx} className="p-3 text-muted-foreground">
-                                                                {value}
-                                                            </td>
-                                                        ))}
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    )}
-
-                    {/* Testimonial */}
-                    {caseStudy.testimonial && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8 }}
-                        >
-                            <Card>
-                                <CardContent className="pt-6">
-                                    <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                                    <blockquote className="text-base text-foreground italic leading-relaxed mb-4">
-                                        "{caseStudy.testimonial.quote}"
-                                    </blockquote>
-                                    {(caseStudy.testimonial.author || caseStudy.testimonial.position) && (
-                                        <div className="text-sm text-muted-foreground border-t pt-4">
-                                            {caseStudy.testimonial.author && (
-                                                <div className="font-semibold text-foreground">
-                                                    {caseStudy.testimonial.author}
-                                                </div>
-                                            )}
-                                            {caseStudy.testimonial.position && (
-                                                <div>{caseStudy.testimonial.position}</div>
-                                            )}
+                            {/* Data Coverage */}
+                            {caseStudy.solution.subPoints && caseStudy.solution.subPoints[0] && (
+                                <div className="space-y-2">
+                                    {caseStudy.solution.subPoints[0].items.map((item, idx) => (
+                                        <div key={idx} className="flex items-start gap-2">
+                                            <CheckSquare className="h-4 w-4 shrink-0 mt-0.5" />
+                                            <span className="text-sm">{item}</span>
                                         </div>
-                                    )}
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    )}
-
-                    {/* CTA Section */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.9 }}
-                        className="pt-8 border-t text-center"
-                    >
-                        <h3 className="font-display text-xl font-bold text-foreground mb-3">
-                            Ready to achieve similar results?
-                        </h3>
-                        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                            Let us help you unlock the power of high-quality, compliant B2B data for your business.
-                        </p>
-                        <div className="flex flex-wrap gap-4 justify-center">
-                            <Link
-                                to="/products"
-                                className="inline-flex items-center justify-center rounded-md px-6 py-2.5 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
-                            >
-                                Explore Our Products
-                            </Link>
-                            <Link
-                                to="/about"
-                                className="inline-flex items-center justify-center rounded-md px-6 py-2.5 border border-input text-sm font-medium hover:bg-accent transition-colors"
-                            >
-                                View More Case Studies
-                            </Link>
+                                    ))}
+                                </div>
+                            )}
                         </div>
-                    </motion.div>
+
+                        {/* Right Column: Case Study (Charts would go here) */}
+                        <div className="space-y-6">
+                            <h2 className="font-bold text-lg">Case Study</h2>
+
+                            {/* Objective */}
+                            {caseStudy.objective && (
+                                <div className="space-y-2">
+                                    <p className="text-sm font-medium">{caseStudy.objective.description}</p>
+                                </div>
+                            )}
+
+                            {/* Placeholder for charts */}
+                            <div className="border rounded-lg p-8 bg-muted/30 flex items-center justify-center min-h-[300px]">
+                                <p className="text-muted-foreground text-sm">Chart visualization area</p>
+                            </div>
+
+                            <div className="border rounded-lg p-8 bg-muted/30 flex items-center justify-center min-h-[300px]">
+                                <p className="text-muted-foreground text-sm">Chart visualization area</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Bottom Data Tables */}
+            <section className="px-6 pb-12">
+                <div className="max-w-7xl mx-auto space-y-6">
+                    {/* Results Metrics */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {caseStudy.results.metrics.map((metric, idx) => (
+                            <div key={idx} className="border rounded-lg p-4 bg-background">
+                                <div className="text-3xl font-bold text-primary mb-1">
+                                    {metric.value}
+                                </div>
+                                <div className="text-sm font-medium">
+                                    {metric.label}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Detailed Data Table Placeholder */}
+                    <div className="border rounded-lg p-6 bg-muted/30">
+                        <p className="text-sm text-muted-foreground text-center">Additional detailed data tables section</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="px-6 pb-12">
+                <div className="max-w-7xl mx-auto border-t pt-8 text-center">
+                    <h3 className="font-display text-xl font-bold text-foreground mb-3">
+                        Ready to achieve similar results?
+                    </h3>
+                    <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                        Let us help you unlock the power of high-quality, compliant B2B data for your business.
+                    </p>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                        <Link
+                            to="/products"
+                            className="inline-flex items-center justify-center rounded-md px-6 py-2.5 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+                        >
+                            Explore Our Products
+                        </Link>
+                        <Link
+                            to="/about"
+                            className="inline-flex items-center justify-center rounded-md px-6 py-2.5 border border-input text-sm font-medium hover:bg-accent transition-colors"
+                        >
+                            View More Case Studies
+                        </Link>
+                    </div>
                 </div>
             </section>
         </div>

@@ -25,6 +25,7 @@ const comparisonRows = [
 const DataProductsPage = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [showCompare, setShowCompare] = useState(false);
+  const [region, setRegion] = useState("Global");
 
   const toggleProduct = (id: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -45,10 +46,28 @@ const DataProductsPage = () => {
   return (
     <div className="py-8 px-6 max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="font-display text-3xl font-bold text-foreground mb-2">Data Products</h1>
-        <p className="text-muted-foreground">
-          Browse our complete range of B2B data products. Select up to 3 to compare side-by-side.
-        </p>
+        <h1 className="font-display text-3xl font-bold text-foreground mb-4">Data Products</h1>
+        <div className="flex items-center justify-between gap-6">
+          <p className="text-muted-foreground">
+            Browse our complete range of B2B data products. Select up to 3 to compare side-by-side.
+          </p>
+
+          {/* Region Tabs */}
+          <div className="flex bg-muted p-1 rounded-lg shrink-0">
+            {["Global", "UK", "EU"].map((r) => (
+              <button
+                key={r}
+                onClick={() => setRegion(r)}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${region === r
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+                  }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Product Grid */}
@@ -56,6 +75,67 @@ const DataProductsPage = () => {
         {products.map((product, i) => {
           const Icon = iconMap[product.icon] || Sparkles;
           const isSelected = selected.has(product.id);
+          const isClickable = region === "UK" || region === "EU";
+
+          const cardContent = (
+            <Card
+              className={`relative h-full transition-all duration-300 ${isClickable ? 'cursor-pointer' : 'cursor-default'
+                } group ${isSelected
+                  ? "border-primary shadow-md ring-1 ring-primary/20"
+                  : isClickable
+                    ? "hover:border-primary/30 hover:shadow-lg hover:-translate-y-1"
+                    : ""
+                }`}
+            >
+              <CardContent className="p-5">
+                {/* Checkbox */}
+                <div className="absolute top-4 right-4 z-10">
+                  <Checkbox
+                    checked={isSelected}
+                    onCheckedChange={() => { }}
+                    onClick={(e) => toggleProduct(product.id, e)}
+                    disabled={!isSelected && selected.size >= 3}
+                    aria-label={`Select ${product.name} for comparison`}
+                  />
+                </div>
+
+                <div className="flex items-start gap-3 mb-3">
+                  <div className={`h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 ${isClickable ? 'group-hover:bg-primary/20' : ''
+                    } transition-colors duration-300`}>
+                    <Icon className={`h-5 w-5 text-primary ${isClickable ? 'group-hover:scale-110' : ''
+                      } transition-transform duration-300`} />
+                  </div>
+                  <div className="pr-6">
+                    <h3 className={`font-display font-semibold text-foreground ${isClickable ? 'group-hover:text-primary' : ''
+                      } transition-colors duration-300`}>{product.shortName}</h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">{product.tagline}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 flex-wrap mb-3">
+                  <Badge variant="secondary" className="text-[10px]">{product.totalRecords}</Badge>
+                  {region !== "UK" && (
+                    <Badge variant="outline" className="text-[10px]">{product.countries} countries</Badge>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {product.complianceStandards.slice(0, 2).map((std) => (
+                    <span key={std} className="inline-flex items-center text-[10px] text-primary/70">
+                      <Shield className="h-3 w-3 mr-0.5" />{std}
+                    </span>
+                  ))}
+                </div>
+
+                {isClickable && (
+                  <span className="text-sm text-primary flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
+                    Explore product <ArrowRight className="h-3 w-3" />
+                  </span>
+                )}
+              </CardContent>
+            </Card>
+          );
+
           return (
             <motion.div
               key={product.id}
@@ -63,55 +143,17 @@ const DataProductsPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: i * 0.04 }}
             >
-              <Link to={`/products/${product.slug}`} className="block h-full">
-                <Card
-                  className={`relative h-full transition-all duration-300 cursor-pointer group ${
-                    isSelected
-                      ? "border-primary shadow-md ring-1 ring-primary/20"
-                      : "hover:border-primary/30 hover:shadow-lg hover:-translate-y-1"
-                  }`}
+              {isClickable ? (
+                <Link
+                  to={`/products/${product.slug}`}
+                  className="block h-full"
+                  state={{ selectedRegion: region }}
                 >
-                  <CardContent className="p-5">
-                    {/* Checkbox */}
-                    <div className="absolute top-4 right-4 z-10">
-                      <Checkbox
-                        checked={isSelected}
-                        onCheckedChange={() => {}}
-                        onClick={(e) => toggleProduct(product.id, e)}
-                        disabled={!isSelected && selected.size >= 3}
-                        aria-label={`Select ${product.name} for comparison`}
-                      />
-                    </div>
-
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-                        <Icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-300" />
-                      </div>
-                      <div className="pr-6">
-                        <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{product.shortName}</h3>
-                        <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">{product.tagline}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-1.5 flex-wrap mb-3">
-                      <Badge variant="secondary" className="text-[10px]">{product.totalRecords}</Badge>
-                      <Badge variant="outline" className="text-[10px]">{product.countries} countries</Badge>
-                    </div>
-
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {product.complianceStandards.slice(0, 2).map((std) => (
-                        <span key={std} className="inline-flex items-center text-[10px] text-primary/70">
-                          <Shield className="h-3 w-3 mr-0.5" />{std}
-                        </span>
-                      ))}
-                    </div>
-
-                    <span className="text-sm text-primary flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
-                      Explore product <ArrowRight className="h-3 w-3" />
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
+                  {cardContent}
+                </Link>
+              ) : (
+                cardContent
+              )}
             </motion.div>
           );
         })}

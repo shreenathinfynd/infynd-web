@@ -41,8 +41,21 @@ const OurUSPSlide = () => (
       transition={{ duration: 0.7, ease: "easeOut" }}
       className="relative z-10 w-[92%] max-w-6xl mx-auto"
     >
+      {/* Slide Number */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring" }}
+        className="flex items-center gap-3 mb-6"
+      >
+        <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">
+          1
+        </div>
+        <div className="h-px flex-1 bg-gradient-to-r from-primary/50 to-transparent" />
+      </motion.div>
+
       {/* Header */}
-      <div className="flex items-center gap-5 pb-4 mb-6 border-b border-border/50">
+      <div className="flex items-center gap-5 pb-4 mb-4 border-b border-border/50">
         <img src={infyndLogo} alt="InFynd" className="h-9 w-auto" />
         <div className="h-7 w-px bg-border/40" />
         <div>

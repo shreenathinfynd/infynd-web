@@ -1,100 +1,179 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { ArrowRight, RotateCcw } from "lucide-react";
 
 const steps = [
-  { label: "Gather public data\nand clean", angle: -90 },
-  { label: "Enrich data with\nMachine Learning", angle: -30 },
-  { label: "Validate emails\nand phone", angle: 30 },
-  { label: "Evaluate score and\nscrutinize data", angle: 90 },
-  { label: "Compliance Checks\n(CTPS, TPS, MPS)", angle: 150 },
-  { label: "Human Verification\nBy Data Quality Team", angle: 210 },
+  { label: "Data Collection\n& Cleansing", status: "Collecting" },
+  { label: "Data Enrichment\n(Machine Learning)", status: "Enriching" },
+  { label: "Automated\nValidation", status: "Validating" },
+  { label: "Quality Evaluation\n& Scoring", status: "Scoring" },
+  { label: "Compliance\nChecks", status: "Checking" },
+  { label: "Human Verification\n& Delivery", status: "Verifying" },
+];
+
+const uspPoints = [
+  "180M+ B2B records globally",
+  "6.5M validated UK email contacts",
+  "Up to 98% email deliverability",
+  "GDPR & CCPA compliant",
+  "TPS / CTPS screened",
+  "Real-time, custom-built datasets",
 ];
 
 const DataProcessSlide = () => {
-  // Dimensions for the coordinate system
-  const radius = 260;
-  const centerX = 320;
-  const centerY = 320;
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % steps.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center py-20 px-6 bg-background overflow-hidden">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="font-display text-3xl md:text-4xl font-bold text-foreground text-center mb-10"
-      >
-        Our Data Quality Process
-      </motion.h2>
+    <section className="relative h-screen bg-background text-foreground flex overflow-hidden">
+      {/* Left vertical label */}
+      <div className="w-10 shrink-0 bg-primary flex items-center justify-center">
+        <span
+          className="text-primary-foreground font-bold text-sm tracking-[0.25em] uppercase"
+          style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+        >
+          The Process
+        </span>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="relative"
-        style={{ width: 640, height: 640 }}
-      >
-        {/* SVG Layer for the guide circle */}
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 640 640">
-          <circle
-            cx={centerX}
-            cy={centerY}
-            r={radius}
-            fill="none"
-            stroke="hsl(var(--muted-foreground) / 0.2)"
-            strokeWidth="2"
-          />
-        </svg>
+      {/* Main content */}
+      <div className="flex-1 flex flex-col justify-center px-10 py-8">
+        {/* Title */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-2xl md:text-3xl font-bold text-foreground mb-10"
+        >
+          InFynd's <span className="text-primary">Data Building Process</span>
+        </motion.h2>
 
-        {/* Step nodes mapped along the circle */}
-        {steps.map((step, i) => {
-          const rad = (step.angle * Math.PI) / 180;
-          const x = centerX + radius * Math.cos(rad);
-          const y = centerY + radius * Math.sin(rad);
+        <div className="flex gap-8 items-start">
+          {/* Process cards area */}
+          <div className="flex-1">
+            {/* Step cards row */}
+            <div className="flex items-center gap-1">
+              {steps.map((step, i) => (
+                <div key={i} className="flex items-center">
+                  {/* Step card */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + i * 0.1 }}
+                    className={`relative rounded-lg border px-4 py-5 text-center transition-all duration-700 ease-in-out ${
+                      activeStep === i
+                        ? "border-primary/50 bg-primary/5 shadow-[0_0_20px_-5px_hsl(var(--primary)/0.3)]"
+                        : "border-border bg-background"
+                    }`}
+                    style={{ width: 130, minHeight: 90 }}
+                  >
+                    {/* Step number */}
+                    <div
+                      className={`absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center transition-colors duration-700 ${
+                        activeStep === i
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {i + 1}
+                    </div>
 
-          // Color logic: Red for top/sides, Dark for others to match your image
-          const isRed = i === 0 || i === 2 || i === 4;
+                    <span className="text-xs font-semibold whitespace-pre-line leading-tight text-foreground">
+                      {step.label}
+                    </span>
 
-          return (
+                    {/* Micro status */}
+                    <motion.span
+                      animate={{ opacity: activeStep === i ? 1 : 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="block mt-2 text-[10px] text-primary font-medium italic"
+                    >
+                      {step.status}
+                    </motion.span>
+                  </motion.div>
+
+                  {/* Arrow between steps */}
+                  {i < steps.length - 1 && (
+                    <div className="flex items-center mx-1">
+                      <motion.div
+                        animate={{
+                          opacity: [0.3, 0.8, 0.3],
+                          x: [0, 4, 0],
+                        }}
+                        transition={{
+                          duration: 2.5,
+                          repeat: Infinity,
+                          delay: i * 0.3,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        <ArrowRight className="w-4 h-4 text-primary/60" />
+                      </motion.div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Return loop arrow */}
             <motion.div
-              key={i}
-              initial={{
-                opacity: 0,
-                scale: 0,
-                x,
-                y,
-                translateX: "-50%",
-                translateY: "-50%",
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                x,
-                y,
-                translateX: "-50%",
-                translateY: "-50%",
-              }}
-              transition={{
-                delay: 0.3 + i * 0.1,
-                type: "spring",
-                stiffness: 150,
-                damping: 15,
-              }}
-              className={`absolute flex items-center justify-center rounded-xl px-4 py-3 text-center text-sm font-bold leading-tight shadow-xl border border-white/10 ${
-                isRed ? "bg-[#E33B2E] text-white" : "bg-[#1A1F2C] text-white"
-              }`}
-              style={{
-                width: 170,
-                minHeight: 80,
-                zIndex: 10,
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="mt-6 flex items-center justify-center gap-2"
             >
-              <span className="whitespace-pre-line">{step.label}</span>
+              <motion.div
+                animate={{ rotate: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="flex items-center gap-2 text-muted-foreground/60"
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span className="text-[11px] italic">
+                  Continuous refresh — data is revalidated and improved in every cycle
+                </span>
+              </motion.div>
             </motion.div>
-          );
-        })}
-      </motion.div>
 
-      <p className="mt-10 text-muted-foreground text-sm italic">Use arrows or click to navigate</p>
+            {/* Progress dots */}
+            <div className="flex justify-center gap-2 mt-4">
+              {steps.map((_, i) => (
+                <div
+                  key={i}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-700 ${
+                    activeStep === i ? "bg-primary scale-125" : "bg-border"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* USP Panel (static, no animation) */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+            className="w-56 shrink-0 rounded-lg border bg-muted/20 p-5"
+          >
+            <h3 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wide">
+              Why InFynd
+            </h3>
+            <ul className="space-y-3">
+              {uspPoints.map((point, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                  <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

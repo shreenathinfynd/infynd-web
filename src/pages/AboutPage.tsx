@@ -1,6 +1,6 @@
 import AboutSlideshow from "@/components/about/AboutSlideshow";
 import HeroSlide from "@/components/about/slides/HeroSlide";
-import OurUSPSlide from "@/components/about/slides/OurUSPSlide";
+import CompanyOverviewSlide from "@/components/about/slides/CompanyOverviewSlide";
 import OriginStorySlide from "@/components/about/slides/OriginStorySlide";
 import DataProcessSlide1 from "@/components/about/slides/DataProcessSlide1";
 import DataProcessSlide2 from "@/components/about/slides/DataProcessSlide2";
@@ -13,7 +13,7 @@ const AboutPage = () => {
   return (
     <AboutSlideshow>
       <HeroSlide />
-      <OurUSPSlide />
+      <CompanyOverviewSlide />
       <OriginStorySlide />
       <DataProcessSlide1 />
       <DataProcessSlide2 />

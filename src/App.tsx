@@ -14,6 +14,8 @@ import CompliancePage from "./pages/CompliancePage";
 import NotFound from "./pages/NotFound";
 import AboutPage from "./pages/AboutPage";
 import CaseStudyPage from "./pages/CaseStudyPage";
+import EUCountrySelectionPage from "./pages/EUCountrySelectionPage";
+import EUCountryProductsPage from "./pages/EUCountryProductsPage";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +30,8 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<DataProductsPage />} />
+            <Route path="/products/eu" element={<EUCountrySelectionPage />} />
+            <Route path="/products/eu/:country" element={<EUCountryProductsPage />} />
             <Route path="/products/:slug" element={<ProductPage />} />
             <Route path="/compare" element={<ComparePage />} />
             <Route path="/use-cases" element={<UseCasesPage />} />

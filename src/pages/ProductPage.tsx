@@ -23,21 +23,35 @@ const iconMap: Record<string, React.ElementType> = {
   Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
 };
 
-const CoverageTab = ({ product, region }: { product: Product; region: string }) => {
+const CoverageTab = ({ product, region, selectedCountry }: { product: Product; region: string; selectedCountry?: string }) => {
   const europeCountries = ["Germany", "France", "Netherlands", "Ireland", "Belgium", "Spain", "Italy", "Austria", "Switzerland", "Poland", "Sweden", "Norway", "Denmark", "Finland", "Portugal"];
 
   const filtered = product.coverageRegions.filter((r) => {
+    if (selectedCountry && region === "EU") return r.country === selectedCountry;
     if (region === "UK") return r.country === "United Kingdom";
     if (region === "EU") return europeCountries.includes(r.country);
     return true; // Global
   });
-  const totalFiltered = filtered.reduce((sum, r) => sum + r.records, 0);
+  // Handle string records by parsing them
+  const totalFiltered = filtered.reduce((sum, r) => {
+    const rawVal = String(r.records);
+    let val = 0;
+    if (rawVal.toLowerCase().endsWith('k')) val = parseFloat(rawVal) * 1000;
+    else if (rawVal.toLowerCase().endsWith('m')) val = parseFloat(rawVal) * 1000000;
+    else val = parseFloat(rawVal.replace(/,/g, ''));
+    return sum + (isNaN(val) ? 0 : val);
+  }, 0);
 
   return (
     <div className="space-y-6">
       <div className="bg-primary/5 rounded-xl p-6 text-center">
         <div className="font-display text-4xl font-bold text-primary">{totalFiltered.toLocaleString()}</div>
         <div className="text-sm text-muted-foreground mt-1">total records</div>
+        {selectedCountry && (
+          <div className="text-xs font-semibold text-primary mt-2">
+            Showing data for {selectedCountry}
+          </div>
+        )}
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -45,7 +59,7 @@ const CoverageTab = ({ product, region }: { product: Product; region: string }) 
           <Card key={region.country}>
             <CardContent className="p-4">
               <div className="font-semibold text-foreground">{region.country}</div>
-              <div className="text-2xl font-display font-bold text-primary mt-1">{region.records.toLocaleString()}</div>
+              <div className="text-2xl font-display font-bold text-primary mt-1">{region.records}</div>
               <div className="flex flex-wrap gap-1 mt-2">
                 {region.industries.map((ind) => (
                   <Badge key={ind} variant="secondary" className="text-[10px]">{ind}</Badge>
@@ -115,7 +129,7 @@ const getSampleAddonData = (field: string, index: number) => {
 };
 
 /* ── Sample Data Tab ── */
-const SampleDataTab = ({ product, addonFields, region }: { product: Product; addonFields: string[]; region: string }) => {
+const SampleDataTab = ({ product, addonFields, region, selectedCountry }: { product: Product; addonFields: string[]; region: string; selectedCountry?: string }) => {
   const [view, setView] = useState<"company" | "contact">("company");
 
   const rawData = view === "company" ? product.sampleDataCompany : product.sampleDataContact;
@@ -124,6 +138,9 @@ const SampleDataTab = ({ product, addonFields, region }: { product: Product; add
   // Filter data based on region prop
   const filteredData = rawData.filter((row) => {
     const rowCountry = String(row["Country"] || row["Main Country"] || row["country"] || "");
+
+    // Check for specific country if selected
+    if (selectedCountry && region === "EU") return rowCountry === selectedCountry;
 
     if (region === "UK") return rowCountry === "United Kingdom";
     if (region === "EU") return europeCountries.includes(rowCountry);
@@ -147,7 +164,12 @@ const SampleDataTab = ({ product, addonFields, region }: { product: Product; add
           </Button>
         </div>
 
-
+        {selectedCountry && (
+          <Badge variant="outline" className="ml-auto">
+            <MapPin className="h-3 w-3 mr-1" />
+            Filtering by: {selectedCountry}
+          </Badge>
+        )}
       </div>
 
       <div className="rounded-lg border overflow-x-auto">
@@ -210,7 +232,7 @@ const SampleDataTab = ({ product, addonFields, region }: { product: Product; add
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">
-                  No sample data available for {region}
+                  No sample data available for {selectedCountry ? selectedCountry : region}
                 </TableCell>
               </TableRow>
             )}
@@ -274,12 +296,14 @@ const AddOnsSection = ({ active, toggle }: { active: Set<string>; toggle: (id: s
   );
 };
 
+
 /* ── Main Page ── */
 const ProductPage = () => {
   const { slug } = useParams();
   const location = useLocation();
   const fromPresentation = location.state?.fromPresentation === true;
   const selectedRegion = location.state?.selectedRegion || "Global";
+  const selectedCountry = location.state?.selectedCountry; // Get selected country from state
   const product = getProductBySlug(slug || "");
 
   const [activeAddOns, setActiveAddOns] = useState<Set<string>>(new Set());
@@ -296,7 +320,7 @@ const ProductPage = () => {
 
   // Data Dictionary Filtering (Pass-through for now as fields are global)
   // If in future fields become region-specific, add logic here.
-  const filteredDictionary = product.dataDictionary;
+  const filteredDictionary = product?.dataDictionary || [];
 
   if (!product) return <NotFound />;
 
@@ -346,10 +370,12 @@ const ProductPage = () => {
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge>{product.totalRecords} records</Badge>
-          <Badge variant="outline">{product.countries} countries</Badge>
+          {region !== "UK" && !selectedCountry && (
+            <Badge variant="outline">{product.countries} countries</Badge>
+          )}
           {region !== "Global" && (
             <Badge variant="default" className="bg-primary">
-              Showing {region} Data
+              Showing {selectedCountry || region} Data
             </Badge>
           )}
           {product.complianceStandards.map((std) => (
@@ -434,7 +460,7 @@ const ProductPage = () => {
             <TelemarketingCoverageBlock />
           ) : (
             <>
-              <CoverageTab product={product} region={region} />
+              <CoverageTab product={product} region={region} selectedCountry={selectedCountry} />
               {product.filledRates && <FilledRatesSection data={product.filledRates} />}
             </>
           )}
@@ -442,7 +468,7 @@ const ProductPage = () => {
 
         {/* Sample Data */}
         <TabsContent value="sample-data" className="mt-6">
-          <SampleDataTab product={product} addonFields={addonFields} region={region} />
+          <SampleDataTab product={product} addonFields={addonFields} region={region} selectedCountry={selectedCountry} />
           <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
         </TabsContent>
 

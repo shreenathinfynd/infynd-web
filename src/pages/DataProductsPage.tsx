@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { products } from "@/data/products";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,9 +23,19 @@ const comparisonRows = [
 ];
 
 const DataProductsPage = () => {
+  const navigate = useNavigate();
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [showCompare, setShowCompare] = useState(false);
   const [region, setRegion] = useState("Global");
+
+  const handleRegionChange = (newRegion: string) => {
+    if (newRegion === "EU") {
+      // Navigate to EU country selection page
+      navigate("/products/eu");
+    } else {
+      setRegion(newRegion);
+    }
+  };
 
   const toggleProduct = (id: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -57,7 +67,7 @@ const DataProductsPage = () => {
             {["Global", "UK", "EU"].map((r) => (
               <button
                 key={r}
-                onClick={() => setRegion(r)}
+                onClick={() => handleRegionChange(r)}
                 className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${region === r
                   ? "bg-background text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"

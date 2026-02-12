@@ -3,21 +3,19 @@ import { useState, useEffect } from "react";
 import { ArrowRight, RotateCcw } from "lucide-react";
 
 const steps = [
-  { label: "Data Collection\n& Cleansing", status: "Collecting" },
-  { label: "Data Enrichment\n(Machine Learning)", status: "Enriching" },
-  { label: "Automated\nValidation", status: "Validating" },
-  { label: "Quality Evaluation\n& Scoring", status: "Scoring" },
-  { label: "Compliance\nChecks", status: "Checking" },
-  { label: "Human Verification\n& Delivery", status: "Verifying" },
+  { label: "Data Collection\n& Cleansing", status: "Collecting", description: "InFynd gathers millions of publicly available data points and removes inconsistencies to create a clean, structured dataset." },
+  { label: "Data Enrichment\n(Machine Learning)", status: "Enriching", description: "Existing data is enriched using the latest cleansed datasets through machine learning and intelligent data modelling." },
+  { label: "Automated\nValidation", status: "Validating", description: "All data is validated through our internal email verification processes and telephone validation (HLR / LLR)." },
+  { label: "Quality Evaluation\n& Scoring", status: "Scoring", description: "Data is evaluated for accuracy, relevance, recurrence, and quality, with lead scoring applied to prioritise high-value records." },
+  { label: "Compliance\nChecks", status: "Checking", description: "Compliance checks are performed against TPS, CTPS, and MPS registers. Where applicable, notification emails are issued to contacts whose email addresses are held." },
+  { label: "Human Verification\n& Delivery", status: "Verifying", description: "Before delivery or platform upload, data is manually verified by InFynd's data quality team to ensure maximum accuracy." },
 ];
 
 const uspPoints = [
-  "180M+ B2B records globally",
-  "6.5M validated UK email contacts",
-  "Up to 98% email deliverability",
+  "Proprietary data crawling algorithms",
+  "Originators of risky / catch-all email detection",
   "GDPR & CCPA compliant",
-  "TPS / CTPS screened",
-  "Real-time, custom-built datasets",
+  "Real-time, custom-built, human-verified data",
 ];
 
 const DataProcessSlide = () => {
@@ -71,7 +69,7 @@ const DataProcessSlide = () => {
                         ? "border-primary/50 bg-primary/5 shadow-[0_0_20px_-5px_hsl(var(--primary)/0.3)]"
                         : "border-border bg-background"
                     }`}
-                    style={{ width: 130, minHeight: 90 }}
+                    style={{ width: 150, minHeight: 140 }}
                   >
                     {/* Step number */}
                     <div
@@ -84,15 +82,20 @@ const DataProcessSlide = () => {
                       {i + 1}
                     </div>
 
-                    <span className="text-xs font-semibold whitespace-pre-line leading-tight text-foreground">
+                    <span className="text-[13px] font-semibold whitespace-pre-line leading-tight text-foreground">
                       {step.label}
                     </span>
+
+                    {/* Description text */}
+                    <p className="mt-2 text-[11px] leading-[1.35] text-muted-foreground">
+                      {step.description}
+                    </p>
 
                     {/* Micro status */}
                     <motion.span
                       animate={{ opacity: activeStep === i ? 1 : 0 }}
                       transition={{ duration: 0.5 }}
-                      className="block mt-2 text-[10px] text-primary font-medium italic"
+                      className="block mt-1.5 text-[10px] text-primary font-medium italic"
                     >
                       {step.status}
                     </motion.span>
@@ -161,7 +164,7 @@ const DataProcessSlide = () => {
             className="w-56 shrink-0 rounded-lg border bg-muted/20 p-5"
           >
             <h3 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wide">
-              Why InFynd
+              USP
             </h3>
             <ul className="space-y-3">
               {uspPoints.map((point, i) => (

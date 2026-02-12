@@ -15,6 +15,7 @@ const CaseStudyPage = () => {
 
     const isMerchantTerminal = caseStudy.id === "merchant-terminal";
     const isIndeed = caseStudy.id === "indeed-email";
+    const isFleet = caseStudy.id === "fleet-database";
 
     return (
         <div className="min-h-screen bg-background">
@@ -138,6 +139,77 @@ const CaseStudyPage = () => {
                         </div>
                     </div>
                 </section>
+            ) : isFleet ? (
+                /* Fleet Database layout: Pain Point / Solution / Benefits cards + Results */
+                <section className="px-6 pb-12">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid md:grid-cols-5 gap-8">
+                            {/* Left Column: Pain Point, Solution, Benefits cards */}
+                            <div className="md:col-span-3 space-y-6">
+                                {caseStudy.challenge && (
+                                    <div className="border rounded-2xl p-6 bg-background">
+                                        <h2 className="font-bold text-lg text-primary mb-3">{caseStudy.challenge.title}</h2>
+                                        <ul className="space-y-2 pl-4">
+                                            {caseStudy.challenge.points.map((point, idx) => (
+                                                <li key={idx} className="text-sm leading-relaxed text-muted-foreground list-disc">
+                                                    {point}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                <div className="border rounded-2xl p-6 bg-background">
+                                    <h2 className="font-bold text-lg text-primary mb-3">{caseStudy.solution.title || "Solution"}</h2>
+                                    <ul className="space-y-2 pl-4">
+                                        {caseStudy.solution.points.map((point, idx) => (
+                                            <li key={idx} className="text-sm leading-relaxed text-muted-foreground list-disc">
+                                                {point}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                {caseStudy.benefits && (
+                                    <div className="border rounded-2xl p-6 bg-background">
+                                        <h2 className="font-bold text-lg text-primary mb-3">{caseStudy.benefits.title}</h2>
+                                        <ul className="space-y-2 pl-4">
+                                            {caseStudy.benefits.points.map((point, idx) => (
+                                                <li key={idx} className="text-sm leading-relaxed text-muted-foreground list-disc">
+                                                    {point}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Right Column: Results + Testimonial */}
+                            <div className="md:col-span-2 flex flex-col items-center justify-start space-y-10 pt-4">
+                                {caseStudy.results.metrics.map((metric, idx) => (
+                                    <div key={idx} className="text-center">
+                                        <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                                            {metric.label}
+                                        </p>
+                                        <div className="text-7xl font-bold text-foreground">{metric.value}</div>
+                                        {metric.description && (
+                                            <p className="text-sm text-muted-foreground mt-2">{metric.description}</p>
+                                        )}
+                                    </div>
+                                ))}
+
+                                {caseStudy.testimonial && (
+                                    <div className="pt-4 border-t border-border">
+                                        <p className="text-xs font-bold uppercase tracking-wider text-foreground mb-2">Testimonial:</p>
+                                        <blockquote className="italic text-xs leading-relaxed text-primary">
+                                            "{caseStudy.testimonial.quote}"
+                                        </blockquote>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </section>
             ) : (
                 /* Default two-column layout for other case studies */
                 <section className="px-6 pb-12">
@@ -203,8 +275,8 @@ const CaseStudyPage = () => {
                 </section>
             )}
 
-            {/* Results Metrics — hidden for merchant-terminal */}
-            {!isMerchantTerminal && !isIndeed && (
+            {/* Results Metrics — hidden for merchant-terminal, indeed, fleet */}
+            {!isMerchantTerminal && !isIndeed && !isFleet && (
                 <section className="px-6 pb-12">
                     <div className="max-w-7xl mx-auto space-y-6">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -222,8 +294,8 @@ const CaseStudyPage = () => {
                 </section>
             )}
 
-            {/* Testimonial */}
-            {caseStudy.testimonial && (
+            {/* Testimonial — hidden for fleet (shown inline) */}
+            {caseStudy.testimonial && !isFleet && (
                 <section className="px-6 pb-12">
                     <div className="max-w-7xl mx-auto">
                         <blockquote className="border-l-4 border-primary pl-6 py-2 italic text-muted-foreground text-sm leading-relaxed">

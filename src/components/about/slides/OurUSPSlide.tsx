@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import worldMapImg from "@/assets/world-map-locations.png";
+import worldMapImg from "@/assets/world-map-pins.png";
 
 const uspPoints = [
   "Real-time, custom-built datasets verified by human intelligence",

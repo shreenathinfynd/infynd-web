@@ -95,17 +95,17 @@ const DataProcessSlide = () => {
           {/* Process cards grid */}
           <div className="flex-1 flex flex-col items-center">
             {/* Top row: cards 1, 2, 3 */}
-            <div className="flex items-center gap-2">
+            <div className="relative flex items-center gap-2">
               <StepCard step={steps[0]} index={0} isActive={activeStep === 0} />
               <PulsingArrow icon={ArrowRight} delay={0} />
               <StepCard step={steps[1]} index={1} isActive={activeStep === 1} />
               <PulsingArrow icon={ArrowRight} delay={0.3} />
-              <StepCard step={steps[2]} index={2} isActive={activeStep === 2} />
-            </div>
-
-            {/* Arrow down aligned under card 3 / above card 4 */}
-            <div className="self-end my-3 mr-[100px]">
-              <PulsingArrow icon={ArrowDown} delay={0.6} />
+              <div className="flex flex-col items-center">
+                <StepCard step={steps[2]} index={2} isActive={activeStep === 2} />
+                <div className="my-3">
+                  <PulsingArrow icon={ArrowDown} delay={0.6} />
+                </div>
+              </div>
             </div>
 
             {/* Bottom row: cards 6, 5, 4 (reversed) */}

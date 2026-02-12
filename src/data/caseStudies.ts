@@ -99,18 +99,7 @@ export const caseStudies: CaseStudy[] = [
                 "SIC to MCC Mapping",
                 "Greater Consistency"
             ],
-            subPoints: [
-                {
-                    title: "Data Coverage",
-                    items: [
-                        "1.2M (2M Micro Businesses) in United Kingdom",
-                        "2.8M Phoneable contacts at business level",
-                        "900k Emailable contacts at business level",
-                        "10M Total contacts at contact level",
-                        "6.7M Emailable contacts at contact level"
-                    ]
-                }
-            ]
+            subPoints: []
         },
 
         results: {
@@ -134,20 +123,7 @@ export const caseStudies: CaseStudy[] = [
             ]
         },
 
-        dataTable: {
-            title: "Campaign Data Breakdown",
-            headers: ["Region", "Total", "Phoneable", "Emailable (Business)", "Total Contacts", "Emailable (Contact)"],
-            rows: [
-                {
-                    Region: "United Kingdom",
-                    Total: "1.2M (2M Micro)",
-                    Phoneable: "2.8M",
-                    "Emailable (Business)": "900k",
-                    "Total Contacts": "10M",
-                    "Emailable (Contact)": "6.7M"
-                }
-            ]
-        }
+        dataTable: undefined
     },
 
     {

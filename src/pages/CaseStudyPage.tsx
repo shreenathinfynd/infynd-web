@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { getCaseStudyBySlug } from "@/data/caseStudies";
 import { ArrowLeft, CheckSquare } from "lucide-react";
 import NotFound from "./NotFound";
-import merchantGraph from "@/assets/merchant-terminal-graph.png";
+import merchantGraph from "@/assets/merchant-terminal-graph-new.jpg";
 import indeedLogo from "@/assets/indeed-logo.svg";
 import britanniaLogo from "@/assets/britannia-logo.png";
 

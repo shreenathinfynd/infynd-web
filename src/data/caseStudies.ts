@@ -204,43 +204,49 @@ export const caseStudies: CaseStudy[] = [
         slug: "fleet-database",
         title: "Fleet Database",
         subtitle: "Transforming fleet company outreach with targeted data",
-        client: "Fleet Management Software Provider",
+        client: "Fleet & Car Leasing Companies",
         industry: "Automotive & Fleet Services",
         category: "Database Solution",
         icon: "Database",
 
-        overview: "A fleet management software provider needed to target specific fleet companies across the UK to promote their fuel card services and fleet management software. Traditional data collection methods were time-consuming and resulted in incomplete information, severely impacting their marketing efforts.",
+        overview: "InFynd's Fleet Database is a purpose-built B2B dataset designed to help organisations target fleet operators, leasing companies, and mobility-focused businesses with precision. Built using custom data extraction, continuous verification, and compliance-first processes, the dataset enables sales and marketing teams to connect with the right decision-makers using accurate, up-to-date contact data.",
 
         challenge: {
-            title: "Pain Point",
+            title: "Client Challenge: Britannia Car Leasing",
             points: [
-                "There was a need to target a specific audience of fleet companies across the UK to promote their fuel card services and fleet management software",
-                "However, they faced a significant challenge in obtaining accurate contact data for potential customers",
-                "The traditional data collection methods used by their team were time-consuming and frequently resulted in incomplete and outdated information, severely impacting their marketing efforts"
+                "Needed to target fleet companies across the UK",
+                "Required accurate decision-maker email data",
+                "Existing data sources were outdated and incomplete",
+                "Campaign performance had plateaued"
             ]
         },
 
         solution: {
-            title: "Solution",
+            title: "InFynd Solution",
             points: [
-                "InFynd's Fleet Database",
-                "Our fleet database consists of, high-quality and up-to-date contact data which was put into use in their marketing campaigns and sales outreach",
-                "This approach promised a direct and efficient way to connect with potential clients"
+                "InFynd supplied a custom-built Fleet Database, tailored specifically to Britannia Car Leasing's ideal customer profile",
+                "Verified email data for fleet decision-makers",
+                "Industry-specific segmentation",
+                "Continuous validation to maintain accuracy",
+                "Data designed for immediate campaign use"
             ]
         },
 
         benefits: {
-            title: "Benefits",
+            title: "Performance Impact",
             points: [
-                "With new leads, the client was able to reach out to more companies across various industries and increase their fuel card supply"
+                "Open Rate improved from 11.90% to 16.42%",
+                "Click Rate improved from 3.30% to 6.01%",
+                "Consistent campaign performance achieved",
+                "Improved lead quality across all segments"
             ]
         },
 
         results: {
-            title: "The Results",
+            title: "Business Results",
             metrics: [
                 {
-                    value: "3X",
+                    value: "3×",
                     label: "Increase in Response Rate",
                     description: "Compared to previous campaigns"
                 },
@@ -248,12 +254,18 @@ export const caseStudies: CaseStudy[] = [
                     value: "20%",
                     label: "Increased Sales",
                     description: "Direct revenue impact"
+                },
+                {
+                    value: "6M",
+                    label: "Emails Delivered",
+                    description: "Over ~10 months"
                 }
             ]
         },
 
         testimonial: {
-            quote: "InFynd's custom-built data was a game-changer for our business. Not only did it help us generate new leads, but it also significantly improved our data quality thanks to their highly accurate and up-to-date information. We were able to target the right companies more effectively, save time, and ultimately increase our revenue by streamlining the entire fleet management process."
+            quote: "InFynd's custom-built data was a game-changer for our business. Not only did it help us generate new leads, but it also significantly improved our data quality thanks to highly accurate and up-to-date information. We were able to target the right companies more effectively, save time, and ultimately increase our revenue by streamlining the entire fleet management outreach process.",
+            author: "Britannia Car Leasing"
         }
     }
 ];

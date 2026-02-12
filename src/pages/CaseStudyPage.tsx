@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { getCaseStudyBySlug } from "@/data/caseStudies";
 import { ArrowLeft, CheckSquare } from "lucide-react";
 import NotFound from "./NotFound";
-import merchantGraph from "@/assets/merchant-terminal-graph-new.jpg";
+import merchantGraph from "@/assets/merchant-terminal-graph-v2.png";
 import indeedLogo from "@/assets/indeed-logo.svg";
 import britanniaLogo from "@/assets/britannia-logo.png";
 
@@ -141,76 +141,140 @@ const CaseStudyPage = () => {
                     </div>
                 </section>
             ) : isFleet ? (
-                /* Fleet Database layout: Pain Point / Solution / Benefits cards + Results */
-                <section className="px-6 pb-12">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="grid md:grid-cols-5 gap-8">
-                            {/* Left Column: Pain Point, Solution, Benefits cards */}
-                            <div className="md:col-span-3 space-y-6">
-                                {caseStudy.challenge && (
-                                    <div className="border rounded-2xl p-6 bg-background">
-                                        <h2 className="font-bold text-lg text-primary mb-3">{caseStudy.challenge.title}</h2>
-                                        <ul className="space-y-2 pl-4">
-                                            {caseStudy.challenge.points.map((point, idx) => (
-                                                <li key={idx} className="text-sm leading-relaxed text-muted-foreground list-disc">
-                                                    {point}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
+                /* Fleet Database — full case study layout */
+                <>
+                    {/* Section 1: What It Is */}
+                    <section className="px-6 pb-8">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="border rounded-2xl p-6 bg-background">
+                                <h2 className="font-bold text-lg text-primary mb-3">Fleet Database — What It Is</h2>
+                                <p className="text-sm leading-relaxed text-muted-foreground">
+                                    {caseStudy.overview}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
 
+                    {/* Section 2 & 3: Challenge + Solution side-by-side */}
+                    <section className="px-6 pb-8">
+                        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
+                            {caseStudy.challenge && (
                                 <div className="border rounded-2xl p-6 bg-background">
-                                    <h2 className="font-bold text-lg text-primary mb-3">{caseStudy.solution.title || "Solution"}</h2>
+                                    <h2 className="font-bold text-lg text-primary mb-3">{caseStudy.challenge.title}</h2>
                                     <ul className="space-y-2 pl-4">
-                                        {caseStudy.solution.points.map((point, idx) => (
+                                        {caseStudy.challenge.points.map((point, idx) => (
                                             <li key={idx} className="text-sm leading-relaxed text-muted-foreground list-disc">
                                                 {point}
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
+                            )}
 
-                                {caseStudy.benefits && (
-                                    <div className="border rounded-2xl p-6 bg-background">
-                                        <h2 className="font-bold text-lg text-primary mb-3">{caseStudy.benefits.title}</h2>
-                                        <ul className="space-y-2 pl-4">
-                                            {caseStudy.benefits.points.map((point, idx) => (
-                                                <li key={idx} className="text-sm leading-relaxed text-muted-foreground list-disc">
-                                                    {point}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
+                            <div className="border rounded-2xl p-6 bg-background">
+                                <h2 className="font-bold text-lg text-primary mb-3">{caseStudy.solution.title || "Solution"}</h2>
+                                <ul className="space-y-2 pl-4">
+                                    {caseStudy.solution.points.map((point, idx) => (
+                                        <li key={idx} className="text-sm leading-relaxed text-muted-foreground list-disc">
+                                            {point}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
+                        </div>
+                    </section>
 
-                            {/* Right Column: Results + Testimonial */}
-                            <div className="md:col-span-2 flex flex-col items-center justify-start space-y-10 pt-4">
+                    {/* Section 4: Before vs After */}
+                    {caseStudy.benefits && (
+                        <section className="px-6 pb-8">
+                            <div className="max-w-7xl mx-auto">
+                                <h2 className="font-bold text-xl text-foreground mb-6 text-center">{caseStudy.benefits.title}</h2>
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div className="border rounded-2xl p-6 bg-background">
+                                        <h3 className="font-semibold text-base text-muted-foreground mb-4">Before InFynd</h3>
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between items-center border-b border-border pb-2">
+                                                <span className="text-sm text-muted-foreground">Open Rate</span>
+                                                <span className="text-lg font-bold text-muted-foreground">11.90%</span>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b border-border pb-2">
+                                                <span className="text-sm text-muted-foreground">Click Rate</span>
+                                                <span className="text-lg font-bold text-muted-foreground">3.30%</span>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground pt-1">Limited engagement · Inconsistent lead flow</p>
+                                        </div>
+                                    </div>
+                                    <div className="border-2 border-primary/30 rounded-2xl p-6 bg-primary/5">
+                                        <h3 className="font-semibold text-base text-primary mb-4">After InFynd</h3>
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between items-center border-b border-primary/20 pb-2">
+                                                <span className="text-sm text-foreground">Open Rate</span>
+                                                <span className="text-lg font-bold text-primary">16.42%</span>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b border-primary/20 pb-2">
+                                                <span className="text-sm text-foreground">Click Rate</span>
+                                                <span className="text-lg font-bold text-primary">6.01%</span>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground pt-1">Consistent campaign performance · Improved lead quality</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="text-xs text-muted-foreground text-center mt-4 italic">
+                                    Based on campaigns using InFynd-supplied email data
+                                </p>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* Section 5: Business Results */}
+                    <section className="px-6 pb-8">
+                        <div className="max-w-7xl mx-auto">
+                            <h2 className="font-bold text-xl text-foreground mb-6 text-center">Business Results</h2>
+                            <div className="grid grid-cols-3 gap-6">
                                 {caseStudy.results.metrics.map((metric, idx) => (
-                                    <div key={idx} className="text-center">
-                                        <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
-                                            {metric.label}
-                                        </p>
-                                        <div className="text-7xl font-bold text-foreground">{metric.value}</div>
+                                    <div key={idx} className="text-center border rounded-2xl p-6 bg-background">
+                                        <div className="text-5xl md:text-6xl font-bold text-primary mb-2">{metric.value}</div>
+                                        <div className="text-sm font-semibold text-foreground">{metric.label}</div>
                                         {metric.description && (
-                                            <p className="text-sm text-muted-foreground mt-2">{metric.description}</p>
+                                            <p className="text-xs text-muted-foreground mt-1">{metric.description}</p>
                                         )}
                                     </div>
                                 ))}
-
-                                {caseStudy.testimonial && (
-                                    <div className="pt-4 border-t border-border">
-                                        <p className="text-xs font-bold uppercase tracking-wider text-foreground mb-2">Testimonial:</p>
-                                        <blockquote className="italic text-xs leading-relaxed text-primary">
-                                            "{caseStudy.testimonial.quote}"
-                                        </blockquote>
-                                    </div>
-                                )}
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+
+                    {/* Section 6: Testimonial */}
+                    {caseStudy.testimonial && (
+                        <section className="px-6 pb-8">
+                            <div className="max-w-7xl mx-auto">
+                                <div className="border rounded-2xl p-8 bg-muted/20">
+                                    <blockquote className="italic text-sm leading-relaxed text-muted-foreground mb-4">
+                                        "{caseStudy.testimonial.quote}"
+                                    </blockquote>
+                                    {caseStudy.testimonial.author && (
+                                        <p className="text-sm font-semibold text-primary">— {caseStudy.testimonial.author}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* Section 7: Why It Matters */}
+                    <section className="px-6 pb-12">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="border rounded-2xl p-6 bg-background">
+                                <h2 className="font-bold text-lg text-primary mb-3">Why This Matters for You</h2>
+                                <p className="text-sm leading-relaxed text-muted-foreground mb-3">
+                                    This case study demonstrates what happens when data is built specifically for your market, your audience, and your revenue goals.
+                                </p>
+                                <p className="text-sm leading-relaxed text-muted-foreground">
+                                    The Fleet Database is not a static list — it is a continuously validated dataset designed to perform in real campaigns.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </>
             ) : (
                 /* Default two-column layout for other case studies */
                 <section className="px-6 pb-12">

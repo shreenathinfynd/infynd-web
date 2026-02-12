@@ -3,6 +3,7 @@ import { getCaseStudyBySlug } from "@/data/caseStudies";
 import { ArrowLeft, CheckSquare } from "lucide-react";
 import NotFound from "./NotFound";
 import merchantGraph from "@/assets/merchant-terminal-graph.png";
+import indeedLogo from "@/assets/indeed-logo.svg";
 
 const CaseStudyPage = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -13,6 +14,7 @@ const CaseStudyPage = () => {
     }
 
     const isMerchantTerminal = caseStudy.id === "merchant-terminal";
+    const isIndeed = caseStudy.id === "indeed-email";
 
     return (
         <div className="min-h-screen bg-background">
@@ -29,12 +31,15 @@ const CaseStudyPage = () => {
                 </div>
             </section>
 
-            {/* Title */}
+            {/* Title + Client Logo */}
             <section className="px-6">
-                <div className="max-w-7xl mx-auto py-6">
+                <div className="max-w-7xl mx-auto py-6 flex items-center justify-between">
                     <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground">
                         {caseStudy.title}
                     </h1>
+                    {isIndeed && (
+                        <img src={indeedLogo} alt="Indeed" className="h-10 md:h-14" />
+                    )}
                 </div>
             </section>
 
@@ -80,71 +85,125 @@ const CaseStudyPage = () => {
                 </section>
             )}
 
-            {/* Two Column Layout: Overview + Case Study */}
-            <section className="px-6 pb-12">
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid md:grid-cols-5 gap-8">
-                        {/* Left Column: Company Overview */}
-                        <div className="md:col-span-2 space-y-6">
-                            <div>
-                                <h2 className="font-bold text-lg mb-3">Company Overview:</h2>
-                                <p className="text-sm leading-relaxed text-muted-foreground text-justify">
-                                    {caseStudy.overview}
-                                </p>
-                            </div>
-
-                            <div className="space-y-2">
-                                {caseStudy.solution.points.map((point, idx) => (
-                                    <div key={idx} className="flex items-start gap-2">
-                                        <CheckSquare className="h-4 w-4 shrink-0 mt-0.5 text-primary" />
-                                        <span className="text-sm font-semibold">{point}</span>
+            {/* Indeed-specific layout */}
+            {isIndeed ? (
+                <section className="px-6 pb-12">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid md:grid-cols-5 gap-8">
+                            {/* Left Column: Objective + Solution cards */}
+                            <div className="md:col-span-3 space-y-6">
+                                {caseStudy.objective && (
+                                    <div className="border rounded-2xl p-6 bg-background">
+                                        <h2 className="font-bold text-lg text-primary mb-3">Objective</h2>
+                                        <p className="text-sm leading-relaxed text-muted-foreground">
+                                            {caseStudy.objective.description}
+                                        </p>
                                     </div>
-                                ))}
-                            </div>
+                                )}
 
-                            {caseStudy.solution.subPoints && caseStudy.solution.subPoints[0] && (
-                                <div className="space-y-2">
-                                    {caseStudy.solution.subPoints[0].items.map((item, idx) => (
-                                        <div key={idx} className="flex items-start gap-2">
-                                            <CheckSquare className="h-4 w-4 shrink-0 mt-0.5 text-muted-foreground" />
-                                            <span className="text-sm">{item}</span>
+                                <div className="border rounded-2xl p-6 bg-background">
+                                    <h2 className="font-bold text-lg text-primary mb-3">Solution</h2>
+                                    <p className="text-sm leading-relaxed text-muted-foreground mb-4">
+                                        {caseStudy.solution.points[0]}
+                                    </p>
+                                    {caseStudy.solution.subPoints?.map((group, gIdx) => (
+                                        <div key={gIdx} className="mb-4 last:mb-0">
+                                            <h3 className="text-sm font-semibold mb-2">{group.title}</h3>
+                                            <ul className="space-y-1 pl-4">
+                                                {group.items.map((item, iIdx) => (
+                                                    <li key={iIdx} className="text-sm text-muted-foreground list-disc">
+                                                        {item}
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
                                     ))}
                                 </div>
-                            )}
-                        </div>
+                            </div>
 
-                        {/* Right Column: Case Study Graph */}
-                        <div className="md:col-span-3 space-y-4">
-                            <h2 className="font-bold text-lg">Case Study</h2>
-
-                            {isMerchantTerminal ? (
-                                <div className="border rounded-lg p-4 bg-muted/20">
-                                    <img
-                                        src={merchantGraph}
-                                        alt="DMC to Connect % and APP to DMC % by Date and Provider"
-                                        className="w-full h-auto rounded"
-                                    />
-                                </div>
-                            ) : (
-                                <>
-                                    {caseStudy.objective && (
-                                        <div className="space-y-2">
-                                            <p className="text-sm font-medium">{caseStudy.objective.description}</p>
-                                        </div>
-                                    )}
-                                    <div className="border rounded-lg p-8 bg-muted/30 flex items-center justify-center min-h-[300px]">
-                                        <p className="text-muted-foreground text-sm">Chart visualization area</p>
+                            {/* Right Column: Results */}
+                            <div className="md:col-span-2 flex flex-col items-center justify-center space-y-8">
+                                <h2 className="font-bold text-xl">The Results</h2>
+                                {caseStudy.results.metrics.map((metric, idx) => (
+                                    <div key={idx} className="text-center">
+                                        {metric.description && (
+                                            <p className="text-sm text-muted-foreground mb-1">{metric.description}</p>
+                                        )}
+                                        <div className="text-6xl font-bold text-foreground">{metric.value}</div>
+                                        <div className="text-base font-semibold text-primary mt-1">{metric.label}</div>
                                     </div>
-                                </>
-                            )}
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            ) : (
+                /* Default two-column layout for other case studies */
+                <section className="px-6 pb-12">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid md:grid-cols-5 gap-8">
+                            {/* Left Column: Company Overview */}
+                            <div className="md:col-span-2 space-y-6">
+                                <div>
+                                    <h2 className="font-bold text-lg mb-3">Company Overview:</h2>
+                                    <p className="text-sm leading-relaxed text-muted-foreground text-justify">
+                                        {caseStudy.overview}
+                                    </p>
+                                </div>
+
+                                <div className="space-y-2">
+                                    {caseStudy.solution.points.map((point, idx) => (
+                                        <div key={idx} className="flex items-start gap-2">
+                                            <CheckSquare className="h-4 w-4 shrink-0 mt-0.5 text-primary" />
+                                            <span className="text-sm font-semibold">{point}</span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {caseStudy.solution.subPoints && caseStudy.solution.subPoints[0] && (
+                                    <div className="space-y-2">
+                                        {caseStudy.solution.subPoints[0].items.map((item, idx) => (
+                                            <div key={idx} className="flex items-start gap-2">
+                                                <CheckSquare className="h-4 w-4 shrink-0 mt-0.5 text-muted-foreground" />
+                                                <span className="text-sm">{item}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Right Column: Case Study Graph */}
+                            <div className="md:col-span-3 space-y-4">
+                                <h2 className="font-bold text-lg">Case Study</h2>
+
+                                {isMerchantTerminal ? (
+                                    <div className="border rounded-lg p-4 bg-muted/20">
+                                        <img
+                                            src={merchantGraph}
+                                            alt="DMC to Connect % and APP to DMC % by Date and Provider"
+                                            className="w-full h-auto rounded"
+                                        />
+                                    </div>
+                                ) : (
+                                    <>
+                                        {caseStudy.objective && (
+                                            <div className="space-y-2">
+                                                <p className="text-sm font-medium">{caseStudy.objective.description}</p>
+                                            </div>
+                                        )}
+                                        <div className="border rounded-lg p-8 bg-muted/30 flex items-center justify-center min-h-[300px]">
+                                            <p className="text-muted-foreground text-sm">Chart visualization area</p>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* Results Metrics — hidden for merchant-terminal */}
-            {!isMerchantTerminal && (
+            {!isMerchantTerminal && !isIndeed && (
                 <section className="px-6 pb-12">
                     <div className="max-w-7xl mx-auto space-y-6">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

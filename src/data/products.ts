@@ -133,7 +133,7 @@ export const products: Product[] = [
       { country: "France", records: "3800000", industries: ["Retail", "Luxury", "Finance", "Technology", "Hospitality"] },
       { country: "Netherlands", records: "1900000", industries: ["Logistics", "Technology", "Finance", "Agriculture"] },
       { country: "United States", records: "3600000", industries: ["Technology", "Healthcare", "Finance", "Retail", "Manufacturing"] },
-      { country: "Ireland", records: "318K", industries: ["Technology", "Finance", "Pharma", "Retail"] },
+      { country: "Ireland", records: "324K", industries: ["Technology", "Finance", "Pharma", "Retail"] },
       { country: "Belgium", records: "850000", industries: ["Logistics", "Manufacturing", "Finance"] },
       { country: "Spain", records: "1100000", industries: ["Tourism", "Retail", "Technology", "Agriculture"] },
     ],

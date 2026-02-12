@@ -365,15 +365,30 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-0">
         <div className="border-b pb-4 mb-8">
           <TabsList className="bg-transparent p-0 justify-start h-auto gap-2 flex-wrap">
-            {["Overview", "Volumes & Samples", "Sample Data", "Data Dictionary", "Related Products"].map((tab) => (
-              <TabsTrigger
-                key={tab}
-                value={tab.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}
-                className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-full px-4 border border-transparent data-[state=active]:border-primary/20"
-              >
-                {tab}
-              </TabsTrigger>
-            ))}
+            {(() => {
+              const isUniverse = product.id === "uk-universe" || product.id === "ireland-universe";
+              const isUKUniverse = product.id === "uk-universe";
+
+              let tabs = [];
+
+              if (isUniverse) {
+                tabs = ["Overview", "Volume", "Sample Data", "Data Dictionary"];
+                if (isUKUniverse) tabs.push("Related Products");
+              } else {
+                // Individual products
+                tabs = ["Overview", "Volume & Filled Rate", "Volume & Sample", "Data Dictionary", "Related Products"];
+              }
+
+              return tabs.map((tab) => (
+                <TabsTrigger
+                  key={tab}
+                  value={tab.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}
+                  className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-full px-4 border border-transparent data-[state=active]:border-primary/20"
+                >
+                  {tab}
+                </TabsTrigger>
+              ));
+            })()}
           </TabsList>
         </div>
 
@@ -429,8 +444,19 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
           )}
         </TabsContent>
 
-        {/* Coverage & Volumes */}
-        <TabsContent value="volumes-samples" className="mt-6 space-y-8">
+        {/* Stats / Filled Rates / Volume Section */}
+        {/* For Universe: "Volume" */}
+        <TabsContent value="volume" className="mt-6 space-y-8">
+          {product.id === "tele" ? (
+            <TelemarketingCoverageBlock />
+          ) : (
+            <>
+              {product.filledRates && <FilledRatesSection data={product.filledRates} />}
+            </>
+          )}
+        </TabsContent>
+        {/* For Individual: "Volume & Filled Rate" */}
+        <TabsContent value="volume-filled-rate" className="mt-6 space-y-8">
           {product.id === "tele" ? (
             <TelemarketingCoverageBlock />
           ) : (
@@ -440,8 +466,14 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
           )}
         </TabsContent>
 
-        {/* Sample Data */}
+        {/* Sample Data Section */}
+        {/* For Universe: "Sample Data" */}
         <TabsContent value="sample-data" className="mt-6">
+          <SampleDataTab product={product} addonFields={addonFields} region={region} selectedCountry={selectedCountry} />
+          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
+        </TabsContent>
+        {/* For Individual: "Volume & Sample" */}
+        <TabsContent value="volume-sample" className="mt-6">
           <SampleDataTab product={product} addonFields={addonFields} region={region} selectedCountry={selectedCountry} />
           <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
         </TabsContent>

@@ -29,22 +29,12 @@ const CaseStudyPage = () => {
                 </div>
             </section>
 
-            {/* Title with sidebar accent */}
+            {/* Title */}
             <section className="px-6">
-                <div className="max-w-7xl mx-auto">
-                    <div className="flex items-stretch">
-                        <div className="bg-primary w-10 shrink-0 flex items-center justify-center rounded-bl-lg">
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground whitespace-nowrap"
-                                style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
-                                {caseStudy.category}
-                            </span>
-                        </div>
-                        <div className="flex-1 py-6 pl-4">
-                            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-                                {caseStudy.title}
-                            </h1>
-                        </div>
-                    </div>
+                <div className="max-w-7xl mx-auto py-6">
+                    <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+                        {caseStudy.title}
+                    </h1>
                 </div>
             </section>
 
@@ -55,19 +45,19 @@ const CaseStudyPage = () => {
                         <div className="overflow-x-auto border rounded-lg">
                             <table className="w-full text-sm">
                                 <thead>
-                                    <tr className="bg-foreground text-background">
-                                        <th className="p-3 text-left font-semibold border-r border-background/20"></th>
-                                        <th className="p-3 text-center font-semibold border-r border-background/20"></th>
-                                        <th colSpan={2} className="p-3 text-center font-semibold border-r border-background/20">
-                                            Business level
-                                        </th>
-                                        <th colSpan={2} className="p-3 text-center font-semibold">
-                                            Contact level
-                                        </th>
-                                    </tr>
-                                    <tr className="bg-foreground text-background border-t border-background/20">
-                                        {caseStudy.dataTable.headers.map((header, idx) => (
-                                            <th key={idx} className="p-3 text-center font-semibold border-r border-background/20 last:border-r-0">
+                                     <tr className="bg-background text-foreground">
+                                         <th className="p-3 text-left font-semibold border-r border-border"></th>
+                                         <th className="p-3 text-center font-semibold border-r border-border"></th>
+                                         <th colSpan={2} className="p-3 text-center font-semibold border-r border-border">
+                                             Business level
+                                         </th>
+                                         <th colSpan={2} className="p-3 text-center font-semibold">
+                                             Contact level
+                                         </th>
+                                     </tr>
+                                     <tr className="bg-background text-foreground border-t border-border">
+                                         {caseStudy.dataTable.headers.map((header, idx) => (
+                                             <th key={idx} className="p-3 text-center font-semibold border-r border-border last:border-r-0">
                                                 {header}
                                             </th>
                                         ))}
@@ -153,22 +143,24 @@ const CaseStudyPage = () => {
                 </div>
             </section>
 
-            {/* Results Metrics */}
-            <section className="px-6 pb-12">
-                <div className="max-w-7xl mx-auto space-y-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {caseStudy.results.metrics.map((metric, idx) => (
-                            <div key={idx} className="border rounded-lg p-4 bg-background">
-                                <div className="text-3xl font-bold text-primary mb-1">{metric.value}</div>
-                                <div className="text-sm font-medium">{metric.label}</div>
-                                {metric.description && (
-                                    <div className="text-xs text-muted-foreground mt-1">{metric.description}</div>
-                                )}
-                            </div>
-                        ))}
+            {/* Results Metrics — hidden for merchant-terminal */}
+            {!isMerchantTerminal && (
+                <section className="px-6 pb-12">
+                    <div className="max-w-7xl mx-auto space-y-6">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {caseStudy.results.metrics.map((metric, idx) => (
+                                <div key={idx} className="border rounded-lg p-4 bg-background">
+                                    <div className="text-3xl font-bold text-primary mb-1">{metric.value}</div>
+                                    <div className="text-sm font-medium">{metric.label}</div>
+                                    {metric.description && (
+                                        <div className="text-xs text-muted-foreground mt-1">{metric.description}</div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            )}
 
             {/* Testimonial */}
             {caseStudy.testimonial && (

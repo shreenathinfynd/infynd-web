@@ -33,9 +33,8 @@ const DataProcessSlide = () => {
         className="relative"
         style={{ width: 640, height: 640 }}
       >
-        {/* SVG Layer for Circle and Arrows */}
+        {/* SVG Layer for the guide circle */}
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 640 640">
-          {/* Main Path Circle */}
           <circle
             cx={centerX}
             cy={centerY}
@@ -44,55 +43,36 @@ const DataProcessSlide = () => {
             stroke="hsl(var(--muted-foreground) / 0.2)"
             strokeWidth="2"
           />
-
-          {/* Arrow indicators */}
-          {steps.map((step, i) => {
-            const nextStep = steps[(i + 1) % steps.length];
-
-            // Normalize angle for the wrap-around (from 210 back to -90)
-            let startAngle = step.angle;
-            let endAngle = nextStep.angle;
-            if (endAngle < startAngle) endAngle += 360;
-
-            const midAngleDeg = (startAngle + endAngle) / 2;
-            const midAngleRad = (midAngleDeg * Math.PI) / 180;
-
-            // Position arrow on the circle line
-            const ax = centerX + radius * Math.cos(midAngleRad);
-            const ay = centerY + radius * Math.sin(midAngleRad);
-
-            // Calculate rotation for the arrow head to follow the curve
-            const tangentAngle = midAngleRad + Math.PI / 2;
-
-            return (
-              <polygon
-                key={i}
-                points={`
-                  ${ax + 8 * Math.cos(tangentAngle)},${ay + 8 * Math.sin(tangentAngle)} 
-                  ${ax - 8 * Math.cos(tangentAngle)},${ay - 8 * Math.sin(tangentAngle)} 
-                  ${ax + 12 * Math.cos(midAngleRad)},${ay + 12 * Math.sin(midAngleRad)}
-                `}
-                fill="hsl(var(--muted-foreground) / 0.4)"
-              />
-            );
-          })}
         </svg>
 
-        {/* Step nodes */}
+        {/* Step nodes mapped along the circle */}
         {steps.map((step, i) => {
           const rad = (step.angle * Math.PI) / 180;
           const x = centerX + radius * Math.cos(rad);
           const y = centerY + radius * Math.sin(rad);
 
-          // Color logic based on your image (Red for specific steps, Dark for others)
-          // Adjust the indices if the color sequence needs to be different
+          // Color logic: Red for top/sides, Dark for others to match your image
           const isRed = i === 0 || i === 2 || i === 4;
 
           return (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0, x, y, translateX: "-50%", translateY: "-50%" }}
-              animate={{ opacity: 1, scale: 1, x, y, translateX: "-50%", translateY: "-50%" }}
+              initial={{
+                opacity: 0,
+                scale: 0,
+                x,
+                y,
+                translateX: "-50%",
+                translateY: "-50%",
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                x,
+                y,
+                translateX: "-50%",
+                translateY: "-50%",
+              }}
               transition={{
                 delay: 0.3 + i * 0.1,
                 type: "spring",
@@ -103,8 +83,8 @@ const DataProcessSlide = () => {
                 isRed ? "bg-[#E33B2E] text-white" : "bg-[#1A1F2C] text-white"
               }`}
               style={{
-                width: 160,
-                minHeight: 70,
+                width: 170,
+                minHeight: 80,
                 zIndex: 10,
               }}
             >
@@ -114,7 +94,7 @@ const DataProcessSlide = () => {
         })}
       </motion.div>
 
-      <p className="mt-10 text-muted-foreground text-sm">Use arrows or click to navigate</p>
+      <p className="mt-10 text-muted-foreground text-sm italic">Use arrows or click to navigate</p>
     </section>
   );
 };

@@ -13,7 +13,7 @@ const uspPoints = [
 
 
 const OurUSPSlide = () => (
-  <section className="relative min-h-screen bg-background text-foreground flex">
+  <section className="relative h-screen bg-background text-foreground flex overflow-hidden">
     {/* Left Sidebar */}
     <div className="w-10 shrink-0 bg-primary flex items-center justify-center">
       <span
@@ -25,13 +25,13 @@ const OurUSPSlide = () => (
     </div>
 
     {/* Main content - lifted up */}
-    <div className="flex-1 px-12 pt-8 pb-4 flex flex-col justify-start">
+    <div className="flex-1 px-12 pt-6 pb-2 flex flex-col justify-start">
       {/* Intro paragraph */}
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-base leading-relaxed max-w-4xl mb-6"
+        className="text-base leading-relaxed max-w-4xl mb-4"
       >
         <span className="font-bold">InFynd</span> is a leading B2B Data and Deliverability business with offices in the UK and India. At InFynd, we focus on delivering comprehensive, end-to-end data solutions coupled with exceptional customer service, continuously innovating to meet our clients' evolving needs.
       </motion.p>
@@ -42,7 +42,7 @@ const OurUSPSlide = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <h2 className="text-3xl font-bold text-primary mb-4">Our USP</h2>
+        <h2 className="text-2xl font-bold text-primary mb-3">Our USP</h2>
         <ul className="space-y-2 max-w-4xl">
           {uspPoints.map((point, i) => (
             <li key={i} className="flex items-start gap-3">

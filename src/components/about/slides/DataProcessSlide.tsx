@@ -103,8 +103,8 @@ const DataProcessSlide = () => {
               <StepCard step={steps[2]} index={2} isActive={activeStep === 2} />
             </div>
 
-            {/* Arrow down between card 3 and card 4 */}
-            <div className="flex justify-end my-3 pr-[100px]">
+            {/* Arrow down aligned under card 3 / above card 4 */}
+            <div className="self-end my-3 mr-[100px]">
               <PulsingArrow icon={ArrowDown} delay={0.6} />
             </div>
 

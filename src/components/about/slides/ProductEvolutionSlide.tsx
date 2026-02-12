@@ -79,7 +79,7 @@ const ProductEvolutionSlide = () => (
 
         {/* Product Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {products.map((product, i) => {
+          {products.filter(p => !p.id.includes('universe')).map((product, i) => {
             const Icon = iconMap[product.icon] || Sparkles;
             return (
               <motion.div

@@ -61,26 +61,22 @@ const OurUSPSlide = () => (
         </ul>
       </motion.div>
 
-      {/* Circular badges */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="flex flex-wrap gap-5 mt-10"
-      >
+      {/* Circular badges - staircase on right */}
+      <div className="absolute right-12 top-10 bottom-10 flex flex-col items-end justify-center gap-4">
         {badges.map((b, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.5 + i * 0.12 }}
+            style={{ marginRight: `${(badges.length - 1 - i) * 28}px` }}
             className={`${b.bg} rounded-full w-24 h-24 flex flex-col items-center justify-center text-primary-foreground shadow-xl`}
           >
             <span className="text-[10px] font-semibold text-center leading-tight px-2">{b.text}</span>
             <span className="text-sm font-bold text-center leading-tight px-2">{b.subtext}</span>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </div>
   </section>
 );

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import worldMapImg from "@/assets/world-map-locations.png";
 
 const uspPoints = [
   "Real-time, custom-built datasets verified by human intelligence",
@@ -23,14 +24,14 @@ const OurUSPSlide = () => (
       </span>
     </div>
 
-    {/* Main content */}
-    <div className="flex-1 px-12 py-16 flex flex-col justify-center">
+    {/* Main content - lifted up */}
+    <div className="flex-1 px-12 pt-8 pb-4 flex flex-col justify-start">
       {/* Intro paragraph */}
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-base leading-relaxed max-w-4xl mb-10"
+        className="text-base leading-relaxed max-w-4xl mb-6"
       >
         <span className="font-bold">InFynd</span> is a leading B2B Data and Deliverability business with offices in the UK and India. At InFynd, we focus on delivering comprehensive, end-to-end data solutions coupled with exceptional customer service, continuously innovating to meet our clients' evolving needs.
       </motion.p>
@@ -41,8 +42,8 @@ const OurUSPSlide = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <h2 className="text-3xl font-bold text-primary mb-6">Our USP</h2>
-        <ul className="space-y-3 max-w-4xl">
+        <h2 className="text-3xl font-bold text-primary mb-4">Our USP</h2>
+        <ul className="space-y-2 max-w-4xl">
           {uspPoints.map((point, i) => (
             <li key={i} className="flex items-start gap-3">
               <div className="mt-0.5 shrink-0 w-5 h-5 border-2 border-foreground flex items-center justify-center">
@@ -54,6 +55,16 @@ const OurUSPSlide = () => (
         </ul>
       </motion.div>
     </div>
+
+    {/* World Map Image - bottom right */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.4 }}
+      className="absolute bottom-4 right-8 w-[480px]"
+    >
+      <img src={worldMapImg} alt="InFynd global presence - UK and India" className="w-full h-auto" />
+    </motion.div>
   </section>
 );
 

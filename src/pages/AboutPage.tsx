@@ -3,8 +3,7 @@ import HeroSlide from "@/components/about/slides/HeroSlide";
 import OurUSPSlide from "@/components/about/slides/OurUSPSlide";
 import CompanyOverviewSlide from "@/components/about/slides/CompanyOverviewSlide";
 import OriginStorySlide from "@/components/about/slides/OriginStorySlide";
-import DataProcessSlide1 from "@/components/about/slides/DataProcessSlide1";
-import DataProcessSlide2 from "@/components/about/slides/DataProcessSlide2";
+import DataProcessSlide from "@/components/about/slides/DataProcessSlide";
 import ProductEvolutionSlide from "@/components/about/slides/ProductEvolutionSlide";
 import TrustComplianceSlide from "@/components/about/slides/TrustComplianceSlide";
 import WhyItMattersSlide from "@/components/about/slides/WhyItMattersSlide";
@@ -15,8 +14,7 @@ const AboutPage = () => {
       <HeroSlide />
       <OurUSPSlide />
       <OriginStorySlide />
-      <DataProcessSlide1 />
-      <DataProcessSlide2 />
+      <DataProcessSlide />
       <ProductEvolutionSlide />
       <TrustComplianceSlide />
       <WhyItMattersSlide />

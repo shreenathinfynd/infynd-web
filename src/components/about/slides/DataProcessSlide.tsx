@@ -10,13 +10,13 @@ const steps = [
 ];
 
 const DataProcessSlide = () => {
-  const radius = 220;
-  const centerX = 300;
-  const centerY = 300;
+  const size = 440;
+  const center = size / 2;
+  const radius = 160;
 
   return (
-    <section className="min-h-screen flex items-center justify-center py-20 px-6 bg-background">
-      <div className="max-w-4xl mx-auto w-full flex flex-col items-center gap-10">
+    <section className="min-h-screen flex items-center justify-center py-16 px-6 bg-background">
+      <div className="w-full flex flex-col items-center gap-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,45 +31,42 @@ const DataProcessSlide = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative"
-          style={{ width: 600, height: 600 }}
+          style={{ width: size, height: size }}
         >
-          {/* Circle ring */}
           <svg
             className="absolute inset-0 w-full h-full"
-            viewBox="0 0 600 600"
+            viewBox={`0 0 ${size} ${size}`}
           >
             <circle
-              cx={centerX}
-              cy={centerY}
+              cx={center}
+              cy={center}
               r={radius}
               fill="none"
               stroke="hsl(var(--muted-foreground) / 0.2)"
               strokeWidth="2"
             />
-            {/* Arrow indicators */}
             {steps.map((step, i) => {
               const nextAngle = steps[(i + 1) % steps.length].angle;
               let mid = (step.angle + nextAngle) / 2;
               if (nextAngle < step.angle) mid += 180;
               const midRad = (mid * Math.PI) / 180;
-              const ax = centerX + radius * Math.cos(midRad);
-              const ay = centerY + radius * Math.sin(midRad);
-              const tangentAngle = midRad + Math.PI / 2;
+              const ax = center + radius * Math.cos(midRad);
+              const ay = center + radius * Math.sin(midRad);
+              const tangent = midRad + Math.PI / 2;
               return (
                 <polygon
                   key={i}
-                  points={`${ax + 6 * Math.cos(tangentAngle)},${ay + 6 * Math.sin(tangentAngle)} ${ax - 6 * Math.cos(tangentAngle)},${ay - 6 * Math.sin(tangentAngle)} ${ax + 10 * Math.cos(midRad)},${ay + 10 * Math.sin(midRad)}`}
+                  points={`${ax + 5 * Math.cos(tangent)},${ay + 5 * Math.sin(tangent)} ${ax - 5 * Math.cos(tangent)},${ay - 5 * Math.sin(tangent)} ${ax + 8 * Math.cos(midRad)},${ay + 8 * Math.sin(midRad)}`}
                   fill="hsl(var(--muted-foreground) / 0.3)"
                 />
               );
             })}
           </svg>
 
-          {/* Step nodes */}
           {steps.map((step, i) => {
             const rad = (step.angle * Math.PI) / 180;
-            const x = centerX + radius * Math.cos(rad);
-            const y = centerY + radius * Math.sin(rad);
+            const x = center + radius * Math.cos(rad);
+            const y = center + radius * Math.sin(rad);
             const isEven = i % 2 === 0;
 
             return (
@@ -78,7 +75,7 @@ const DataProcessSlide = () => {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 + i * 0.1, type: "spring", stiffness: 200 }}
-                className={`absolute flex items-center justify-center rounded-lg px-4 py-3 text-center text-xs font-semibold leading-tight shadow-md ${
+                className={`absolute flex items-center justify-center rounded-lg px-3 py-2 text-center text-[11px] font-semibold leading-tight shadow-md ${
                   isEven
                     ? "bg-primary text-primary-foreground"
                     : "bg-foreground text-background"
@@ -87,8 +84,8 @@ const DataProcessSlide = () => {
                   left: x,
                   top: y,
                   transform: "translate(-50%, -50%)",
-                  width: 130,
-                  minHeight: 54,
+                  width: 110,
+                  minHeight: 48,
                 }}
               >
                 <span className="whitespace-pre-line">{step.label}</span>

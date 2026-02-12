@@ -93,27 +93,29 @@ const DataProcessSlide = () => {
         {/* Body: Cards + USP */}
         <div className="flex gap-10 items-start">
           {/* Process cards grid */}
-          <div className="flex-1 flex flex-col items-center">
+          <div className="flex-1 flex flex-col items-center gap-0">
             {/* Top row: cards 1, 2, 3 */}
-            <div className="relative flex items-center gap-2">
+            <div className="inline-flex items-stretch gap-2">
               <StepCard step={steps[0]} index={0} isActive={activeStep === 0} />
-              <PulsingArrow icon={ArrowRight} delay={0} />
+              <PulsingArrow icon={ArrowRight} delay={0} className="flex items-center" />
               <StepCard step={steps[1]} index={1} isActive={activeStep === 1} />
-              <PulsingArrow icon={ArrowRight} delay={0.3} />
-              <div className="flex flex-col items-center">
-                <StepCard step={steps[2]} index={2} isActive={activeStep === 2} />
-                <div className="my-3">
-                  <PulsingArrow icon={ArrowDown} delay={0.6} />
-                </div>
+              <PulsingArrow icon={ArrowRight} delay={0.3} className="flex items-center" />
+              <StepCard step={steps[2]} index={2} isActive={activeStep === 2} />
+            </div>
+
+            {/* Arrow down — use same row width, push arrow to right card center */}
+            <div className="inline-flex justify-end my-4" style={{ width: 'calc(200px * 3 + 0.5rem * 4 + 16px * 2)' }}>
+              <div className="w-[200px] flex justify-center">
+                <PulsingArrow icon={ArrowDown} delay={0.6} />
               </div>
             </div>
 
             {/* Bottom row: cards 6, 5, 4 (reversed) */}
-            <div className="flex items-center gap-2">
+            <div className="inline-flex items-stretch gap-2">
               <StepCard step={steps[5]} index={5} isActive={activeStep === 5} />
-              <PulsingArrow icon={ArrowLeft} delay={1.2} />
+              <PulsingArrow icon={ArrowLeft} delay={1.2} className="flex items-center" />
               <StepCard step={steps[4]} index={4} isActive={activeStep === 4} />
-              <PulsingArrow icon={ArrowLeft} delay={0.9} />
+              <PulsingArrow icon={ArrowLeft} delay={0.9} className="flex items-center" />
               <StepCard step={steps[3]} index={3} isActive={activeStep === 3} />
             </div>
 

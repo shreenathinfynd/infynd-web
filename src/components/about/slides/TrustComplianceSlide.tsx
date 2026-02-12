@@ -27,6 +27,19 @@ const TrustComplianceSlide = () => (
         transition={{ duration: 0.6 }}
         className="space-y-8"
       >
+        {/* Slide Number */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring" }}
+          className="flex items-center gap-3 mb-4"
+        >
+          <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">
+            5
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-r from-primary/50 to-transparent" />
+        </motion.div>
+
         <div className="flex items-center gap-3 mb-2">
           <Shield className="h-6 w-6 text-primary" />
           <span className="text-sm font-medium text-primary uppercase tracking-wide">Trust Layer</span>

@@ -20,7 +20,7 @@ const ProductEvolutionSlide = () => (
         className="flex items-center gap-3 mb-6"
       >
         <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">
-          3
+          4
         </div>
         <div className="h-px flex-1 bg-gradient-to-r from-primary/50 to-transparent" />
       </motion.div>

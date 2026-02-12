@@ -80,8 +80,21 @@ const DataProcessSlide = () => {
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="relative z-10 w-[92%] max-w-6xl mx-auto"
       >
+        {/* Slide Number */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring" }}
+          className="flex items-center gap-3 mb-6"
+        >
+          <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">
+            3
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-r from-primary/50 to-transparent" />
+        </motion.div>
+
         {/* Header */}
-        <div className="pb-6 mb-8 border-b border-border/50">
+        <div className="pb-4 mb-6 border-b border-border/50">
           <h2 className="text-2xl md:text-3xl font-bold font-display text-foreground tracking-tight leading-tight">
             InFynd's <span className="text-primary">Data Building Process</span>
           </h2>
@@ -137,16 +150,16 @@ const DataProcessSlide = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="w-56 shrink-0 rounded-lg border bg-muted/20 p-5"
+            className="w-72 shrink-0 rounded-xl border bg-muted/20 p-6"
           >
-            <h3 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wide">
+            <h3 className="text-base font-bold text-foreground mb-5 uppercase tracking-wide">
               USP
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {uspPoints.map((point, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                  <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
+                <li key={i} className="flex items-start gap-2.5">
+                  <div className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />
+                  <span className="text-sm text-muted-foreground leading-relaxed">{point}</span>
                 </li>
               ))}
             </ul>

@@ -113,9 +113,9 @@ const OurUSPSlide = () => (
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="lg:col-span-5 flex items-center justify-center relative"
+          className="lg:col-span-5 flex flex-col items-center justify-start relative -mt-4"
         >
-          <div className="relative w-full max-w-sm">
+          <div className="relative w-full max-w-md">
             <img
               src={worldMapImg}
               alt="InFynd global presence"
@@ -142,34 +142,34 @@ const OurUSPSlide = () => (
               </span>
             </div>
           </div>
+
+          {/* Trust Badges below map */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+            className="mt-6 flex flex-col items-center gap-3"
+          >
+            <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/50 font-medium">
+              Trusted & Certified
+            </span>
+            <div className="flex items-center gap-5 flex-wrap justify-center">
+              {badges.map((badge) => (
+                <img
+                  key={badge.alt}
+                  src={badge.src}
+                  alt={badge.alt}
+                  className="h-14 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                />
+              ))}
+              <div className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+                <ShieldCheck className="w-6 h-6 text-muted-foreground" strokeWidth={1.5} />
+                <span className="text-xs font-semibold text-muted-foreground tracking-wide">CCPA</span>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
-
-      {/* Trust Bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
-        className="mt-10 pt-6 border-t border-border/40 flex items-center justify-between"
-      >
-        <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/50 font-medium">
-          Trusted & Certified
-        </span>
-        <div className="flex items-center gap-7">
-          {badges.map((badge) => (
-            <img
-              key={badge.alt}
-              src={badge.src}
-              alt={badge.alt}
-              className="h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
-            />
-          ))}
-          <div className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
-            <ShieldCheck className="w-5 h-5 text-muted-foreground" strokeWidth={1.5} />
-            <span className="text-[11px] font-semibold text-muted-foreground tracking-wide">CCPA</span>
-          </div>
-        </div>
-      </motion.div>
     </motion.div>
   </section>
 );

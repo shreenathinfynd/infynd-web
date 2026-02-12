@@ -25,18 +25,6 @@ const HeroSlide = () => (
     <div className="absolute inset-0 bg-black/50" />
 
     <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center -mt-24">
-      {/* Slide Number */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ type: "spring" }}
-        className="flex items-center gap-3 mb-10"
-      >
-        <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">
-          1
-        </div>
-        <div className="h-px flex-1 bg-gradient-to-r from-primary/50 to-transparent" />
-      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}

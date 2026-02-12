@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { ArrowRight, ArrowDown, ArrowLeft, RotateCcw } from "lucide-react";
+import { ArrowRight, ArrowDown, ArrowLeft } from "lucide-react";
 
 const steps = [
   { label: "Data Collection\n& Cleansing", status: "Collecting", description: "InFynd gathers millions of publicly available data points and removes inconsistencies to create a clean, structured dataset." },
@@ -103,11 +103,9 @@ const DataProcessSlide = () => {
               <StepCard step={steps[2]} index={2} isActive={activeStep === 2} />
             </div>
 
-            {/* Arrow down from card 3 to card 4 */}
-            <div className="flex justify-end w-full pr-[calc(50%-310px+100px)]" style={{ marginRight: 0 }}>
-              <div className="flex flex-col items-center" style={{ marginLeft: 'auto', marginRight: '90px' }}>
-                <PulsingArrow icon={ArrowDown} delay={0.6} className="my-2" />
-              </div>
+            {/* Arrow down centered */}
+            <div className="flex justify-center my-3">
+              <PulsingArrow icon={ArrowDown} delay={0.6} />
             </div>
 
             {/* Bottom row: cards 6, 5, 4 (reversed) */}
@@ -119,27 +117,8 @@ const DataProcessSlide = () => {
               <StepCard step={steps[3]} index={3} isActive={activeStep === 3} />
             </div>
 
-            {/* Loop indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              className="mt-6 flex items-center justify-center gap-2"
-            >
-              <motion.div
-                animate={{ rotate: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="flex items-center gap-2 text-muted-foreground/60"
-              >
-                <RotateCcw className="w-4 h-4" />
-                <span className="text-[11px] italic">
-                  Continuous refresh — data is revalidated and improved in every cycle
-                </span>
-              </motion.div>
-            </motion.div>
-
             {/* Progress dots */}
-            <div className="flex justify-center gap-2 mt-4">
+            <div className="flex justify-center gap-2 mt-6">
               {steps.map((_, i) => (
                 <div
                   key={i}

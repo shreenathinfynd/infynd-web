@@ -33,7 +33,7 @@ const badges = [
 ];
 
 const OurUSPSlide = () => (
-  <section className="relative h-screen flex items-center justify-center overflow-hidden bg-background">
+  <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-background">
     {/* Main content */}
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -42,7 +42,7 @@ const OurUSPSlide = () => (
       className="relative z-10 w-[92%] max-w-6xl mx-auto"
     >
       {/* Header */}
-      <div className="flex items-center gap-5 pb-6 mb-8 border-b border-border/50">
+      <div className="flex items-center gap-5 pb-4 mb-6 border-b border-border/50">
         <img src={infyndLogo} alt="InFynd" className="h-9 w-auto" />
         <div className="h-7 w-px bg-border/40" />
         <div>
@@ -58,7 +58,7 @@ const OurUSPSlide = () => (
       {/* Body: 2-column */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left: Content */}
-        <div className="lg:col-span-7 space-y-7">
+        <div className="lg:col-span-7 space-y-5">
           {/* Intro paragraph */}
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -72,7 +72,7 @@ const OurUSPSlide = () => (
           </motion.p>
 
           {/* Bullet points */}
-          <div className="space-y-5">
+          <div className="space-y-4">
             {bullets.map((b, i) => (
               <motion.div
                 key={b.label}
@@ -159,7 +159,7 @@ const OurUSPSlide = () => (
                   key={badge.alt}
                   src={badge.src}
                   alt={badge.alt}
-                  className="h-14 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                  className="h-14 w-auto object-contain hover:opacity-100 transition-opacity"
                 />
               ))}
               <div className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">

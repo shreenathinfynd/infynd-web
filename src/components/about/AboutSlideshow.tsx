@@ -35,17 +35,23 @@ const AboutSlideshow = ({ children }: AboutSlideshowProps) => {
     }
   }, [location.state?.returnToSlide]);
 
-  const paginate = useCallback((newDirection: number) => {
-    const nextSlide = currentSlide + newDirection;
-    if (nextSlide >= 0 && nextSlide < totalSlides) {
-      setSlide([nextSlide, newDirection]);
-    }
-  }, [currentSlide, totalSlides]);
+  const paginate = useCallback(
+    (newDirection: number) => {
+      const nextSlide = currentSlide + newDirection;
+      if (nextSlide >= 0 && nextSlide < totalSlides) {
+        setSlide([nextSlide, newDirection]);
+      }
+    },
+    [currentSlide, totalSlides],
+  );
 
-  const goToSlide = useCallback((index: number) => {
-    const newDirection = index > currentSlide ? 1 : -1;
-    setSlide([index, newDirection]);
-  }, [currentSlide]);
+  const goToSlide = useCallback(
+    (index: number) => {
+      const newDirection = index > currentSlide ? 1 : -1;
+      setSlide([index, newDirection]);
+    },
+    [currentSlide],
+  );
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -94,19 +100,7 @@ const AboutSlideshow = ({ children }: AboutSlideshowProps) => {
         </Button>
       </div>
 
-
-
       {/* Keyboard Navigation Hint */}
-      <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="text-xs text-muted-foreground/50"
-        >
-          Use arrows or click to navigate
-        </motion.p>
-      </div>
     </div>
   );
 };

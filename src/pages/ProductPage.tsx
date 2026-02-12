@@ -17,61 +17,14 @@ import { useState } from "react";
 import { Shield, ArrowRight, ArrowLeft, Info, Users, Building, ChevronRight, Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import NotFound from "./NotFound";
+import ComingSoon from "./ComingSoon";
 import { maskContactInfo } from "@/lib/maskData";
 
 const iconMap: Record<string, React.ElementType> = {
   Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
 };
 
-const CoverageTab = ({ product, region, selectedCountry }: { product: Product; region: string; selectedCountry?: string }) => {
-  const europeCountries = ["Germany", "France", "Netherlands", "Ireland", "Belgium", "Spain", "Italy", "Austria", "Switzerland", "Poland", "Sweden", "Norway", "Denmark", "Finland", "Portugal"];
 
-  const filtered = product.coverageRegions.filter((r) => {
-    if (selectedCountry && region === "EU") return r.country === selectedCountry;
-    if (region === "UK") return r.country === "United Kingdom";
-    if (region === "EU") return europeCountries.includes(r.country);
-    return true; // Global
-  });
-  // Handle string records by parsing them
-  const totalFiltered = filtered.reduce((sum, r) => {
-    const rawVal = String(r.records);
-    let val = 0;
-    if (rawVal.toLowerCase().endsWith('k')) val = parseFloat(rawVal) * 1000;
-    else if (rawVal.toLowerCase().endsWith('m')) val = parseFloat(rawVal) * 1000000;
-    else val = parseFloat(rawVal.replace(/,/g, ''));
-    return sum + (isNaN(val) ? 0 : val);
-  }, 0);
-
-  return (
-    <div className="space-y-6">
-      <div className="bg-primary/5 rounded-xl p-6 text-center">
-        <div className="font-display text-4xl font-bold text-primary">{totalFiltered.toLocaleString()}</div>
-        <div className="text-sm text-muted-foreground mt-1">total records</div>
-        {selectedCountry && (
-          <div className="text-xs font-semibold text-primary mt-2">
-            Showing data for {selectedCountry}
-          </div>
-        )}
-      </div>
-
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((region) => (
-          <Card key={region.country}>
-            <CardContent className="p-4">
-              <div className="font-semibold text-foreground">{region.country}</div>
-              <div className="text-2xl font-display font-bold text-primary mt-1">{region.records}</div>
-              <div className="flex flex-wrap gap-1 mt-2">
-                {region.industries.map((ind) => (
-                  <Badge key={ind} variant="secondary" className="text-[10px]">{ind}</Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 const sampleAddonValues: Record<string, string[]> = {
   "Funding Amount": ["£250K", "£1.5M", "£5M", "£12M", "£45M"],
@@ -298,13 +251,13 @@ const AddOnsSection = ({ active, toggle }: { active: Set<string>; toggle: (id: s
 
 
 /* ── Main Page ── */
-const ProductPage = () => {
+const ProductPage = ({ productOverride, regionOverride, countryOverride }: { productOverride?: Product; regionOverride?: string; countryOverride?: string }) => {
   const { slug } = useParams();
   const location = useLocation();
   const fromPresentation = location.state?.fromPresentation === true;
-  const selectedRegion = location.state?.selectedRegion || "Global";
-  const selectedCountry = location.state?.selectedCountry; // Get selected country from state
-  const product = getProductBySlug(slug || "");
+  const selectedRegion = regionOverride || location.state?.selectedRegion || "Global";
+  const selectedCountry = countryOverride || location.state?.selectedCountry; // Get selected country from state
+  const product = productOverride || getProductBySlug(slug || "");
 
   const [activeAddOns, setActiveAddOns] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState("overview");
@@ -321,6 +274,28 @@ const ProductPage = () => {
   // Data Dictionary Filtering (Pass-through for now as fields are global)
   // If in future fields become region-specific, add logic here.
   const filteredDictionary = product?.dataDictionary || [];
+
+  // Special Handling for "Coming Soon" scenarios
+  const isGlobalUniverse = slug === "global-universe";
+
+  // Return Coming Soon if:
+  // 1. It is the special Global Universe slug
+  // 2. We are in Global Region (blocking all products in Global view?) -> User said "in product global when the card is clicked".
+  //    Wait, "Global Universe" IS the card.
+  //    What if I click "Email" in Global view?
+  //    If "Email" in Global view is clicked, it goes to /products/email with selectedRegion="Global".
+  //    User said "in product global when the card is clicked". Singular? Plural? 
+  //    "when the card is clicked" usually implies the main card.
+  //    But let's assume ALL global products.
+  //    Actually, "Global Universe" is the only card shown in Global view (Step 97 logic: region === "Global" ? (Single Card) : (List)).
+  //    So handled by isGlobalUniverse.
+
+  // 3. We are in UK Region AND product is NOT uk-universe
+  const isRestrictedUK = selectedRegion === "UK" && product?.id !== "uk-universe";
+
+  if (isGlobalUniverse || isRestrictedUK) {
+    return <ComingSoon />;
+  }
 
   if (!product) return <NotFound />;
 
@@ -460,7 +435,6 @@ const ProductPage = () => {
             <TelemarketingCoverageBlock />
           ) : (
             <>
-              <CoverageTab product={product} region={region} selectedCountry={selectedCountry} />
               {product.filledRates && <FilledRatesSection data={product.filledRates} />}
             </>
           )}
@@ -557,7 +531,7 @@ const ProductPage = () => {
         </TabsContent>
       </Tabs>
 
-    </div>
+    </div >
   );
 };
 

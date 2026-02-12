@@ -164,160 +164,9 @@ const TelemarketingCoverageBlock = () => {
         </div>
       </section>
 
-      {/* ─── 2. Company-Level Data Coverage ─── */}
-      <section>
-        <div className="flex items-center gap-2 mb-5">
-          <h3 className="font-display text-xl font-semibold text-foreground">Company-Level Data Coverage</h3>
-          <Tooltip>
-            <TooltipTrigger>
-              <Info className="h-4 w-4 text-muted-foreground" />
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs">
-              Coverage indicates the percentage of records where this field is available and validated.
-            </TooltipContent>
-          </Tooltip>
-        </div>
-        <Card>
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-              {companyFields.map((field, i) => (
-                <motion.div
-                  key={field.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className="flex items-center gap-3"
-                >
-                  <div className="h-8 w-8 rounded-lg bg-muted/50 flex items-center justify-center shrink-0">
-                    <field.icon className="h-4 w-4 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-sm font-medium text-foreground truncate">{field.name}</span>
-                      <span className="text-sm font-semibold text-foreground tabular-nums">{field.value}%</span>
-                    </div>
-                    <ProgressBar value={field.value} />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </section>
 
-      {/* ─── 3. Decision-Maker Coverage (Split View) ─── */}
-      <section>
-        <div className="flex items-center gap-2 mb-5">
-          <h3 className="font-display text-xl font-semibold text-foreground">Decision-Maker Coverage</h3>
-          <Tooltip>
-            <TooltipTrigger>
-              <Info className="h-4 w-4 text-muted-foreground" />
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs">
-              Comparison of field availability between Senior Decision Makers and other contacts.
-            </TooltipContent>
-          </Tooltip>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* SDM Column */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-            <Card className="h-full border-amber-200/50 dark:border-amber-800/30">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="h-10 w-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                    <Crown className="h-5 w-5 text-amber-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Senior Decision Makers</h4>
-                    <p className="text-xs text-muted-foreground">C-Suite, Directors, VPs</p>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  {sdmFields.map((field) => (
-                    <div key={field.name} className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">{field.name}</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20">
-                          <ProgressBar value={field.value} size="sm" />
-                        </div>
-                        <span className="text-sm font-semibold text-foreground w-12 text-right tabular-nums">{field.value}%</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
 
-          {/* Non-SDM Column */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
-            <Card className="h-full border-emerald-200/50 dark:border-emerald-800/30">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                    <Users className="h-5 w-5 text-emerald-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Non-SDM Contacts</h4>
-                    <p className="text-xs text-muted-foreground">Managers, Specialists, Users</p>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  {nonSdmFields.map((field) => (
-                    <div key={field.name} className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">{field.name}</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20">
-                          <ProgressBar value={field.value} size="sm" />
-                        </div>
-                        <span className="text-sm font-semibold text-foreground w-12 text-right tabular-nums">{field.value}%</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-        <p className="text-xs text-muted-foreground mt-3 text-center italic">
-          Email availability is intentionally stronger for senior decision-makers, aligned with outbound performance priorities.
-        </p>
-      </section>
 
-      {/* ─── 4. Optimisation Insight Box ─── */}
-      <section>
-        <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }}>
-          <Card className="bg-gradient-to-br from-primary/5 via-primary/3 to-transparent border-primary/20">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Zap className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-display font-semibold text-foreground">Designed for High-Connect Telemarketing Campaigns</h4>
-                  <p className="text-xs text-muted-foreground">Optimised for outbound sales success</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {optimisationPoints.map((point, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 + i * 0.1 }}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-background/60"
-                  >
-                    <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <point.icon className="h-4 w-4 text-primary" />
-                    </div>
-                    <span className="text-sm text-foreground">{point.text}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </section>
 
       {/* ─── 5. Filled Rates Table ─── */}
       <section>
@@ -376,7 +225,7 @@ const TelemarketingCoverageBlock = () => {
         <div className="flex items-start gap-2 p-4 rounded-lg bg-muted/30 border border-muted">
           <UserCheck className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Not all fields are applicable to every company or role. Coverage reflects real-world availability and is continuously improved through monthly refresh cycles. 
+            Not all fields are applicable to every company or role. Coverage reflects real-world availability and is continuously improved through monthly refresh cycles.
             Missing fields can be enriched on request via our Data Enhancement services.
           </p>
         </div>

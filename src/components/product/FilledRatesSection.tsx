@@ -12,13 +12,16 @@ const formatRate = (val: number | string) => {
 };
 
 const RateBar = ({ value }: { value: number | string }) => {
-  if (typeof value === "string") return <span className="text-muted-foreground/40">—</span>;
+  if (typeof value === "string") {
+    if (value === "-") return <span className="text-muted-foreground/40">—</span>;
+    return <span className="text-sm font-medium tabular-nums">{value}</span>;
+  }
   const color =
     value >= 90 ? "bg-emerald-500" :
-    value >= 70 ? "bg-primary" :
-    value >= 40 ? "bg-amber-500" :
-    value > 0 ? "bg-orange-500" :
-    "bg-muted";
+      value >= 70 ? "bg-primary" :
+        value >= 40 ? "bg-amber-500" :
+          value > 0 ? "bg-orange-500" :
+            "bg-muted";
   return (
     <div className="flex items-center gap-2 min-w-[120px]">
       <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
@@ -44,25 +47,38 @@ const groupColors: Record<string, string> = {
 const FilledRatesSection = ({ data }: { data: FilledRatesData }) => {
   const { headline, rows } = data;
 
+  /* Headline Stats Configuration */
+  const stats = [
+    { label: "Total Companies", value: headline.totalCompanies, icon: Building, color: "from-blue-500/10 to-blue-600/5", subtitle: undefined },
+    { label: "Total Contacts", value: headline.sdmPeople, icon: Users, color: "from-emerald-500/10 to-emerald-600/5", subtitle: headline.sdmPeopleSubtitle },
+  ];
+
+  if (headline.nonSdmPeople !== undefined) {
+    stats.push({ label: "SDM Contacts", value: headline.nonSdmPeople, icon: UserMinus, color: "from-amber-500/10 to-amber-600/5", subtitle: headline.nonSdmPeopleSubtitle });
+  }
+
   return (
     <div className="space-y-6">
       {/* Headline Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {[
-          { label: "Total Companies", value: headline.totalCompanies, icon: Building, color: "from-blue-500/10 to-blue-600/5" },
-          { label: "SDM People", value: headline.sdmPeople, icon: Users, color: "from-emerald-500/10 to-emerald-600/5" },
-          { label: "Non-SDM People", value: headline.nonSdmPeople, icon: UserMinus, color: "from-amber-500/10 to-amber-600/5" },
-        ].map((stat) => (
+        {stats.map((stat) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-            <Card className="overflow-hidden">
-              <CardContent className={`p-5 bg-gradient-to-br ${stat.color}`}>
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-background/80 flex items-center justify-center">
+            <Card className="overflow-hidden h-full">
+              <CardContent className={`p-5 bg-gradient-to-br ${stat.color} h-full`}>
+                <div className="flex items-start gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-background/80 flex items-center justify-center shrink-0">
                     <stat.icon className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     <div className="text-xs text-muted-foreground uppercase tracking-wide">{stat.label}</div>
-                    <div className="font-display text-2xl font-bold text-foreground">{stat.value.toLocaleString()}</div>
+                    <div className="font-display text-2xl font-bold text-foreground">
+                      {typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}
+                    </div>
+                    {stat.subtitle && (
+                      <div className="text-[10px] text-muted-foreground mt-1 font-medium bg-background/50 px-1.5 py-0.5 rounded-md inline-block">
+                        {stat.subtitle}
+                      </div>
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -95,14 +111,16 @@ const FilledRatesSection = ({ data }: { data: FilledRatesData }) => {
                   </TableHead>
                   <TableHead className="min-w-[160px]">
                     <div className="flex items-center gap-1.5">
-                      <Users className="h-3.5 w-3.5" /> SDM People
+                      <Users className="h-3.5 w-3.5" /> Total Contacts
                     </div>
                   </TableHead>
-                  <TableHead className="min-w-[160px]">
-                    <div className="flex items-center gap-1.5">
-                      <UserMinus className="h-3.5 w-3.5" /> Non-SDM People
-                    </div>
-                  </TableHead>
+                  {headline.nonSdmPeople !== undefined && (
+                    <TableHead className="min-w-[160px]">
+                      <div className="flex items-center gap-1.5">
+                        <UserMinus className="h-3.5 w-3.5" /> SDM Contacts
+                      </div>
+                    </TableHead>
+                  )}
                 </TableRow>
               </TableHeader>
               <TableBody>

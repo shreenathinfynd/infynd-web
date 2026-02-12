@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { products } from "@/data/products";
+import { products, getProductBySlug } from "@/data/products";
+import ProductPage from "@/pages/ProductPage";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -83,6 +84,20 @@ const EUCountryProductsPage = () => {
         ?.split("-")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
+
+    // Special case for Ireland Universe: Show product details directly
+    if (countryName?.trim() === "Ireland" || countryName?.trim() === "Ireland Universe") {
+        const irelandProduct = getProductBySlug("ireland-universe");
+        if (irelandProduct) {
+            return (
+                <ProductPage
+                    productOverride={irelandProduct}
+                    regionOverride="EU"
+                    countryOverride="Ireland"
+                />
+            );
+        }
+    }
 
     // Filter products that have coverage in the selected country
     const filteredProducts = products.filter((product) =>

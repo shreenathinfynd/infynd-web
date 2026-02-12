@@ -52,7 +52,7 @@ const ProductEvolutionSlide = () => (
               transition={{ duration: 0.3, delay: 0.2 + i * 0.06 }}
             >
               <Link to={`/products/${universe.slug}`} state={{ fromPresentation: true }} className="block h-full">
-                <Card className="relative h-full transition-all duration-300 cursor-pointer group hover:border-primary/30 hover:shadow-lg hover:-translate-y-1 border-primary/20 bg-primary/5">
+                <Card className="relative h-full transition-all duration-300 cursor-pointer group hover:border-primary/30 hover:shadow-lg hover:-translate-y-1">
                   <CardContent className="p-5">
                     <div className="flex items-start gap-3 mb-3">
                       <div className="h-10 w-10 rounded-lg bg-primary/15 flex items-center justify-center shrink-0 group-hover:bg-primary/25 transition-colors duration-300">

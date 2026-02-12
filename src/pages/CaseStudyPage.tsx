@@ -125,10 +125,8 @@ const CaseStudyPage = () => {
 
                             {/* Right Column: Results */}
                             <div className="md:col-span-2 flex flex-col items-center justify-center space-y-8">
-                                <div className="flex items-center gap-3">
-                                    {isIndeed && <img src={indeedLogo} alt="Indeed" className="h-8 md:h-10" />}
-                                    <h2 className="font-bold text-xl">The Results</h2>
-                                </div>
+                                {isIndeed && <img src={indeedLogo} alt="Indeed" className="h-10 md:h-14" />}
+                                <h2 className="font-bold text-xl">The Results</h2>
                                 {caseStudy.results.metrics.map((metric, idx) => (
                                     <div key={idx} className="text-center">
                                         {metric.description && (

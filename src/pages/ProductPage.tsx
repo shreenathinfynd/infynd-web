@@ -490,7 +490,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                   <TableHead>Source Type</TableHead>
                   <TableHead>Update Frequency</TableHead>
                   <TableHead>Availability</TableHead>
-                  <TableHead>Confidence</TableHead>
+                  {!(product.id === "uk-universe" || product.id === "ireland-universe") && <TableHead>Confidence</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -502,14 +502,16 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                     <TableCell><Badge variant="outline" className="text-xs">{field.sourceType}</Badge></TableCell>
                     <TableCell className="text-sm">{field.updateFrequency}</TableCell>
                     <TableCell className="text-xs text-muted-foreground">{field.availability || "API & Batch"}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
-                          <div className="h-full bg-primary rounded-full" style={{ width: `${field.confidenceScore}%` }} />
+                    {!(product.id === "uk-universe" || product.id === "ireland-universe") && (
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
+                            <div className="h-full bg-primary rounded-full" style={{ width: `${field.confidenceScore}%` }} />
+                          </div>
+                          <span className="text-xs text-muted-foreground">{field.confidenceScore}%</span>
                         </div>
-                        <span className="text-xs text-muted-foreground">{field.confidenceScore}%</span>
-                      </div>
-                    </TableCell>
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))}
                 {addonFields.map((field) => (
@@ -520,14 +522,16 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                     <TableCell><Badge variant="outline" className="text-xs">Enriched</Badge></TableCell>
                     <TableCell className="text-sm">Monthly</TableCell>
                     <TableCell className="text-xs text-muted-foreground">API & Batch</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
-                          <div className="h-full bg-primary rounded-full" style={{ width: "85%" }} />
+                    {!(product.id === "uk-universe" || product.id === "ireland-universe") && (
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
+                            <div className="h-full bg-primary rounded-full" style={{ width: "85%" }} />
+                          </div>
+                          <span className="text-xs text-muted-foreground">85%</span>
                         </div>
-                        <span className="text-xs text-muted-foreground">85%</span>
-                      </div>
-                    </TableCell>
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))}
               </TableBody>

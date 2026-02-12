@@ -87,13 +87,7 @@ const FilledRatesSection = ({ data }: { data: FilledRatesData }) => {
         ))}
       </div>
 
-      {/* Legend */}
-      <div className="flex items-center gap-6 text-xs text-muted-foreground">
-        <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-500" /> ≥ 90%</span>
-        <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-primary" /> 70–89%</span>
-        <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-amber-500" /> 40–69%</span>
-        <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-orange-500" /> &lt; 40%</span>
-      </div>
+    
 
       {/* Filled Rates Table */}
       <Card>

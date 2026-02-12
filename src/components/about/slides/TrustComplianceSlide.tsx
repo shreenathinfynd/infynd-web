@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Shield, FileCheck, Scale, Database, Users, CheckCircle, Phone, Mail, ArrowRight } from "lucide-react";
+import { Shield, FileCheck, Scale, Database, Users, CheckCircle, Phone, Mail, ArrowRight, CheckSquare } from "lucide-react";
 import { caseStudies } from "@/data/caseStudies";
+import merchantGraph from "@/assets/merchant-terminal-graph.png";
 
 const items = [
   { icon: FileCheck, title: "Public-source data only", desc: "No scraped personal data" },
@@ -18,9 +19,113 @@ const iconMap: Record<string, React.ElementType> = {
   Database,
 };
 
+const tableHeaders = ["Region", "Total", "Phoneable", "Emailable", "Total", "Emailable"];
+const tableGroupHeaders = ["", "", "Business level", "", "Contact level", ""];
+const tableRow = ["United Kingdom", "3.2M (2M Micro Businesses)", "2.8M", "900k", "10M", "6.7M"];
+
+const solutionPoints = [
+  "20% increase in DMC to Connect rate",
+  "Increase in overall data volume",
+  "SIC to MCC Mapping",
+  "Greater Consistency",
+];
+
+const MerchantTerminalCard = () => {
+  const cs = caseStudies[0];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.2 }}
+      className="col-span-full rounded-lg bg-foreground text-background overflow-hidden"
+    >
+      {/* Title bar */}
+      <div className="flex items-stretch">
+        <div className="bg-primary text-primary-foreground px-3 py-4 flex items-center justify-center writing-vertical">
+          <span className="text-xs font-bold uppercase tracking-widest whitespace-nowrap"
+            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+            Tele<br />Marketing
+          </span>
+        </div>
+        <div className="flex-1 p-4 pb-2">
+          <h3 className="font-display text-xl md:text-2xl font-bold italic">
+            Merchant Terminal: <span className="font-extrabold not-italic">Tele-Marketing Data</span>
+          </h3>
+
+          {/* Data Table */}
+          <div className="mt-3 overflow-x-auto">
+            <table className="w-full text-[10px] border-collapse">
+              <thead>
+                <tr className="bg-muted-foreground/20">
+                  <th className="border border-muted-foreground/30 px-2 py-1"></th>
+                  <th className="border border-muted-foreground/30 px-2 py-1"></th>
+                  <th colSpan={2} className="border border-muted-foreground/30 px-2 py-1 text-center font-semibold">Business level</th>
+                  <th colSpan={2} className="border border-muted-foreground/30 px-2 py-1 text-center font-semibold">Contact level</th>
+                </tr>
+                <tr className="bg-muted-foreground/10">
+                  {tableHeaders.map((h, i) => (
+                    <th key={i} className="border border-muted-foreground/30 px-2 py-1 text-center font-semibold">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-primary/10">
+                  {tableRow.map((val, i) => (
+                    <td key={i} className="border border-muted-foreground/30 px-2 py-1 text-center font-medium">{val}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {/* Body: Overview + Graph */}
+      <div className="grid md:grid-cols-5 gap-4 p-4 pt-2">
+        {/* Left column: Overview + Solution */}
+        <div className="md:col-span-2 space-y-4">
+          <div>
+            <h4 className="text-sm font-bold mb-1">Company Overview:</h4>
+            <p className="text-xs leading-relaxed text-background/80">
+              {cs.overview}
+            </p>
+          </div>
+          <div className="space-y-1.5">
+            {solutionPoints.map((point) => (
+              <div key={point} className="flex items-start gap-2">
+                <CheckSquare className="h-3.5 w-3.5 mt-0.5 text-primary shrink-0" />
+                <span className="text-xs font-medium">{point}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right column: Graph */}
+        <div className="md:col-span-3">
+          <div className="bg-background rounded-md p-2 border border-muted-foreground/20">
+            <p className="text-[10px] font-semibold text-foreground text-center mb-1">Case Study</p>
+            <img
+              src={merchantGraph}
+              alt="DMC to Connect % and APP to DMC % by Date and Provider"
+              className="w-full h-auto rounded"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Link */}
+      <Link to={`/case-studies/${cs.slug}`} className="block px-4 pb-3">
+        <span className="inline-flex items-center gap-1 text-xs text-primary hover:gap-2 transition-all font-medium">
+          View full case study <ArrowRight className="h-3 w-3" />
+        </span>
+      </Link>
+    </motion.div>
+  );
+};
+
 const TrustComplianceSlide = () => (
   <section className="min-h-screen flex items-center py-20 px-6">
-    <div className="max-w-4xl mx-auto w-full">
+    <div className="max-w-5xl mx-auto w-full">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -80,7 +185,11 @@ const TrustComplianceSlide = () => (
           </p>
 
           <div className="grid sm:grid-cols-3 gap-4">
-            {caseStudies.map((caseStudy, i) => {
+            {/* Case Study 1 - Merchant Terminal (expanded layout) */}
+            <MerchantTerminalCard />
+
+            {/* Case Studies 2 & 3 - compact cards */}
+            {caseStudies.slice(1).map((caseStudy, i) => {
               const Icon = iconMap[caseStudy.icon] || Database;
               return (
                 <Link
@@ -91,7 +200,7 @@ const TrustComplianceSlide = () => (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.2 + i * 0.1 }}
+                    transition={{ delay: 1.3 + i * 0.1 }}
                     className="p-4 rounded-lg bg-background border hover:border-primary/50 hover:shadow-md transition-all duration-300 group h-full"
                   >
                     <div className="flex items-center gap-2 mb-3">

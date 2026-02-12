@@ -4,6 +4,7 @@ import { ArrowLeft, CheckSquare } from "lucide-react";
 import NotFound from "./NotFound";
 import merchantGraph from "@/assets/merchant-terminal-graph.png";
 import indeedLogo from "@/assets/indeed-logo.svg";
+import britanniaLogo from "@/assets/britannia-logo.png";
 
 const CaseStudyPage = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -38,7 +39,9 @@ const CaseStudyPage = () => {
                     <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground">
                         {caseStudy.title}
                     </h1>
-                    
+                    {isFleet && (
+                        <img src={britanniaLogo} alt="Britannia Car Leasing" className="h-12 md:h-16" />
+                    )}
                 </div>
             </section>
 

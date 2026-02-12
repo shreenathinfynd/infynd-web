@@ -43,30 +43,12 @@ const OurUSPSlide = () => (
       }}
     />
 
-    {/* Subtle digital nodes — decorative circles */}
-    <div className="absolute top-16 left-20 w-48 h-48 rounded-full bg-primary/5 blur-3xl" />
-    <div className="absolute bottom-20 right-32 w-64 h-64 rounded-full bg-primary/5 blur-3xl" />
-
-    {/* Left sidebar accent */}
-    <div className="absolute left-0 top-0 bottom-0 w-10 bg-primary flex items-center justify-center z-10">
-      <span
-        className="text-primary-foreground font-bold text-[10px] tracking-[0.4em] uppercase whitespace-nowrap"
-        style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-      >
-        ABOUT INFYND
-      </span>
-    </div>
-
-    {/* Floating glassmorphism window */}
+    {/* Main content card */}
     <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.97 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="relative z-10 w-[92%] max-w-6xl mx-auto rounded-2xl border border-border/60 shadow-2xl backdrop-blur-xl"
-      style={{
-        background: "linear-gradient(135deg, hsl(var(--background) / 0.85), hsl(var(--background) / 0.7))",
-        boxShadow: "0 8px 60px -12px hsl(var(--foreground) / 0.08), 0 2px 12px -4px hsl(var(--foreground) / 0.04)",
-      }}
+      className="relative z-10 w-[92%] max-w-6xl mx-auto"
     >
       {/* Header */}
       <div className="flex items-center gap-4 px-10 pt-8 pb-4 border-b border-border/40">

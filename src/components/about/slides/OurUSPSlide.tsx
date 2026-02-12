@@ -12,69 +12,79 @@ const uspPoints = [
 ];
 
 const OurUSPSlide = () => (
-  // Changed h-screen to min-h-screen and reduced overall padding
-  <section className="relative min-h-[600px] bg-background text-foreground flex overflow-hidden border-b border-border">
-    {/* Left Sidebar - Narrowed slightly for better proportions */}
-    <div className="w-8 shrink-0 bg-primary flex items-center justify-center">
+  // min-h-screen ensures it fills the height; items-center centers it vertically
+  <section className="relative min-h-screen bg-white text-slate-900 flex overflow-hidden">
+    {/* 1. Left Sidebar - Thinner and more subtle */}
+    <div className="w-10 shrink-0 bg-[#E33B2E] flex items-center justify-center">
       <span
-        className="text-primary-foreground font-bold text-[10px] tracking-[0.3em] uppercase"
+        className="text-white font-bold text-[10px] tracking-[0.4em] uppercase whitespace-nowrap"
         style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
       >
-        About InFynd
+        ABOUT INFYND
       </span>
     </div>
 
-    {/* Main content - Using a 2-column grid to use horizontal space better */}
-    <div className="flex-1 px-8 py-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-      <div className="z-10 flex flex-col justify-center">
-        {/* Intro paragraph - Reduced margin-bottom */}
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-sm md:text-base leading-snug max-w-xl mb-6 text-muted-foreground"
-        >
-          <strong className="text-foreground">InFynd</strong> is a leading B2B Data and Deliverability business with
-          offices in the UK and India. We focus on end-to-end data solutions, continuously innovating to meet evolving
-          client needs.
-        </motion.p>
+    {/* 2. Main Content Wrapper */}
+    <div className="flex-1 flex flex-col justify-center px-12 lg:px-24">
+      {/* Container to limit width and center on huge screens */}
+      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        {/* Left Column: Text Content (6/12 columns) */}
+        <div className="lg:col-span-7 space-y-8">
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+            <p className="text-lg leading-relaxed text-slate-600 mb-2">
+              <strong className="text-slate-900">InFynd</strong> is a leading B2B Data and Deliverability business with
+              offices in the UK and India.
+            </p>
+            <p className="text-slate-500 text-sm">
+              We focus on delivering comprehensive, end-to-end data solutions coupled with exceptional customer service.
+            </p>
+          </motion.div>
 
-        {/* Our USP - Tighter spacing */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="text-2xl font-bold text-[#E33B2E] uppercase tracking-tight">Our USP</h2>
+              <div className="h-[1px] flex-1 bg-slate-200" />
+            </div>
+
+            <ul className="grid grid-cols-1 gap-4">
+              {uspPoints.map((point, i) => (
+                <li key={i} className="flex items-start gap-4 group">
+                  <div className="mt-1 shrink-0 w-5 h-5 rounded-full bg-red-50 flex items-center justify-center border border-red-200 group-hover:bg-[#E33B2E] group-hover:text-white transition-colors">
+                    <Check className="w-3 h-3 text-[#E33B2E] group-hover:text-white" strokeWidth={3} />
+                  </div>
+                  <span className="text-[15px] font-medium text-slate-700 leading-snug group-hover:text-slate-950 transition-colors">
+                    {point}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+
+        {/* Right Column: Visual (5/12 columns) */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="lg:col-span-5 relative"
         >
-          <h2 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
-            Our USP
-            <div className="h-[2px] w-12 bg-primary/20 rounded-full" />
-          </h2>
-          <ul className="space-y-3">
-            {uspPoints.map((point, i) => (
-              <li key={i} className="flex items-start gap-3 group">
-                <div className="mt-1 shrink-0 w-4 h-4 rounded-sm bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                  <Check className="w-2.5 h-2.5" strokeWidth={4} />
-                </div>
-                <span className="text-sm font-medium leading-tight">{point}</span>
-              </li>
-            ))}
-          </ul>
+          {/* Subtle background decoration to fill space */}
+          <div className="absolute -inset-10 bg-slate-50 rounded-full blur-3xl opacity-50 -z-10" />
+
+          <div className="bg-white p-4 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-slate-100">
+            <img src={worldMapImg} alt="InFynd global presence" className="w-full h-auto drop-shadow-sm" />
+          </div>
         </motion.div>
       </div>
+    </div>
 
-      {/* World Map Image - Integrated into the grid instead of floating */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, delay: 0.4 }}
-        className="relative flex justify-center lg:justify-end"
-      >
-        <img
-          src={worldMapImg}
-          alt="InFynd global presence"
-          className="w-full max-w-[500px] h-auto object-contain drop-shadow-2xl"
-        />
-      </motion.div>
+    {/* Optional: Simple Footer Indicator */}
+    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 uppercase tracking-widest font-medium">
+      Use arrows or click to navigate
     </div>
   </section>
 );

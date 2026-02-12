@@ -10,13 +10,6 @@ const uspPoints = [
   "Precision-engineered data delivering up to 98% email deliverability",
 ];
 
-const badges = [
-  { text: "Strength", subtext: "180+ & Growing", bg: "bg-foreground" },
-  { text: "Operations @", subtext: "Coimbatore", bg: "bg-foreground" },
-  { text: "Head Quarters @", subtext: "United Kingdom", bg: "bg-primary" },
-  { text: "Founded in", subtext: "2020", bg: "bg-foreground" },
-  { text: "B2B Data", subtext: "Provider", bg: "bg-primary" },
-];
 
 const OurUSPSlide = () => (
   <section className="relative min-h-screen bg-background text-foreground flex">
@@ -31,13 +24,13 @@ const OurUSPSlide = () => (
     </div>
 
     {/* Main content */}
-    <div className="flex-1 relative px-12 py-10 overflow-hidden">
+    <div className="flex-1 px-12 py-16 flex flex-col justify-center">
       {/* Intro paragraph */}
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-base leading-relaxed max-w-4xl mb-8"
+        className="text-base leading-relaxed max-w-4xl mb-10"
       >
         <span className="font-bold">InFynd</span> is a leading B2B Data and Deliverability business with offices in the UK and India. At InFynd, we focus on delivering comprehensive, end-to-end data solutions coupled with exceptional customer service, continuously innovating to meet our clients' evolving needs.
       </motion.p>
@@ -48,8 +41,8 @@ const OurUSPSlide = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <h2 className="text-3xl font-bold text-primary mb-5">Our USP</h2>
-        <ul className="space-y-2.5 max-w-3xl">
+        <h2 className="text-3xl font-bold text-primary mb-6">Our USP</h2>
+        <ul className="space-y-3 max-w-4xl">
           {uspPoints.map((point, i) => (
             <li key={i} className="flex items-start gap-3">
               <div className="mt-0.5 shrink-0 w-5 h-5 border-2 border-foreground flex items-center justify-center">
@@ -60,23 +53,6 @@ const OurUSPSlide = () => (
           ))}
         </ul>
       </motion.div>
-
-      {/* Circular badges - staircase on right */}
-      <div className="absolute right-12 top-10 bottom-10 flex flex-col items-end justify-center gap-4">
-        {badges.map((b, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, delay: 0.5 + i * 0.12 }}
-            style={{ marginRight: `${(badges.length - 1 - i) * 28}px` }}
-            className={`${b.bg} rounded-full w-24 h-24 flex flex-col items-center justify-center text-primary-foreground shadow-xl`}
-          >
-            <span className="text-[10px] font-semibold text-center leading-tight px-2">{b.text}</span>
-            <span className="text-sm font-bold text-center leading-tight px-2">{b.subtext}</span>
-          </motion.div>
-        ))}
-      </div>
     </div>
   </section>
 );

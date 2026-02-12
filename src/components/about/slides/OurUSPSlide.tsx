@@ -33,7 +33,7 @@ const badges = [
 ];
 
 const OurUSPSlide = () => (
-  <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+  <section className="relative h-screen flex items-center justify-center overflow-hidden bg-background">
     {/* Main content */}
     <motion.div
       initial={{ opacity: 0, y: 24 }}

@@ -10,9 +10,9 @@ const steps = [
 ];
 
 const DataProcessSlide = () => {
-  const radius = 260;
-  const centerX = 320;
-  const centerY = 320;
+  const radius = 220;
+  const centerX = 300;
+  const centerY = 300;
 
   return (
     <section className="min-h-screen flex items-center justify-center py-20 px-6 bg-background">
@@ -31,31 +31,34 @@ const DataProcessSlide = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative"
-          style={{ width: 640, height: 640 }}
+          style={{ width: 600, height: 600 }}
         >
           {/* Circle ring */}
           <svg
             className="absolute inset-0 w-full h-full"
-            viewBox="0 0 640 640"
+            viewBox="0 0 600 600"
           >
             <circle
               cx={centerX}
               cy={centerY}
-              r={radius - 20}
+              r={radius}
               fill="none"
               stroke="hsl(var(--muted-foreground) / 0.2)"
-              strokeWidth="3"
+              strokeWidth="2"
             />
             {/* Arrow indicators */}
             {steps.map((step, i) => {
-              const midAngle = ((step.angle + steps[(i + 1) % steps.length].angle) / 2) * (Math.PI / 180);
-              const ax = centerX + (radius - 20) * Math.cos(midAngle);
-              const ay = centerY + (radius - 20) * Math.sin(midAngle);
-              const tangentAngle = midAngle + Math.PI / 2;
+              const nextAngle = steps[(i + 1) % steps.length].angle;
+              let mid = (step.angle + nextAngle) / 2;
+              if (nextAngle < step.angle) mid += 180;
+              const midRad = (mid * Math.PI) / 180;
+              const ax = centerX + radius * Math.cos(midRad);
+              const ay = centerY + radius * Math.sin(midRad);
+              const tangentAngle = midRad + Math.PI / 2;
               return (
                 <polygon
                   key={i}
-                  points={`${ax + 8 * Math.cos(tangentAngle)},${ay + 8 * Math.sin(tangentAngle)} ${ax - 8 * Math.cos(tangentAngle)},${ay - 8 * Math.sin(tangentAngle)} ${ax + 12 * Math.cos(midAngle)},${ay + 12 * Math.sin(midAngle)}`}
+                  points={`${ax + 6 * Math.cos(tangentAngle)},${ay + 6 * Math.sin(tangentAngle)} ${ax - 6 * Math.cos(tangentAngle)},${ay - 6 * Math.sin(tangentAngle)} ${ax + 10 * Math.cos(midRad)},${ay + 10 * Math.sin(midRad)}`}
                   fill="hsl(var(--muted-foreground) / 0.3)"
                 />
               );
@@ -75,7 +78,7 @@ const DataProcessSlide = () => {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 + i * 0.1, type: "spring", stiffness: 200 }}
-                className={`absolute flex items-center justify-center rounded-lg px-4 py-3 text-center text-sm font-semibold leading-tight shadow-md ${
+                className={`absolute flex items-center justify-center rounded-lg px-4 py-3 text-center text-xs font-semibold leading-tight shadow-md ${
                   isEven
                     ? "bg-primary text-primary-foreground"
                     : "bg-foreground text-background"
@@ -84,8 +87,8 @@ const DataProcessSlide = () => {
                   left: x,
                   top: y,
                   transform: "translate(-50%, -50%)",
-                  width: 150,
-                  minHeight: 60,
+                  width: 130,
+                  minHeight: 54,
                 }}
               >
                 <span className="whitespace-pre-line">{step.label}</span>

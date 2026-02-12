@@ -14,7 +14,6 @@ const AboutPage = () => {
     <AboutSlideshow>
       <HeroSlide />
       <OurUSPSlide />
-      <CompanyOverviewSlide />
       <OriginStorySlide />
       <DataProcessSlide1 />
       <DataProcessSlide2 />

@@ -1324,7 +1324,7 @@ export const products: Product[] = [
       { name: "Main Industry", description: "Irish Eircode", sourceType: "An Post Verified", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Geographic Footprint", availability: "API & Batch" },
       { name: "Main Sector", description: "Primary contact phone", sourceType: "Multi-source", updateFrequency: "Monthly", confidenceScore: 90, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
       { name: "City", description: "Verified business email", sourceType: "SMTP Verified", updateFrequency: "Weekly", confidenceScore: 92, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
-      { name: "director_name", description: "Company director / Owner", sourceType: "CRO", updateFrequency: "Daily", confidenceScore: 100, dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "director_name", description: "Company director / Owner", sourceType: "CRO", updateFrequency: "Daily", confidenceScore: 100, dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" }
       { name: "Employees", description: "Number of employees in company", sourceType: "CRO", updateFrequency: "Daily", confidenceScore: 100, dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" }
     ],
     buildSteps: [

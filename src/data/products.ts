@@ -1317,14 +1317,15 @@ export const products: Product[] = [
 
     ],
     dataDictionary: [
-      { name: "infynd_id", description: "Unique internal identifier", sourceType: "System", updateFrequency: "Real-time", confidenceScore: 100, dataGroup: "Core", availability: "API & Batch" },
-      { name: "company_name", description: "Registered company name", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 100, dataGroup: "Company Core Profile", availability: "API & Batch" },
-      { name: "company_type", description: "Entity type (Ltd, PLC, Sole Trader)", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Company Core Profile", availability: "API & Batch" },
-      { name: "main_address", description: "Registered office or trading address", sourceType: "An Post Verified", updateFrequency: "Monthly", confidenceScore: 98, dataGroup: "Geographic Footprint", availability: "API & Batch" },
-      { name: "eircode", description: "Irish Eircode", sourceType: "An Post Verified", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Geographic Footprint", availability: "API & Batch" },
-      { name: "phone_number", description: "Primary contact phone", sourceType: "Multi-source", updateFrequency: "Monthly", confidenceScore: 90, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
-      { name: "email_address", description: "Verified business email", sourceType: "SMTP Verified", updateFrequency: "Weekly", confidenceScore: 92, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
+      { name: "company_name", description: "Unique internal identifier", sourceType: "System", updateFrequency: "Real-time", confidenceScore: 100, dataGroup: "Core", availability: "API & Batch" },
+      { name: "Company_type", description: "Registered company name", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 100, dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "Website Domain", description: "Entity type (Ltd, PLC, Sole Trader)", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "Primary Phone", description: "Registered office or trading address", sourceType: "An Post Verified", updateFrequency: "Monthly", confidenceScore: 98, dataGroup: "Geographic Footprint", availability: "API & Batch" },
+      { name: "Main Industry", description: "Irish Eircode", sourceType: "An Post Verified", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Geographic Footprint", availability: "API & Batch" },
+      { name: "Main Sector", description: "Primary contact phone", sourceType: "Multi-source", updateFrequency: "Monthly", confidenceScore: 90, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
+      { name: "City", description: "Verified business email", sourceType: "SMTP Verified", updateFrequency: "Weekly", confidenceScore: 92, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
       { name: "director_name", description: "Company director / Owner", sourceType: "CRO", updateFrequency: "Daily", confidenceScore: 100, dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" }
+      { name: "Employees", description: "Number of employees in company", sourceType: "CRO", updateFrequency: "Daily", confidenceScore: 100, dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" }
     ],
     buildSteps: [
       { step: 1, title: "CRO Sync", description: "Daily synchronization with Companies Registration Office Ireland", icon: "Database" },

@@ -1317,15 +1317,15 @@ export const products: Product[] = [
 
     ],
     dataDictionary: [
-      { name: "Company Name", description: "Registered company name", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 100, dataGroup: "Company Core Profile", availability: "API & Batch" },
-      { name: "Company Type", description: "Entity type (Ltd, PLC, Sole Trader)", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Company Core Profile", availability: "API & Batch" },
-      { name: "Website Domain", description: "Root domain name of the company website", sourceType: "DNS Verified", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Company Core Profile", availability: "API & Batch" },
-      { name: "Primary Phone", description: "Primary contact phone", sourceType: "Multi-source", updateFrequency: "Monthly", confidenceScore: 90, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
-      { name: "Main Industry", description: "Primary industry in which the company operates", sourceType: "Registry + AI", updateFrequency: "Quarterly", confidenceScore: 94, dataGroup: "Company Core Profile", availability: "API & Batch" },
-      { name: "Main Sector", description: "Broad economic sector associated with the company", sourceType: "Registry + AI", updateFrequency: "Quarterly", confidenceScore: 93, dataGroup: "Company Core Profile", availability: "API & Batch" },
-      { name: "City", description: "City of the headquarters location", sourceType: "An Post Verified", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Geographic Footprint", availability: "API & Batch" },
-      { name: "Country", description: "Country where the company is located", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 100, dataGroup: "Geographic Footprint", availability: "API & Batch" },
-      { name: "Employees", description: "Reported or estimated number of employees", sourceType: "Multi-source", updateFrequency: "Quarterly", confidenceScore: 88, dataGroup: "Organizational Scale", availability: "API & Batch" },
+      { name: "company_name", description: "Unique internal identifier", sourceType: "System", updateFrequency: "Real-time", confidenceScore: 100, dataGroup: "Core", availability: "API & Batch" },
+      { name: "company_type", description: "Registered company name", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 100, dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "website_domain", description: "Entity type (Ltd, PLC, Sole Trader)", sourceType: "CRO", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "primary_phone", description: "Registered office or trading address", sourceType: "An Post Verified", updateFrequency: "Monthly", confidenceScore: 98, dataGroup: "Geographic Footprint", availability: "API & Batch" },
+      { name: "main_industry", description: "Irish Eircode", sourceType: "An Post Verified", updateFrequency: "Monthly", confidenceScore: 99, dataGroup: "Geographic Footprint", availability: "API & Batch" },
+      { name: "main_sector", description: "Primary contact phone", sourceType: "Multi-source", updateFrequency: "Monthly", confidenceScore: 90, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
+      { name: "city", description: "Verified business email", sourceType: "SMTP Verified", updateFrequency: "Weekly", confidenceScore: 92, dataGroup: "Corporate Contact Intelligence", availability: "API & Batch" },
+      { name: "director_name", description: "Company director / Owner", sourceType: "CRO", updateFrequency: "Daily", confidenceScore: 100, dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "employees", description: "Number of employees in company", sourceType: "CRO", updateFrequency: "Daily", confidenceScore: 100, dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" }
     ],
     buildSteps: [
       { step: 1, title: "CRO Sync", description: "Daily synchronization with Companies Registration Office Ireland", icon: "Database" },
@@ -1360,3 +1360,4 @@ export const getProductById = (id: string): Product | undefined =>
 
 export const getRelatedProducts = (product: Product): Product[] =>
   product.relatedProductIds.map((id) => getProductById(id)).filter(Boolean) as Product[];
+

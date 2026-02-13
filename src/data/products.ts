@@ -1270,7 +1270,7 @@ export const products: Product[] = [
       headline: { totalCompanies: "2,965,335", sdmPeople: "18,260,273", sdmPeopleSubtitle: "One contact per company: 1,983,706", nonSdmPeople: "7,827,570", nonSdmPeopleSubtitle: "One contact per company: 1,337,136" },
       rows: [
         { field: "Active Companies", totalCompanies: "2,965,335", sdmPeople: "18,260,273", nonSdmPeople: "7,827,570", group: "Company Core Profile" },
-        { field: "Companies with LTD", totalCompanies: "1,724,128", sdmPeople: "16,795,965", nonSdmPeople: "7,593,893", group: "Company Core Profile" },
+        { field: "Limited Companies", totalCompanies: "1,724,128", sdmPeople: "16,795,965", nonSdmPeople: "7,593,893", group: "Company Core Profile" },
         { field: "Mailable Address", totalCompanies: "2,306,738", sdmPeople: "16,261,720", nonSdmPeople: "7,146,973", group: "Geographic Footprint" },
         { field: "Telemarketing Phone", totalCompanies: "2,026,362", sdmPeople: "14,044,803", nonSdmPeople: "6,127,703", group: "Corporate Contact Intelligence" },
         { field: "Emails", totalCompanies: "1,046,141", sdmPeople: "16,173,811", nonSdmPeople: "4,209,022", group: "Corporate Contact Intelligence" },

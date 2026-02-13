@@ -1275,7 +1275,7 @@ export const products: Product[] = [
         { field: "Telemarketing Phone", totalCompanies: "2,026,362", sdmPeople: "14,044,803", nonSdmPeople: "6,127,703", group: "Corporate Contact Intelligence" },
         { field: "Emails", totalCompanies: "1,046,141", sdmPeople: "16,173,811", nonSdmPeople: "4,209,022", group: "Corporate Contact Intelligence" },
         //{ field: "Personal Email", totalCompanies: "581,544", sdmPeople: "15,097,730", nonSdmPeople: "6,683,455", group: "Corporate Contact Intelligence" },
-        { field: "Company Domains", totalCompanies: "921,052", sdmPeople: "10,371,500", nonSdmPeople: "5,161,816", group: "Corporate Contact Intelligence" },
+        { field: "Company Domains", totalCompanies: "2,238,529", sdmPeople: "17,251,414", nonSdmPeople: "7,699,839", group: "Corporate Contact Intelligence" },
         { field: "SOHO (Micro)", totalCompanies: "1,884,607", sdmPeople: "3,749,896", nonSdmPeople: "2,504,869", group: "Organizational Scale" },
         { field: "Companies House Verified", totalCompanies: "1,600,032", sdmPeople: "14,911,334", nonSdmPeople: "7,012,136", group: "Company Core Profile" },
         { field: "New Business (12m)", totalCompanies: "37,187", sdmPeople: "110,364", nonSdmPeople: "61,974", group: "Organizational Scale" },

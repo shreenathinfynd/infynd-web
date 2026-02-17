@@ -1276,7 +1276,7 @@ export const products: Product[] = [
         //{ field: "Personal Email", totalCompanies: "581,544", sdmPeople: "15,097,730", nonSdmPeople: "6,683,455", group: "Corporate Contact Intelligence" },
         { field: "Company Domains", totalCompanies: "2,238,529", sdmPeople: "17,251,414", nonSdmPeople: "7,699,839", group: "Corporate Contact Intelligence" },
         { field: "SOHO (upto 5 Contacts)", totalCompanies: "1,762,038", sdmPeople: "3,167,728", nonSdmPeople: "2,100,74", group: "Organizational Scale" },
-        { field: "Companies House Verified", totalCompanies: "6,005,947", sdmPeople: "10,866,342", nonSdmPeople: "6,005,947", group: "Company Core Profile" },
+        { field: "Companies House Verified", totalCompanies: "6,005,947", sdmPeople: "10,866,342", nonSdmPeople: "10,866,342", group: "Company Core Profile" },
         { field: "New Business (12m)", totalCompanies: "37,187", sdmPeople: "110,364", nonSdmPeople: "61,974", group: "Organizational Scale" },
       ],
     },

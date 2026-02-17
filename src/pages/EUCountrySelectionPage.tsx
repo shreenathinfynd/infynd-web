@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ChevronRight, ArrowLeft, MapPin } from "lucide-react";
+import { ChevronRight, ArrowLeft, MapPin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
 
@@ -141,16 +141,17 @@ const EUCountrySelectionPage = () => {
                     ))}
             </div>
 
-            {/* Info Banner */}
-            <div className="mt-8 bg-primary/5 rounded-xl p-6 border border-primary/10">
-                <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                    GDPR Compliant EU Data
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                    All our EU data products are fully GDPR compliant and sourced from
-                    verified registries. Select a country above to explore available data
-                    products and their coverage details.
+            {/* Custom Data CTA */}
+            <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 text-center mt-8 mb-8">
+                <h2 className="font-display text-2xl font-bold text-foreground mb-2">
+                    Can't find what you're looking for?
+                </h2>
+                <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+                    We can build custom datasets tailored to your specific country requirements. Tell us what you need and we'll make it happen.
                 </p>
+                <Button size="lg" className="rounded-full px-8">
+                    <Mail className="h-4 w-4 mr-2" /> Request Custom Data
+                </Button>
             </div>
         </div>
     );

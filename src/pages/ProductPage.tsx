@@ -487,7 +487,6 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                   <TableHead>Data Group</TableHead>
                   <TableHead>Field Name</TableHead>
                   <TableHead>Description</TableHead>
-                  <TableHead>Source Type</TableHead>
                   <TableHead>Update Frequency</TableHead>
                   <TableHead>Availability</TableHead>
                   {!(product.id === "uk-universe" || product.id === "ireland-universe") && <TableHead>Confidence</TableHead>}
@@ -499,7 +498,6 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                     <TableCell><Badge variant="secondary" className="text-[10px] whitespace-nowrap">{field.dataGroup || "General"}</Badge></TableCell>
                     <TableCell className="font-mono text-sm">{field.name}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{field.description}</TableCell>
-                    <TableCell><Badge variant="outline" className="text-xs">{field.sourceType}</Badge></TableCell>
                     <TableCell className="text-sm">{field.updateFrequency}</TableCell>
                     <TableCell className="text-xs text-muted-foreground">{field.availability || "API & Batch"}</TableCell>
                     {!(product.id === "uk-universe" || product.id === "ireland-universe") && (

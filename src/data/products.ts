@@ -1629,9 +1629,7 @@ export const products: Product[] = [
         "people_title_level": "Managing Director/CEO",
         "people_title_function": "Management",
         "people_email": "lynne.embleton@aerlingus.com",
-        "people_linkedin": "linkedin.com/in/lynne-embleton-ba7803b",
-        "company_name": "Aer Lingus Ltd",
-        "main_country": "Ireland"
+        "people_linkedin": "linkedin.com/in/lynne-embleton-ba7803b"
       },
       {
         "people_first_name": "Shafikul",
@@ -1641,8 +1639,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "shafikul@academicbridge.ie",
         "people_linkedin": "linkedin.com/in/md-shafikul-islam-3ab4b4113",
-        "company_name": "Academic Bridge",
-        "main_country": "Ireland"
+      
       },
       {
         "people_first_name": "Gareth",
@@ -1652,8 +1649,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "gareth.jenkinson@jenkinson.ie",
         "people_linkedin": "linkedin.com/in/gareth-jenkinson-751209",
-        "company_name": "Jenkinson Logistics",
-        "main_country": "Ireland"
+   
       },
       {
         "people_first_name": "Edel",
@@ -1663,8 +1659,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "edel@keaneauctioneers.com",
         "people_linkedin": "linkedin.com/in/edel-keane-9885b836",
-        "company_name": "Keane Auctioneers",
-        "main_country": "Ireland"
+        
       },
       {
         "people_first_name": "Jackie",
@@ -1674,8 +1669,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "jgorman@midlandsscience.ie",
         "people_linkedin": "linkedin.com/in/jackegorman",
-        "company_name": "Midlands Science",
-        "main_country": "Ireland"
+       
       },
       {
         "people_first_name": "Keith",
@@ -1685,8 +1679,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "keith.butler@emeraldairlines.com",
         "people_linkedin": "linkedin.com/in/keithdbutler",
-        "company_name": "Emerald Airlines",
-        "main_country": "Ireland"
+      
       },
       {
         "people_first_name": "Teresa",
@@ -1696,8 +1689,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "theeney@earlychildhoodireland.ie",
         "people_linkedin": "linkedin.com/in/teresa-heeney-aa92b848",
-        "company_name": "Early Childhood Ireland",
-        "main_country": "Ireland"
+        
       },
       {
         "people_first_name": "Niall",
@@ -1707,8 +1699,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "niall@geaneysolicitors.ie",
         "people_linkedin": "linkedin.com/in/niallgeaneysolicitor",
-        "company_name": "Geaney Solicitors LLP",
-        "main_country": "Ireland"
+      
       },
       {
         "people_first_name": "TJ",
@@ -1718,8 +1709,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "tj@scculenterprises.ie",
         "people_linkedin": "linkedin.com/in/tjforde",
-        "company_name": "Sccul Enterprises CLG",
-        "main_country": "Ireland"
+       
       },
       {
         "people_first_name": "Roisin",
@@ -1729,8 +1719,7 @@ export const products: Product[] = [
         "people_title_function": "Management",
         "people_email": "roisin@coastservices.ie",
         "people_linkedin": "linkedin.com/in/r\u00f3is\u00edn-mc-daid",
-        "company_name": "Coast Mediation and Consultancy",
-        "main_country": "Ireland"
+       
       }
     ],
 

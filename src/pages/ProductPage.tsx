@@ -90,7 +90,7 @@ const SampleDataTab = ({ product, addonFields, region, selectedCountry }: { prod
 
   // Filter data based on region prop
   const filteredData = rawData.filter((row) => {
-    const rowCountry = String(row["Country"] || row["Main Country"] || row["country"] || "");
+    const rowCountry = String(row["Country"] || row["Main Country"] || row["main_country"] || row["country"] || "");
 
     // Check for specific country if selected
     if (selectedCountry && region === "EU") return rowCountry === selectedCountry;

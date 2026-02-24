@@ -44,7 +44,7 @@ const groupColors: Record<string, string> = {
   "Leadership & Workforce Intelligence": "bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300",
 };
 
-const FilledRatesSection = ({ data }: { data: FilledRatesData }) => {
+const FilledRatesSection = ({ data, hideTable = false }: { data: FilledRatesData; hideTable?: boolean }) => {
   const { headline, rows } = data;
 
   /* Headline Stats Configuration */
@@ -87,59 +87,61 @@ const FilledRatesSection = ({ data }: { data: FilledRatesData }) => {
         ))}
       </div>
 
-    
+      {!hideTable && (
+        <>
+          {/* Filled Rates Table */}
+          <Card>
+            <CardContent className="p-0">
+              <div className="rounded-lg overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-muted/30">
+                      <TableHead className="min-w-[140px]">Data Group</TableHead>
+                      <TableHead className="min-w-[160px]">Field</TableHead>
+                      <TableHead className="min-w-[160px]">
+                        <div className="flex items-center gap-1.5">
+                          <Building className="h-3.5 w-3.5" /> Total Companies
+                        </div>
+                      </TableHead>
+                      <TableHead className="min-w-[160px]">
+                        <div className="flex items-center gap-1.5">
+                          <Users className="h-3.5 w-3.5" /> Total Contacts
+                        </div>
+                      </TableHead>
+                      {headline.nonSdmPeople !== undefined && (
+                        <TableHead className="min-w-[160px]">
+                          <div className="flex items-center gap-1.5">
+                            <UserMinus className="h-3.5 w-3.5" /> SDM Contacts
+                          </div>
+                        </TableHead>
+                      )}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {rows.map((row, i) => (
+                      <TableRow key={i} className="hover:bg-muted/20">
+                        <TableCell>
+                          <Badge variant="secondary" className={`text-[10px] whitespace-nowrap border-0 ${groupColors[row.group] || ""}`}>
+                            {row.group}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="font-medium text-sm text-foreground">{row.field}</TableCell>
+                        <TableCell><RateBar value={row.totalCompanies} /></TableCell>
+                        <TableCell><RateBar value={row.sdmPeople} /></TableCell>
+                        <TableCell><RateBar value={row.nonSdmPeople} /></TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
 
-      {/* Filled Rates Table */}
-      <Card>
-        <CardContent className="p-0">
-          <div className="rounded-lg overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-muted/30">
-                  <TableHead className="min-w-[140px]">Data Group</TableHead>
-                  <TableHead className="min-w-[160px]">Field</TableHead>
-                  <TableHead className="min-w-[160px]">
-                    <div className="flex items-center gap-1.5">
-                      <Building className="h-3.5 w-3.5" /> Total Companies
-                    </div>
-                  </TableHead>
-                  <TableHead className="min-w-[160px]">
-                    <div className="flex items-center gap-1.5">
-                      <Users className="h-3.5 w-3.5" /> Total Contacts
-                    </div>
-                  </TableHead>
-                  {headline.nonSdmPeople !== undefined && (
-                    <TableHead className="min-w-[160px]">
-                      <div className="flex items-center gap-1.5">
-                        <UserMinus className="h-3.5 w-3.5" /> SDM Contacts
-                      </div>
-                    </TableHead>
-                  )}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rows.map((row, i) => (
-                  <TableRow key={i} className="hover:bg-muted/20">
-                    <TableCell>
-                      <Badge variant="secondary" className={`text-[10px] whitespace-nowrap border-0 ${groupColors[row.group] || ""}`}>
-                        {row.group}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="font-medium text-sm text-foreground">{row.field}</TableCell>
-                    <TableCell><RateBar value={row.totalCompanies} /></TableCell>
-                    <TableCell><RateBar value={row.sdmPeople} /></TableCell>
-                    <TableCell><RateBar value={row.nonSdmPeople} /></TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
-
-      <p className="text-xs text-muted-foreground">
-        * Filled rates represent the percentage of records where each field contains a valid, non-null value. SDM = Senior Decision Maker.
-      </p>
+          <p className="text-xs text-muted-foreground">
+            * Filled rates represent the percentage of records where each field contains a valid, non-null value. SDM = Senior Decision Maker.
+          </p>
+        </>
+      )}
     </div>
   );
 };

@@ -441,7 +441,12 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
             <TelemarketingCoverageBlock />
           ) : (
             <>
-              {product.filledRates && <FilledRatesSection data={product.filledRates} />}
+              {product.filledRates && (
+                <FilledRatesSection 
+                  data={product.filledRates} 
+                  hideTable={product.id === "australia-universe" || product.id === "newzealand-universe"} 
+                />
+              )}
             </>
           )}
         </TabsContent>

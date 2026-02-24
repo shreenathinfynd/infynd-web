@@ -1,5 +1,5 @@
 import { useParams, Link, useLocation } from "react-router-dom";
-import { getProductBySlug, getRelatedProducts, addOns, type Product } from "@/data/products";
+import { getProductBySlug, getRelatedProducts, addOns, globalAddOns, type Product, type AddOn } from "@/data/products";
 import FilledRatesSection from "@/components/product/FilledRatesSection";
 import TelemarketingCoverageBlock from "@/components/product/TelemarketingCoverageBlock";
 import EnrichmentStoryExperience from "@/components/product/EnrichmentStoryExperience";
@@ -218,14 +218,15 @@ const SampleDataTab = ({ product, addonFields, region, selectedCountry }: { prod
 };
 
 /* ── Add-Ons Section ── */
-const AddOnsSection = ({ active, toggle }: { active: Set<string>; toggle: (id: string) => void }) => {
-  const activeAddOns = addOns.filter((a) => active.has(a.id));
+const AddOnsSection = ({ active, toggle, addonList }: { active: Set<string>; toggle: (id: string) => void; addonList?: AddOn[] }) => {
+  const availableAddOns = addonList || addOns;
+  const activeAddOns = availableAddOns.filter((a) => active.has(a.id));
 
   return (
     <div className="border-t pt-8 mt-8">
       <h3 className="font-display font-semibold text-lg mb-4">Enhance with Add-Ons</h3>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        {addOns.map((addon) => (
+        {availableAddOns.map((addon) => (
           <div key={addon.id} className="flex items-center gap-3 p-3 rounded-lg border hover:border-primary/20 transition-colors">
             <Switch checked={active.has(addon.id)} onCheckedChange={() => toggle(addon.id)} id={addon.id} />
             <Label htmlFor={addon.id} className="text-sm cursor-pointer">
@@ -269,31 +270,19 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
       return next;
     });
   };
-  const addonFields = addOns.filter((a) => activeAddOns.has(a.id)).flatMap((a) => a.fields);
+  const currentAddOns = product?.id === "global-universe" ? globalAddOns : addOns;
+  const addonFields = currentAddOns.filter((a) => activeAddOns.has(a.id)).flatMap((a) => a.fields);
 
   // Data Dictionary Filtering (Pass-through for now as fields are global)
   // If in future fields become region-specific, add logic here.
   const filteredDictionary = product?.dataDictionary || [];
 
   // Special Handling for "Coming Soon" scenarios
-  const isGlobalUniverse = slug === "global-universe";
-
-  // Return Coming Soon if:
-  // 1. It is the special Global Universe slug
-  // 2. We are in Global Region (blocking all products in Global view?) -> User said "in product global when the card is clicked".
-  //    Wait, "Global Universe" IS the card.
-  //    What if I click "Email" in Global view?
-  //    If "Email" in Global view is clicked, it goes to /products/email with selectedRegion="Global".
-  //    User said "in product global when the card is clicked". Singular? Plural? 
-  //    "when the card is clicked" usually implies the main card.
-  //    But let's assume ALL global products.
-  //    Actually, "Global Universe" is the only card shown in Global view (Step 97 logic: region === "Global" ? (Single Card) : (List)).
-  //    So handled by isGlobalUniverse.
 
   // 3. We are in UK Region AND product is NOT uk-universe
   const isRestrictedUK = selectedRegion === "UK" && product?.id !== "uk-universe";
 
-  if (isGlobalUniverse || isRestrictedUK) {
+  if (isRestrictedUK) {
     return <ComingSoon />;
   }
 
@@ -366,8 +355,9 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
         <div className="border-b pb-4 mb-8">
           <TabsList className="bg-transparent p-0 justify-start h-auto gap-2 flex-wrap">
             {(() => {
-              const isUniverse = product.id === "uk-universe" || product.id === "ireland-universe";
+              const isUniverse = product.id === "uk-universe" || product.id === "ireland-universe" || product.id === "global-universe";
               const isUKUniverse = product.id === "uk-universe";
+              const isGlobalUniv = product.id === "global-universe";
 
               let tabs = [];
 
@@ -439,7 +429,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                 </CardContent>
               </Card>
               <CaseStudiesCTA />
-              <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
+              <AddOnsSection active={activeAddOns} toggle={toggleAddOn} addonList={currentAddOns} />
             </>
           )}
         </TabsContent>
@@ -470,12 +460,12 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
         {/* For Universe: "Sample Data" */}
         <TabsContent value="sample-data" className="mt-6">
           <SampleDataTab product={product} addonFields={addonFields} region={region} selectedCountry={selectedCountry} />
-          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
+          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} addonList={currentAddOns} />
         </TabsContent>
         {/* For Individual: "Volume & Sample" */}
         <TabsContent value="volume-sample" className="mt-6">
           <SampleDataTab product={product} addonFields={addonFields} region={region} selectedCountry={selectedCountry} />
-          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
+          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} addonList={currentAddOns} />
         </TabsContent>
 
         {/* Data Dictionary */}
@@ -489,7 +479,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                   <TableHead>Description</TableHead>
                   <TableHead>Update Frequency</TableHead>
                   <TableHead>Availability</TableHead>
-                  {!(product.id === "uk-universe" || product.id === "ireland-universe") && <TableHead>Confidence</TableHead>}
+                  {!(product.id === "uk-universe" || product.id === "ireland-universe" || product.id === "global-universe") && <TableHead>Confidence</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -500,7 +490,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                     <TableCell className="text-sm text-muted-foreground">{field.description}</TableCell>
                     <TableCell className="text-sm">{field.updateFrequency}</TableCell>
                     <TableCell className="text-xs text-muted-foreground">{field.availability || "API & Batch"}</TableCell>
-                    {!(product.id === "uk-universe" || product.id === "ireland-universe") && (
+                    {!(product.id === "uk-universe" || product.id === "ireland-universe" || product.id === "global-universe") && (
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
@@ -520,7 +510,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                     <TableCell><Badge variant="outline" className="text-xs">Enriched</Badge></TableCell>
                     <TableCell className="text-sm">Monthly</TableCell>
                     <TableCell className="text-xs text-muted-foreground">API & Batch</TableCell>
-                    {!(product.id === "uk-universe" || product.id === "ireland-universe") && (
+                    {!(product.id === "uk-universe" || product.id === "ireland-universe" || product.id === "global-universe") && (
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
@@ -535,7 +525,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
               </TableBody>
             </Table>
           </div>
-          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
+          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} addonList={currentAddOns} />
         </TabsContent>
 
         {/* Related Products */}
@@ -561,7 +551,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
               );
             })}
           </div>
-          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} />
+          <AddOnsSection active={activeAddOns} toggle={toggleAddOn} addonList={currentAddOns} />
         </TabsContent>
       </Tabs>
 

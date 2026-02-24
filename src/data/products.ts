@@ -110,6 +110,73 @@ export const addOns: AddOn[] = [
   { id: "ownership", name: "Ownership & Corporate Structure", description: "Ultimate parent, immediate parent & corporate group hierarchy", fields: ["Ultimate Parent Name", "Immediate Parent Name"] },
 ];
 
+export const globalAddOns: AddOn[] = [
+  {
+    id: "global-geo", name: "Geographic Intelligence", description: "HQ & trading addresses, coordinates, location types and geo presence",
+    fields: ["hq_country", "hq_region", "hq_address", "hq_city", "hq_postcode", "number_of_locations", "geo_presence", "trading_country", "trading_city", "trading_postcode", "main_latitude", "main_longitude", "location_type"]
+  },
+  {
+    id: "global-firmographic", name: "Firmographic Intelligence", description: "Employee count, revenue, and banded ranges",
+    fields: ["employee_count", "employee_range", "revenue", "revenue_range"]
+  },
+  {
+    id: "global-industry", name: "Industry Classification", description: "NAICS, SIC, ISIC, NACE and NCCI codes with labels",
+    fields: ["naics_primary_code", "naics_primary_label", "sic_code", "sic_label", "isic_4_code", "isic_4_label", "nace_code", "nace_label", "ncci_code"]
+  },
+  {
+    id: "global-contact-intel", name: "Corporate Contact Intelligence", description: "Company phone numbers and email addresses",
+    fields: ["primary_phone", "phone_numbers", "primary_email", "emails"]
+  },
+  {
+    id: "global-social", name: "Social & Digital Presence", description: "Facebook, Twitter, Instagram, LinkedIn, YouTube, TikTok and app handles",
+    fields: ["facebook_handle", "twitter_handle", "instagram_handle", "linkedin_handle", "youtube_handle", "tiktok_handle", "ios_app_handle", "android_app_handle"]
+  },
+  {
+    id: "global-legal", name: "Legal & Compliance", description: "LEI, EIN, VAT ID and insurance classification codes",
+    fields: ["lei", "ein", "vat_id", "ibc_insurance_labels", "ibc_insurance_codes"]
+  },
+  {
+    id: "global-techstack", name: "Technology Stack Intelligence", description: "Technologies, platforms and tools used by the company",
+    fields: ["technology_product_name", "technology_category", "technology_version", "technology_domain", "technology_handle", "technology_vendor"]
+  },
+  {
+    id: "global-seo", name: "Digital & SEO Analytics", description: "Domain authority, organic traffic, ranking keywords, spam score and domain age",
+    fields: ["ranking_keywords", "traffic_value", "domain_authority", "spam_score", "domain_organic_traffic", "domain_age_days", "domain_loading_time", "linking_root_domains"]
+  },
+  {
+    id: "global-certs", name: "Certifications & Sustainability", description: "ISO certificates, ESG scores, and net zero targets",
+    fields: ["iso_certificate", "net_zero_target_year", "esg_description", "esg_score"]
+  },
+  {
+    id: "global-products", name: "Products & Manufacturing", description: "Product lines, brands, manufacturing details and core product types",
+    fields: ["product_title", "product_name", "product_description", "brand", "manufacturing_country", "manufacturing_type", "core_product_type", "core_products"]
+  },
+  {
+    id: "global-hierarchy", name: "Corporate Hierarchy", description: "Ultimate parent, immediate parent and corporate group structure",
+    fields: ["ultimate_parent", "ultimate_parent_infynd_id", "primary_parent", "primary_parent_id"]
+  },
+  {
+    id: "global-funding", name: "Capital & Investment History", description: "Funding rounds, amounts, investors and types",
+    fields: ["funding_amount", "funding_type", "funding_announced_date", "funding_rounds", "lead_investor_id", "no_of_investors", "funding_reference"]
+  },
+  {
+    id: "global-talent", name: "Talent & Workforce Signals", description: "Director changes, hiring trends, attrition and vacancy signals",
+    fields: ["director_changes_12m", "senior_hiring_trend", "critical_role_vacancies", "attrition_rate_estimated", "geo_hiring_risk"]
+  },
+  {
+    id: "global-gtm", name: "Go-to-Market & Commercial Intelligence", description: "Target markets, customer type, GTM model and compliance readiness",
+    fields: ["target_markets", "customer_type", "go_to_market_model", "partner_ecosystem", "market_growth_rate", "data_privacy_risk", "compliance_readiness"]
+  },
+  {
+    id: "global-reputation", name: "Reputation & Sentiment Intelligence", description: "Glassdoor, Trustpilot, Google ratings, controversy flags and sentiment",
+    fields: ["glassdoor_rating", "trustpilot_rating", "google_rating", "facebook_rating", "negative_news_12m", "controversy_flag", "social_engagement_trend", "last_major_event"]
+  },
+  {
+    id: "global-intent", name: "Intent Data", description: "Buying intent signals including category, topic, score and location",
+    fields: ["intent_data_category", "intent_data_topic", "intent_data_score", "intent_data_location"]
+  },
+];
+
 export const products: Product[] = [
   {
     id: "postal",
@@ -2042,6 +2109,237 @@ export const products: Product[] = [
         { field: "Personal Email", totalCompanies: "28,616", sdmPeople: "191,124", nonSdmPeople: "27,082", group: "Corporate Contact Intelligence" },
         { field: "Company Email", totalCompanies: "55,000", sdmPeople: "252,713", nonSdmPeople: "65,770", group: "Corporate Contact Intelligence" },
         { field: "New Business (12m)", totalCompanies: "21,368", sdmPeople: "104,058", nonSdmPeople: "34,820", group: "Organizational Scale" },
+      ],
+    },
+  },
+  {
+    id: "global-universe",
+    slug: "global-universe",
+    name: "Global Universe",
+    shortName: "Global Universe",
+    tagline: "180M+ companies across 50+ countries — the world's B2B landscape",
+    description: "InFynd's Global Universe is a continuously enriched dataset covering 180M+ companies worldwide. Built from multi-source aggregation, it delivers firmographic, contact, financial, and digital intelligence for precision targeting at global scale.",
+    icon: "Globe",
+    category: "Universe",
+    totalRecords: "180M+",
+    countries: 50,
+    complianceStandards: ["GDPR", "CCPA", "ISO 27001"],
+    useCases: ["Global Market Sizing", "International Lead Generation", "ABM at Scale", "Competitive Intelligence", "Territory Planning"],
+    typicalBuyers: ["Enterprise Sales", "Global Marketing", "Data Scientists", "Revenue Operations", "Strategic Planners"],
+    whyInFynd: ["180M+ companies across 50+ countries", "Continuous multi-source validation", "Deep firmographic & contact intelligence", "Granular industry classification with NAICS, SIC, ISIC, NACE"],
+    coverageRegions: [
+      { country: "United Kingdom", records: "6,005,947", industries: ["Technology", "Finance", "Retail", "Manufacturing", "Healthcare", "Construction", "Professional Services"] },
+      { country: "United States", records: "35,000,000", industries: ["Technology", "Healthcare", "Finance", "Retail", "Manufacturing"] },
+      { country: "Germany", records: "8,500,000", industries: ["Automotive", "Manufacturing", "Technology", "Engineering", "Finance"] },
+      { country: "France", records: "7,200,000", industries: ["Retail", "Luxury", "Finance", "Technology", "Hospitality"] },
+      { country: "Ireland", records: "324,195", industries: ["Technology", "Finance", "Pharma", "Agriculture", "Services"] },
+      { country: "Netherlands", records: "3,800,000", industries: ["Logistics", "Technology", "Finance", "Agriculture"] },
+      { country: "Australia", records: "4,200,000", industries: ["Mining", "Finance", "Technology", "Construction"] },
+      { country: "Canada", records: "4,500,000", industries: ["Technology", "Energy", "Finance", "Mining"] },
+      { country: "India", records: "12,000,000", industries: ["Technology", "BPO", "Manufacturing", "Pharma"] },
+      { country: "Singapore", records: "1,200,000", industries: ["Finance", "Technology", "Logistics"] },
+      { country: "United Arab Emirates", records: "2,500,000", industries: ["Real Estate", "Finance", "Oil & Gas", "Technology"] },
+      { country: "Brazil", records: "8,000,000", industries: ["Agriculture", "Mining", "Finance", "Technology"] },
+      { country: "Switzerland", records: "1,800,000", industries: ["Finance", "Pharma", "Technology", "Manufacturing"] },
+      { country: "Italy", records: "5,500,000", industries: ["Fashion", "Manufacturing", "Food & Beverage", "Tourism"] },
+      { country: "Poland", records: "3,200,000", industries: ["Manufacturing", "Technology", "Finance", "Logistics"] },
+    ],
+    sampleDataCompany: [
+      {
+        "infynd_id": "INFG001234",
+        "company_name": "1-2-Mobile Limited",
+        "company_type": "Private",
+        "short_description": "Mobile technology solutions",
+        "year_founded": 2009,
+        "main_business_category": "Technology",
+        "main_industry": "Software & Services",
+        "main_sector": "Information Technology",
+        "website_domain": "1-2-mobile.co.uk",
+        "company_status": "Active",
+        "register_number": "06858948",
+        "country": "United Kingdom"
+      },
+      {
+        "infynd_id": "INFG005678",
+        "company_name": "Dutch Bros Coffee",
+        "company_type": "Public",
+        "short_description": "Drive-through coffee chain",
+        "year_founded": 1992,
+        "main_business_category": "Food & Beverage",
+        "main_industry": "Restaurants",
+        "main_sector": "Food and Beverage",
+        "website_domain": "dutchbros.com",
+        "company_status": "Active",
+        "register_number": "N/A",
+        "country": "United States"
+      },
+      {
+        "infynd_id": "INFG009012",
+        "company_name": "Knauf",
+        "company_type": "Private",
+        "short_description": "Building materials manufacturer",
+        "year_founded": 1932,
+        "main_business_category": "Construction",
+        "main_industry": "Building Materials",
+        "main_sector": "Construction",
+        "website_domain": "knauf.com",
+        "company_status": "Active",
+        "register_number": "HRB 2024",
+        "country": "Germany"
+      },
+      {
+        "infynd_id": "INFG003456",
+        "company_name": "Zurich Airport Ltd",
+        "company_type": "Public",
+        "short_description": "Airport operator and management",
+        "year_founded": 1948,
+        "main_business_category": "Transportation",
+        "main_industry": "Airports & Air Services",
+        "main_sector": "Transportation",
+        "website_domain": "zurich-airport.com",
+        "company_status": "Active",
+        "register_number": "CHE-108.426.332",
+        "country": "Switzerland"
+      },
+      {
+        "infynd_id": "INFG007890",
+        "company_name": "Al-Futtaim Group",
+        "company_type": "Private",
+        "short_description": "Diversified conglomerate",
+        "year_founded": 1930,
+        "main_business_category": "Automotive",
+        "main_industry": "Conglomerate",
+        "main_sector": "Diversified",
+        "website_domain": "alfuttaim.com",
+        "company_status": "Active",
+        "register_number": "N/A",
+        "country": "United Arab Emirates"
+      }
+    ],
+    sampleDataContact: [
+      {
+        "contact_full_name": "Morten Lamoey",
+        "contact_first_name": "Morten",
+        "contact_last_name": "Lamoey",
+        "contact_job_title": "Director",
+        "contact_job_title_level": "Director",
+        "contact_job_title_function": "IT",
+        "contact_business_email": "morten@1-2-mobile.co.uk",
+        "contact_linkedin_handle": "linkedin.com/in/mortenlamoey",
+        "country": "United Kingdom"
+      },
+      {
+        "contact_full_name": "Gina Gallo",
+        "contact_first_name": "Gina",
+        "contact_last_name": "Gallo",
+        "contact_job_title": "Director - Safety, Quality & Loss Prevention",
+        "contact_job_title_level": "Director",
+        "contact_job_title_function": "Operations",
+        "contact_business_email": "gina.gallo@dutchbros.com",
+        "contact_linkedin_handle": "linkedin.com/in/gina-gallo",
+        "country": "United States"
+      },
+      {
+        "contact_full_name": "Jörg Beisel",
+        "contact_first_name": "Jörg",
+        "contact_last_name": "Beisel",
+        "contact_job_title": "Global Category Manager",
+        "contact_job_title_level": "Manager",
+        "contact_job_title_function": "Procurement",
+        "contact_business_email": "joerg.beisel@knauf.com",
+        "contact_linkedin_handle": "linkedin.com/in/joerg-beisel",
+        "country": "Germany"
+      },
+      {
+        "contact_full_name": "Roman Frick",
+        "contact_first_name": "Roman",
+        "contact_last_name": "Frick",
+        "contact_job_title": "Head Airport Security",
+        "contact_job_title_level": "Head",
+        "contact_job_title_function": "Security",
+        "contact_business_email": "roman.frick@zurich-airport.com",
+        "contact_linkedin_handle": "linkedin.com/in/roman-frick",
+        "country": "Switzerland"
+      },
+      {
+        "contact_full_name": "Haider Al Enzi",
+        "contact_first_name": "Haider",
+        "contact_last_name": "Al Enzi",
+        "contact_job_title": "Managing Director",
+        "contact_job_title_level": "C Level",
+        "contact_job_title_function": "Management",
+        "contact_business_email": "haider.alenzi@alfuttaim.com",
+        "contact_linkedin_handle": "linkedin.com/in/haider-al-enzi",
+        "country": "United Arab Emirates"
+      }
+    ],
+    dataDictionary: [
+      // Company Core Profile (BASE)
+      { name: "infynd_id", description: "Unique internal identifier assigned to the company record in the InFynd database", updateFrequency: "Real-time", dataGroup: "Company Identifier", availability: "API & Batch" },
+      { name: "company_name", description: "Legal or commonly used name of the company", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "company_type", description: "Classification of the company entity type (e.g., Ltd, PLC, LLC, Sole Trader)", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "short_description", description: "Brief summary describing the company's primary business activity", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "year_founded", description: "Year in which the company was established or incorporated", updateFrequency: "Static", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "main_business_category", description: "Top-level business category assigned to the company", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "main_industry", description: "Primary industry classification of the company", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "main_sector", description: "Broader sector grouping under which the company's industry falls", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "website_domain", description: "Root domain of the company's official website", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "website", description: "Full URL of the company's official website", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "company_status", description: "Current operational status (e.g., Active, Dissolved, Dormant)", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "register_number", description: "Official company registration or incorporation number", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "linkedin_followers", description: "Number of followers on the company's LinkedIn page", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "seo_keywords", description: "Primary SEO keywords associated with the company's website", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "long_description", description: "Extended description of the company's products, services, and operations", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "website_language_code", description: "ISO language code of the primary language used on the company's website", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "employee_count_type", description: "Indicates whether the employee count is exact, estimated, or ranged", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      { name: "revenue_type", description: "Indicates whether the revenue figure is exact, estimated, or ranged", updateFrequency: "Monthly", dataGroup: "Company Core Profile", availability: "API & Batch" },
+      // Leadership & Workforce Intelligence (BASE)
+      { name: "contact_id", description: "Unique identifier assigned to the individual contact record", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_full_name", description: "Full name of the associated individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_first_name", description: "First name of the associated individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_last_name", description: "Last name or surname of the associated individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_pronoun", description: "Preferred pronoun of the individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_current_job_location", description: "Current geographic location associated with the contact's role", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_job_title", description: "Current job title held by the individual", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_job_title_level", description: "Seniority level (e.g., C-Suite, Director, Manager)", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_job_title_function", description: "Functional department (e.g., Sales, IT, Finance)", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_linkedin_handle", description: "LinkedIn profile handle for the individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_twitter_handle", description: "Twitter/X handle for the individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_business_email", description: "Business or work email address of the individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_personal_email", description: "Personal email address of the individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_linkedin_followers", description: "Number of followers on the individual's LinkedIn profile", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_linkedin_connections", description: "Number of connections on the individual's LinkedIn profile", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_summary", description: "Professional summary or biography from the contact's profile", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_primary_title", description: "Primary or most prominent job title", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_skills", description: "List of professional skills listed on the contact's profile", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_languages", description: "Languages spoken or listed by the individual contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_primary_institution_name", description: "Primary educational institution attended by the contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_primary_degree_name", description: "Degree obtained at the contact's primary institution", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_primary_field_of_study", description: "Field of study for the contact's primary academic qualification", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_primary_degree_level", description: "Level of the contact's primary qualification (e.g., Bachelor's, Master's)", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_primary_certification_name", description: "Primary professional certification held by the contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_all_past_employer_names", description: "List of all previous employers in the contact's career history", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+      { name: "contact_all_past_job_titles", description: "List of all previous job titles held by the contact", updateFrequency: "Monthly", dataGroup: "Leadership & Workforce Intelligence", availability: "API & Batch" },
+    ],
+    buildSteps: [
+      { step: 1, title: "Multi-Source Aggregation", description: "Pull from 50+ country registries, directories, and proprietary sources", icon: "Database" },
+      { step: 2, title: "Entity Resolution", description: "Cross-reference and deduplicate across sources using AI matching", icon: "Search" },
+      { step: 3, title: "Address Verification", description: "Validate addresses against national postal databases globally", icon: "MapPin" },
+      { step: 4, title: "Contact Enrichment", description: "Append decision-maker contacts from professional networks and directories", icon: "UserPlus" },
+      { step: 5, title: "Industry Classification", description: "Map to NAICS, SIC, ISIC, and NACE taxonomies", icon: "Tag" },
+      { step: 6, title: "Continuous Refresh", description: "Monthly re-verification cycle with change detection", icon: "RefreshCw" },
+    ],
+    relatedProductIds: ["postal", "tele", "email", "enrichment"],
+    filledRates: {
+      headline: { totalCompanies: "180,000,000+", sdmPeople: "450,000,000+", sdmPeopleSubtitle: "One contact per company: 120,000,000+", nonSdmPeople: "180,000,000+", nonSdmPeopleSubtitle: "One contact per company: 60,000,000+" },
+      rows: [
+        { field: "Active Companies", totalCompanies: "180,000,000+", sdmPeople: "450,000,000+", nonSdmPeople: "180,000,000+", group: "Company Core Profile" },
+        { field: "Mailable Address", totalCompanies: "145,000,000+", sdmPeople: "380,000,000+", nonSdmPeople: "150,000,000+", group: "Geographic Intelligence" },
+        { field: "Telemarketing Phone", totalCompanies: "95,000,000+", sdmPeople: "280,000,000+", nonSdmPeople: "120,000,000+", group: "Corporate Contact Intelligence" },
+        { field: "Email", totalCompanies: "72,000,000+", sdmPeople: "350,000,000+", nonSdmPeople: "95,000,000+", group: "Corporate Contact Intelligence" },
+        { field: "Company Domains", totalCompanies: "130,000,000+", sdmPeople: "400,000,000+", nonSdmPeople: "160,000,000+", group: "Corporate Contact Intelligence" },
+        { field: "Social Profiles", totalCompanies: "110,000,000+", sdmPeople: "320,000,000+", nonSdmPeople: "140,000,000+", group: "Social & Digital Presence" },
+        { field: "Industry Classified", totalCompanies: "165,000,000+", sdmPeople: "420,000,000+", nonSdmPeople: "170,000,000+", group: "Industry Classification" },
       ],
     },
   },

@@ -7667,10 +7667,10 @@ export const products: Product[] = [
     filledRates: {
       headline: {
         totalCompanies: "2,539,724",
-        sdmPeople: "12,500,000+",
-        sdmPeopleSubtitle: "One contact per company: 3,100,000",
-        nonSdmPeople: "5,200,000+",
-        nonSdmPeopleSubtitle: "One contact per company: 1,800,000",
+        sdmPeople: "11,978,629",
+        sdmPeopleSubtitle: "Verified contact records",
+        nonSdmPeople: "2,639,769",
+        nonSdmPeopleSubtitle: "Senior Decision Makers",
       },
       rows: [
         {
@@ -8085,11 +8085,11 @@ export const products: Product[] = [
     relatedProductIds: ["postal", "tele", "email", "enrichment"],
     filledRates: {
       headline: {
-        totalCompanies: "850,000",
-        sdmPeople: "2,800,000+",
-        sdmPeopleSubtitle: "One contact per company: 620,000",
-        nonSdmPeople: "1,100,000+",
-        nonSdmPeopleSubtitle: "One contact per company: 380,000",
+        totalCompanies: "654,465",
+        sdmPeople: "2,141,983",
+        sdmPeopleSubtitle: "Verified contact records",
+        nonSdmPeople: "479,041",
+        nonSdmPeopleSubtitle: "Senior Decision Makers",
       },
       rows: [
         {

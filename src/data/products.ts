@@ -2528,7 +2528,7 @@ export const products: Product[] = [
     ],
     relatedProductIds: ["postal", "tele", "email", "enrichment"],
     filledRates: {
-      headline: { totalCompanies: "4,200,000", sdmPeople: "12,500,000+", sdmPeopleSubtitle: "One contact per company: 3,100,000", nonSdmPeople: "5,200,000+", nonSdmPeopleSubtitle: "One contact per company: 1,800,000" },
+      headline: { totalCompanies: "2,539,724", sdmPeople: "11,978,629", sdmPeopleSubtitle: "Verified contact records", nonSdmPeople: "2,639,769", nonSdmPeopleSubtitle: "Senior Decision Makers" },
       rows: [
         { field: "Active Companies", totalCompanies: "4,200,000", sdmPeople: "12,500,000+", nonSdmPeople: "5,200,000+", group: "Company Core Profile" },
         { field: "Mailable Address", totalCompanies: "3,800,000", sdmPeople: "11,200,000+", nonSdmPeople: "4,600,000+", group: "Geographic Intelligence" },
@@ -2724,7 +2724,7 @@ export const products: Product[] = [
     ],
     relatedProductIds: ["postal", "tele", "email", "enrichment"],
     filledRates: {
-      headline: { totalCompanies: "850,000", sdmPeople: "2,800,000+", sdmPeopleSubtitle: "One contact per company: 620,000", nonSdmPeople: "1,100,000+", nonSdmPeopleSubtitle: "One contact per company: 380,000" },
+      headline: { totalCompanies: "654,465", sdmPeople: "2,141,983", sdmPeopleSubtitle: "Verified contact records", nonSdmPeople: "479,041", nonSdmPeopleSubtitle: "Senior Decision Makers" },
       rows: [
         { field: "Active Companies", totalCompanies: "850,000", sdmPeople: "2,800,000+", nonSdmPeople: "1,100,000+", group: "Company Core Profile" },
         { field: "Mailable Address", totalCompanies: "780,000", sdmPeople: "2,500,000+", nonSdmPeople: "950,000+", group: "Geographic Intelligence" },

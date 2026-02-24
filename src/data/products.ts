@@ -7304,7 +7304,7 @@ export const products: Product[] = [
       "InFynd's Australia Universe delivers comprehensive B2B data covering active Australian businesses. Built from ASIC filings, ABN registrations, and proprietary enrichment — ideal for sales, marketing, and market intelligence across ANZ.",
     icon: "Globe",
     category: "Universe",
-    totalRecords: "2M+",
+    totalRecords: "2.5M+",
     countries: 1,
     complianceStandards: ["GDPR", "Australian Privacy Act", "ASIC Verified"],
     useCases: ["ANZ Market Entry", "Lead Generation", "ABM Campaigns", "Sales Intelligence", "Territory Planning"],

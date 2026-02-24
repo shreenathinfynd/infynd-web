@@ -355,7 +355,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
         <div className="border-b pb-4 mb-8">
           <TabsList className="bg-transparent p-0 justify-start h-auto gap-2 flex-wrap">
             {(() => {
-              const isUniverse = product.id === "uk-universe" || product.id === "ireland-universe" || product.id === "global-universe";
+              const isUniverse = product.id.includes("universe");
               const isUKUniverse = product.id === "uk-universe";
               const isGlobalUniv = product.id === "global-universe";
 
@@ -479,7 +479,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                   <TableHead>Description</TableHead>
                   <TableHead>Update Frequency</TableHead>
                   <TableHead>Availability</TableHead>
-                  {!(product.id === "uk-universe" || product.id === "ireland-universe" || product.id === "global-universe") && <TableHead>Confidence</TableHead>}
+                  {!product.id.includes("universe") && <TableHead>Confidence</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -490,7 +490,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                     <TableCell className="text-sm text-muted-foreground">{field.description}</TableCell>
                     <TableCell className="text-sm">{field.updateFrequency}</TableCell>
                     <TableCell className="text-xs text-muted-foreground">{field.availability || "API & Batch"}</TableCell>
-                    {!(product.id === "uk-universe" || product.id === "ireland-universe" || product.id === "global-universe") && (
+                    {!product.id.includes("universe") && (
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">
@@ -510,7 +510,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
                     <TableCell><Badge variant="outline" className="text-xs">Enriched</Badge></TableCell>
                     <TableCell className="text-sm">Monthly</TableCell>
                     <TableCell className="text-xs text-muted-foreground">API & Batch</TableCell>
-                    {!(product.id === "uk-universe" || product.id === "ireland-universe" || product.id === "global-universe") && (
+                    {!product.id.includes("universe") && (
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div className="h-2 w-16 bg-muted rounded-full overflow-hidden">

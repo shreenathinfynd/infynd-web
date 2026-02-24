@@ -96,41 +96,46 @@ const DataProductsPage = () => {
       {/* Product Grid */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {region === "Global" ? (
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-            <Link to="/products/global-universe" state={{ selectedRegion: "Global" }}>
-              <Card className="relative h-full transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:-translate-y-1 cursor-pointer group">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-3 mb-3">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-                      <Rocket className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-300" />
-                    </div>
-                    <div className="pr-6">
-                      <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors duration-300">Global Universe</h3>
-                      <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">Access our complete worldwide B2B database covering all available regions.</p>
-                    </div>
-                  </div>
+          <>
+            {[
+              { slug: "global-universe", name: "Global Universe", desc: "Access our complete worldwide B2B database covering all available regions.", records: "180M+", countries: "50+ countries", icon: Rocket },
+              { slug: "australia-universe", name: "Australia Universe", desc: "Complete coverage of Australian businesses and decision-makers across all sectors.", records: "4.2M+", countries: "1 country", icon: Sparkles },
+              { slug: "newzealand-universe", name: "New Zealand Universe", desc: "Comprehensive NZ business data for precision targeting and market intelligence.", records: "850K+", countries: "1 country", icon: Sparkles },
+            ].map((universe, i) => (
+              <motion.div key={universe.slug} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: i * 0.05 }}>
+                <Link to={`/products/${universe.slug}`} state={{ selectedRegion: "Global" }}>
+                  <Card className="relative h-full transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:-translate-y-1 cursor-pointer group">
+                    <CardContent className="p-5">
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
+                          <universe.icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-300" />
+                        </div>
+                        <div className="pr-6">
+                          <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{universe.name}</h3>
+                          <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">{universe.desc}</p>
+                        </div>
+                      </div>
 
-                  <div className="flex items-center gap-1.5 flex-wrap mb-3">
-                    <Badge variant="secondary" className="text-[10px]">340M+ records</Badge>
-                    <Badge variant="outline" className="text-[10px]">200+ countries</Badge>
-                  </div>
+                      <div className="flex items-center gap-1.5 flex-wrap mb-3">
+                        <Badge variant="secondary" className="text-[10px]">{universe.records} records</Badge>
+                        <Badge variant="outline" className="text-[10px]">{universe.countries}</Badge>
+                      </div>
 
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    <span className="inline-flex items-center text-[10px] text-primary/70">
-                      <Shield className="h-3 w-3 mr-0.5" />GDPR Ready
-                    </span>
-                    <span className="inline-flex items-center text-[10px] text-primary/70">
-                      <Shield className="h-3 w-3 mr-0.5" />CCPA
-                    </span>
-                  </div>
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        <span className="inline-flex items-center text-[10px] text-primary/70">
+                          <Shield className="h-3 w-3 mr-0.5" />GDPR Ready
+                        </span>
+                      </div>
 
-                  <span className="text-sm text-primary flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
-                    Explore global data <ArrowRight className="h-3 w-3" />
-                  </span>
-                </CardContent>
-              </Card>
-            </Link>
-          </motion.div>
+                      <span className="text-sm text-primary flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
+                        Explore data <ArrowRight className="h-3 w-3" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </>
         ) : (
           filteredProducts.map((product, i) => {
             const Icon = iconMap[product.icon] || Sparkles;

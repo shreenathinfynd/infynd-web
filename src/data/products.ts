@@ -6731,7 +6731,7 @@ export const products: Product[] = [
         records: "3,800,000",
         industries: ["Logistics", "Technology", "Finance", "Agriculture"],
       },
-      { country: "Australia", records: "4,200,000", industries: ["Mining", "Finance", "Technology", "Construction"] },
+      { country: "Australia", records: "2,539,724", industries: ["Mining", "Finance", "Technology", "Construction"] },
       { country: "Canada", records: "4,500,000", industries: ["Technology", "Energy", "Finance", "Mining"] },
       { country: "India", records: "12,000,000", industries: ["Technology", "BPO", "Manufacturing", "Pharma"] },
       { country: "Singapore", records: "1,200,000", industries: ["Finance", "Technology", "Logistics"] },
@@ -7318,7 +7318,7 @@ export const products: Product[] = [
     coverageRegions: [
       {
         country: "Australia",
-        records: "4,200,000",
+        records: "2,539,724",
         industries: ["Mining", "Finance", "Technology", "Construction", "Healthcare", "Agriculture", "Retail"],
       },
     ],
@@ -7666,7 +7666,7 @@ export const products: Product[] = [
     relatedProductIds: ["postal", "tele", "email", "enrichment"],
     filledRates: {
       headline: {
-        totalCompanies: "4,200,000",
+        totalCompanies: "2,539,724",
         sdmPeople: "12,500,000+",
         sdmPeopleSubtitle: "One contact per company: 3,100,000",
         nonSdmPeople: "5,200,000+",
@@ -7675,7 +7675,7 @@ export const products: Product[] = [
       rows: [
         {
           field: "Active Companies",
-          totalCompanies: "4,200,000",
+          totalCompanies: "2,539,724",
           sdmPeople: "12,500,000+",
           nonSdmPeople: "5,200,000+",
           group: "Company Core Profile",
@@ -7705,7 +7705,7 @@ export const products: Product[] = [
           field: "Company Domains",
           totalCompanies: "3,200,000",
           sdmPeople: "10,800,000+",
-          nonSdmPeople: "4,200,000+",
+          nonSdmPeople: "2,539,724+",
           group: "Corporate Contact Intelligence",
         },
         {

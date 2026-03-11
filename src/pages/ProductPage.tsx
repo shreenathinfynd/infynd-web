@@ -263,6 +263,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
 
   const [activeAddOns, setActiveAddOns] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState("overview");
+  const [contactOpen, setContactOpen] = useState(false);
 
   const toggleAddOn = (id: string) => {
     setActiveAddOns((prev) => {

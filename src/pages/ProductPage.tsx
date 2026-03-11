@@ -19,6 +19,7 @@ import { motion } from "framer-motion";
 import NotFound from "./NotFound";
 import ComingSoon from "./ComingSoon";
 import { maskContactInfo } from "@/lib/maskData";
+import ContactModal from "@/components/product/ContactModal";
 
 const iconMap: Record<string, React.ElementType> = {
   Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,
@@ -262,6 +263,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
 
   const [activeAddOns, setActiveAddOns] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState("overview");
+  const [contactOpen, setContactOpen] = useState(false);
 
   const toggleAddOn = (id: string) => {
     setActiveAddOns((prev) => {
@@ -323,14 +325,19 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
 
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-        <div className="flex items-start gap-4 mb-4">
-          <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Icon className="h-6 w-6 text-primary" />
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="flex items-start gap-4">
+            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Icon className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="font-display text-3xl font-bold text-foreground">{product.name}</h1>
+              <p className="text-muted-foreground mt-1">{product.tagline}</p>
+            </div>
           </div>
-          <div>
-            <h1 className="font-display text-3xl font-bold text-foreground">{product.name}</h1>
-            <p className="text-muted-foreground mt-1">{product.tagline}</p>
-          </div>
+          <Button onClick={() => setContactOpen(true)} className="shrink-0">
+            Contact Us
+          </Button>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge>{product.totalRecords} records</Badge>
@@ -560,6 +567,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
         </TabsContent>
       </Tabs>
 
+      <ContactModal open={contactOpen} onOpenChange={setContactOpen} productName={product.name} />
     </div >
   );
 };

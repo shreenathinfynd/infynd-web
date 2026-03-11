@@ -19,6 +19,7 @@ import { motion } from "framer-motion";
 import NotFound from "./NotFound";
 import ComingSoon from "./ComingSoon";
 import { maskContactInfo } from "@/lib/maskData";
+import ContactModal from "@/components/product/ContactModal";
 
 const iconMap: Record<string, React.ElementType> = {
   Mail, Phone, AtSign, Rocket, Home, MapPin, Heart, Sparkles,

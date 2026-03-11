@@ -567,6 +567,7 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
         </TabsContent>
       </Tabs>
 
+      <ContactModal open={contactOpen} onOpenChange={setContactOpen} productName={product.name} />
     </div >
   );
 };

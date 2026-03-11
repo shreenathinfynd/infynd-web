@@ -325,14 +325,19 @@ const ProductPage = ({ productOverride, regionOverride, countryOverride }: { pro
 
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-        <div className="flex items-start gap-4 mb-4">
-          <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Icon className="h-6 w-6 text-primary" />
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="flex items-start gap-4">
+            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Icon className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="font-display text-3xl font-bold text-foreground">{product.name}</h1>
+              <p className="text-muted-foreground mt-1">{product.tagline}</p>
+            </div>
           </div>
-          <div>
-            <h1 className="font-display text-3xl font-bold text-foreground">{product.name}</h1>
-            <p className="text-muted-foreground mt-1">{product.tagline}</p>
-          </div>
+          <Button onClick={() => setContactOpen(true)} className="shrink-0">
+            Contact Us
+          </Button>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge>{product.totalRecords} records</Badge>

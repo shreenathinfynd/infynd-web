@@ -41,65 +41,65 @@ const ContactModal = ({ open, onOpenChange, productName }: ContactModalProps) =>
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-sidebar text-sidebar-foreground border-sidebar-border">
+      <DialogContent className="sm:max-w-md bg-background text-foreground border-border">
         <DialogHeader>
           <DialogTitle className="text-2xl font-display text-primary">Let's Talk</DialogTitle>
-          <DialogDescription className="text-sidebar-foreground/70">
+          <DialogDescription className="text-muted-foreground">
             Seamless platform setup across your entire funnel.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-2">
           <div className="relative">
-            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sidebar-foreground/50" />
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Enter your Full Name"
               value={form.name}
               onChange={(e) => update("name", e.target.value)}
-              className="pl-10 bg-sidebar-accent border-sidebar-border text-sidebar-foreground placeholder:text-sidebar-foreground/40"
+              className="pl-10"
               maxLength={100}
               required
             />
           </div>
           <div className="relative">
-            <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sidebar-foreground/50" />
+            <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="email"
               placeholder="Enter your Work email"
               value={form.email}
               onChange={(e) => update("email", e.target.value)}
-              className="pl-10 bg-sidebar-accent border-sidebar-border text-sidebar-foreground placeholder:text-sidebar-foreground/40"
+              className="pl-10"
               maxLength={255}
               required
             />
           </div>
           <div className="relative">
-            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sidebar-foreground/50" />
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="tel"
               placeholder="Enter your Phone number"
               value={form.phone}
               onChange={(e) => update("phone", e.target.value)}
-              className="pl-10 bg-sidebar-accent border-sidebar-border text-sidebar-foreground placeholder:text-sidebar-foreground/40"
+              className="pl-10"
               maxLength={20}
             />
           </div>
           <div className="relative">
-            <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sidebar-foreground/50" />
+            <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Enter your Company Name"
               value={form.company}
               onChange={(e) => update("company", e.target.value)}
-              className="pl-10 bg-sidebar-accent border-sidebar-border text-sidebar-foreground placeholder:text-sidebar-foreground/40"
+              className="pl-10"
               maxLength={200}
             />
           </div>
           <div className="relative">
-            <Link2 className="absolute left-3 top-3 h-4 w-4 text-sidebar-foreground/50" />
+            <Link2 className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Textarea
               placeholder="Write your message...."
               value={form.message}
               onChange={(e) => update("message", e.target.value)}
-              className="pl-10 bg-sidebar-accent border-sidebar-border text-sidebar-foreground placeholder:text-sidebar-foreground/40 min-h-[80px]"
+              className="pl-10 min-h-[80px]"
               maxLength={1000}
             />
           </div>

@@ -5756,7 +5756,7 @@ export const products: Product[] = [
         {
           field: "Active Companies",
           totalCompanies: "6,005,947",
-          sdmPeople: "10,866,342",
+          sdmPeople: "14,524,723",
           nonSdmPeople: "10,866,342",
           group: "Company Core Profile",
         },

@@ -5775,6 +5775,13 @@ export const products: Product[] = [
           group: "Company Core Profile",
         },
         {
+          field: "Non Limited Companies",
+          totalCompanies: "1,032,099",
+          sdmPeople: "1,100,239",
+          nonSdmPeople: "417,195",
+          group: "Company Core Profile",
+        },
+        {
           field: "Mailable Address",
           totalCompanies: "2,511,767",
           sdmPeople: "13,952,162",
